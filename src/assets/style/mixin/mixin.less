@@ -1,0 +1,17 @@
+.mix(){
+    width: 30px;
+    background: #1ac272;
+    text-align: center;
+    line-height: 25px;
+    vertical-align: middle;
+  }
+
+  #selectFlag:checked + label {
+    &::before {
+      display: block;
+      content: "\2714";
+      text-align: center;
+      font-size: 16px;
+      color: white;
+    }
+  }

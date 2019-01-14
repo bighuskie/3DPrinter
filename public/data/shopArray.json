@@ -1,0 +1,28 @@
+{
+    "shopArray": [
+        {
+            "shopName": "plane.stl",
+            "shopModel": "品质",
+            "shopNumber": 1,
+            "shopPrice": 14
+        },
+        {
+            "shopName": "plane.stl",
+            "shopModel": "快速",
+            "shopNumber": 1,
+            "shopPrice": 6
+        },
+        {
+            "shopName": "plane.stl",
+            "shopModel": "标准",
+            "shopNumber": 1,
+            "shopPrice": 9
+        },
+        {
+            "shopName": "plane.stl",
+            "shopModel": "快速",
+            "shopNumber": 1,
+            "shopPrice": 6
+        }
+    ]
+}

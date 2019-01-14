@@ -1,0 +1,7 @@
+#selectFlag:checked + label::before {
+  display: block;
+  content: "\2714";
+  text-align: center;
+  font-size: 16px;
+  color: white;
+}
