@@ -1,5 +1,8 @@
 <template>
   <div class="onlinePrint">
+    <div class="selectPrinter">
+      <select-printer></select-printer>
+    </div>
     <main id="container">
       <!-- 模型预览与相关信息显示 -->
       <div class="container-fluid" id="prev">
@@ -108,6 +111,7 @@
 
 <script>
 import shopcar from "../components/shopcar/shopcar";
+import SelectPrinter from "../components/SelectPrinter/SelectPrinter";
 import Vue from "vue";
 //相机的相应参数
 let container;
@@ -298,7 +302,8 @@ export default {
     }
   },
   components: {
-    shopcar
+    shopcar,
+    SelectPrinter
   }
 };
 </script>

@@ -1,0 +1,27 @@
+{ 
+   "printerData": [ {   "number": "88",
+                        "model": "UTYS654PS",
+                        "status": "正在打印",
+                        "time": "60"  },
+                     {  "number": "87",
+                        "model": "UTYS654PS",
+                        "status": "正在打印",
+                        "time": "60"  },
+                     {  "number": "86",
+                        "model": "UTYS654PS",
+                        "status": "正在打印",
+                        "time": "59"  },
+                     {  "number": "85",
+                        "model": "UTYS654PS",
+                        "status": "正在打印",
+                        "time": "58"  },
+                     {  "number": "84",
+                        "model": "UTYS654PS",
+                        "status": "正在打印",
+                        "time": "58"  },
+                     {  "number": "83",
+                        "model": "UTYS654PS",
+                        "status": "正在打印",
+                        "time": "58"  }
+                ]
+}
