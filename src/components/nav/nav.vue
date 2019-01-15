@@ -39,7 +39,8 @@
               <a href="http://120.79.148.35:3010/printing" class="nav_menu_font">在线打印</a>
             </li>
             <li class="cative nav_menu_li">
-              <a href="http://120.79.148.35:3010/shequ" class="nav_menu_font">社区</a>
+              <!-- <a href="http://120.79.148.35:3010/shequ" class="nav_menu_font">社区</a> -->
+              <router-link to="/status">状态</router-link>
             </li>
             <li class="cative nav_menu_li">
               <a href="http://120.79.148.35:3010/about" class="nav_menu_font">关于</a>
