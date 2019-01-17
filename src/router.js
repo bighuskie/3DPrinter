@@ -10,11 +10,11 @@ export default new Router({
       path: '/',
       name: 'onlinePrint',
       component: onlinePrint
+    },
+    {
+      path: '/login',
+      name: 'login',
+      component: () => import('./views/userLogin.vue')
     }
-    // {
-    //   path: '/about',
-    //   name: 'about',
-    //   component: () => import('./views/About.vue')
-    // }
   ]
 })

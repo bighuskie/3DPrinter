@@ -24,7 +24,6 @@
         </el-scrollbar>
       </div>
     </el-dialog>
-   
   </div>
 </template>
 <script>
