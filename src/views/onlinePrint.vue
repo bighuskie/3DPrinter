@@ -11,7 +11,14 @@
             <div id="canvas3d" ref="previewWrapper"></div>
             <div class="file-box">
               <form id="uploadForm">
-                <input type="file" name="file" class="file" id="fileField">
+                <input
+                  type="file"
+                  name="file"
+                  class="file"
+                  id="fileField"
+                  ref="fileField"
+                  @change="uploadFile"
+                >
               </form>
             </div>
           </div>
@@ -30,7 +37,7 @@
               <li>
                 <img src="../assets/images/file.png" alt class="img-responsive file_png">
                 <span>文件名:</span>&nbsp;
-                <span class="fileName">xxx.stl</span>
+                <span class="fileName">{{fileName}}</span>
               </li>
               <li>
                 <img
@@ -39,9 +46,9 @@
                   class="img-responsive resize_png"
                 >
                 <span>尺寸大小:</span>&nbsp;
-                <span class="x_size">0mm x</span>
-                <span class="y_size">0mm x</span>
-                <span class="z_size">0mm</span>
+                <span class="x_size">{{module_x}}mm x</span>
+                <span class="y_size">{{module_y}}mm x</span>
+                <span class="z_size">{{module_z}}mm</span>
               </li>
               <li>
                 <img src="../assets/images/pla.png" alt class="img-responsive pla_png">
@@ -69,10 +76,30 @@
                 <span>打印模式:</span>&nbsp;
                 <div class="pri_type">
                   <div class="btn-group" role="group" aria-label="...">
-                    <button type="button" class="btn btn-default selected">快速</button>
-                    <button type="button" class="btn btn-default">标准</button>
-                    <button type="button" class="btn btn-default">品质</button>
-                    <button type="button" class="btn btn-default">自定义</button>
+                    <button
+                      type="button"
+                      class="btn btn-default"
+                      :class="{'selected':sType===0}"
+                      @click="selectModal(0,'快速',0.8)"
+                    >快速</button>
+                    <button
+                      type="button"
+                      class="btn btn-default"
+                      :class="{'selected':sType===1}"
+                      @click="selectModal(1,'标准',1)"
+                    >标准</button>
+                    <button
+                      type="button"
+                      class="btn btn-default"
+                      :class="{'selected':sType===2}"
+                      @click="selectModal(2,'品质',1.2)"
+                    >品质</button>
+                    <button
+                      type="button"
+                      class="btn btn-default"
+                      :class="{'selected':sType===3}"
+                      @click="selectModal(3,'自定义',1)"
+                    >自定义</button>
                   </div>
                 </div>
               </li>
@@ -80,9 +107,9 @@
                 <img src="../assets/images/number.png" alt class="img-responsive number_png">
                 <span>数量:</span>&nbsp;
                 <div class="btn-group number" role="group" aria-label="...">
-                  <span class="down">-</span>
-                  <span class="num">1</span>
-                  <span class="add">+</span>
+                  <span class="down" @click="changeNumber(false)">-</span>
+                  <span class="num">{{moduleNumber}}</span>
+                  <span class="add" @click="changeNumber(true)">+</span>
                 </div>
               </li>
               <li>
@@ -93,19 +120,27 @@
               <li>
                 <img src="../assets/images/price.png" alt class="img-responsive price_png">
                 <span>总价:</span>&nbsp;
-                <span class="money">￥0</span>
+                <span class="money">{{modulePrice | moneyFormat(modulePrice)}}</span>
               </li>
               <li class="text-center operation">
-                <button class="btn btn-success btn-sm op_btn op_btn1 uploadFile">上传文件</button>
-                <button class="btn btn-success btn-sm op_btn op_btn2 joinQueue">加入队列</button>
-                <button class="btn btn-success btn-sm op_btn op_btn3 printing">立即打印</button>
+                <button
+                  class="btn btn-success btn-sm op_btn op_btn1 uploadFile"
+                  ref="uploadFile"
+                  @click="uploadTrigger"
+                >上传文件</button>
+                <button
+                  class="btn btn-success btn-sm op_btn op_btn2 joinQueue"
+                  ref="joinQueue"
+                  @click="joinQueue"
+                >加入队列</button>
+                <button class="btn btn-success btn-sm op_btn op_btn3 printing" ref="printing">立即打印</button>
               </li>
             </ul>
           </div>
         </div>
       </div>
     </main>
-    <shopcar></shopcar>
+    <shopcar :queueArray="queueArray"></shopcar>
   </div>
 </template>
 
@@ -114,20 +149,7 @@ import shopcar from "../components/shopcar/shopcar";
 import SelectPrinter from "../components/SelectPrinter/SelectPrinter";
 import Vue from "vue";
 //相机的相应参数
-let container;
-let camera, cameraTarget, scene, helper;
-const perspectiveAngle = 45;
-const cameraPosX = 900;
-const cameraPosY = 1200;
-const cameraPosZ = 2400;
-const cameraTargetX = -100;
-const cameraTargetY = -500;
-const cameraTargetZ = 800;
-const upVectorX = 0;
-const upVectorY = 50;
-const upVectorZ = 0;
-const cameralScale = 0.5;
-const [ratioX, ratioY, ratioZ] = [1, 1, 1];
+let camera, scene, helper;
 export default {
   name: "onlinePrint",
   data() {
@@ -137,18 +159,36 @@ export default {
       previewHeight: 0,
       //加载模型所需的文件信息
       stlFile: "",
+      fileName: "请上传STL文件",
       //模型大小参数
       module_x: 0,
       module_y: 0,
       module_z: 0,
-      renderer: null
+      renderer: null,
+      //购买的模型数量
+      moduleNumber: 1,
+      //材料费用
+      materialPrice: 0.00008,
+      //打印模式
+      printModel: "快速",
+      sType: 0,
+      printModelPrice: 0.8,
+      //模型单价
+      unitPrice: 0,
+      //加入队列的文件信息
+      fileInQueue: null,
+      //打印队列对象数组
+      queueArray: [],
+      cameraTarget: null
     };
   },
   mounted() {
     // DOM 更新了
-    this.previewWidth = this.$refs.previewWrapper.clientWidth;
-    this.previewHeight = this.$refs.previewWrapper.clientHeight;
-    this.threeStart();
+    this.$nextTick(() => {
+      this.previewWidth = this.$refs.previewWrapper.clientWidth;
+      this.previewHeight = this.$refs.previewWrapper.clientHeight;
+      this.threeStart();
+    });
   },
   methods: {
     /**
@@ -156,36 +196,70 @@ export default {
      */
     readURL(input) {
       if (input.files && input.files[0]) {
-        let reader = new FileReader();
-        reader.onload = function(e) {
-          //得到文件名(base64编码)
-          this.stlFile = e.target.result;
-          this.$refs.previewWrapper.removeChild(renderer.domElement);
-          threeStart();
-        };
-        reader.readAsDataURL(input.files[0]);
+        let Name = input.files[0].name;
+        //截取文件名后缀;
+        let suffixName = Name.substr(Name.lastIndexOf("."));
+        if (suffixName !== ".stl") {
+          return;
+        } else {
+          let reader = new FileReader();
+          reader.readAsDataURL(input.files[0]);
+          this.fileName = input.files[0].name;
+          this.fileInQueue = input.files[0];
+          reader.onload = () => {
+            //得到文件名(base64编码)
+            this.stlFile = reader.result;
+            this.$refs.previewWrapper.removeChild(this.renderer.domElement);
+            this.threeStart();
+          };
+        }
       }
     },
     /**
-     *
+     * 文件上传按钮触发隐藏的文件上传框
+     */
+    uploadTrigger() {
+      this.$refs.fileField.click();
+    },
+    /**
+     * 文件上传逻辑
+     */
+    uploadFile() {
+      this.readURL(this.$refs.fileField);
+    },
+    /**
+     * 加入队列逻辑
+     */
+    joinQueue() {
+      if (this.fileInQueue === null) {
+        return;
+      } else {
+        let moduleInfo = {
+          fileInQueue: this.fileInQueue,
+          moduleNumber: this.moduleNumber,
+          fileName: this.fileName,
+          printModel: this.printModel,
+          unitPrice: this.unitPrice
+        };
+        this.queueArray.push(moduleInfo);
+      }
+    },
+    /**
+     *加载STL模型的主要函数
      */
     //加载模型初始化函数
     init() {
-      camera = new THREE.PerspectiveCamera(perspectiveAngle, 1, 1, 10000);
-      camera.position.set(cameraPosX, cameraPosY, cameraPosZ);
-      camera.up.set(upVectorX, upVectorY, upVectorZ);
-      cameraTarget = new THREE.Vector3(
-        cameraTargetX,
-        cameraTargetY,
-        cameraTargetZ
-      );
-      camera.lookAt(cameraTarget);
+      camera = new THREE.PerspectiveCamera(45, 1, 1, 10000);
+      camera.position.set(900, 1200, 2400);
+      camera.up.set(0, 50, 0);
+      this.cameraTarget = new THREE.Vector3(-100, -500, 800);
+      camera.lookAt(this.cameraTarget);
       scene = new THREE.Scene();
       scene.fog = new THREE.Fog(0xffffff, 0, 9000);
 
       // 实例stlloader
       var loader = new THREE.STLLoader();
-      loader.load("plane.stl", geometry => {
+      loader.load(this.stlFile, geometry => {
         //材料颜色
         var material = new THREE.MeshPhongMaterial({
           color: 0x008080,
@@ -203,9 +277,9 @@ export default {
         geometry.computeBoundingBox();
         var boundbox = geometry.boundingBox;
         //模型尺寸
-        this.module_x = (boundbox.max.x - boundbox.min.x).toFixed(0);
-        this.module_y = (boundbox.max.y - boundbox.min.y).toFixed(0);
-        this.module_z = (boundbox.max.z - boundbox.min.z).toFixed(0);
+        this.module_x = (boundbox.max.x - boundbox.min.x).toFixed(0) | 0;
+        this.module_y = (boundbox.max.y - boundbox.min.y).toFixed(0) | 0;
+        this.module_z = (boundbox.max.z - boundbox.min.z).toFixed(0) | 0;
 
         //对模型位置进行判断
         if (boundbox.min.y >= 0) {
@@ -299,6 +373,48 @@ export default {
     threeStart() {
       this.init();
       this.animate();
+    },
+    /**
+     * 改变模型数量
+     */
+    changeNumber(flag) {
+      if (!flag) {
+        if (this.moduleNumber <= 1) {
+          this.moduleNumber = 1;
+          return;
+        }
+        this.moduleNumber -= 1;
+      } else {
+        this.moduleNumber += 1;
+      }
+    },
+    /**
+     * 打印模式选择
+     */
+    selectModal(type, modalInfo, scale) {
+      this.sType = type;
+      this.printModel = modalInfo;
+      this.printModelPrice = scale;
+    }
+  },
+  computed: {
+    /**
+     * 计算模型价格
+     */
+    modulePrice() {
+      this.unitPrice = Math.ceil(
+        this.module_x *
+          this.module_y *
+          this.module_z *
+          this.materialPrice *
+          this.printModelPrice
+      );
+      return this.unitPrice * this.moduleNumber;
+    }
+  },
+  filters: {
+    moneyFormat(money) {
+      return `￥ ${money}`;
     }
   },
   components: {

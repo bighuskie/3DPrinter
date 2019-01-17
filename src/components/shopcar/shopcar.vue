@@ -1,55 +1,65 @@
 <template>
   <div>
-    <!-- 购物车及底部信息 -->
-    <div class="container-fluid" id="shopCar-wrapper">
-      <div class="panel panel-default">
-        <div class="panel-heading">购物车</div>
-        <div class="panel-body shopping">
-          <table class="table text-center">
-            <tr class="infoList">
-              <td></td>
-              <td>订单文件名</td>
-              <td>打印模式</td>
-              <td>单价</td>
-              <td>模型数量</td>
-              <td>金额</td>
-              <td>管理</td>
-            </tr>
-            <tr class="orderInfo" v-for="(item,i) of shopArray" :key="i">
-              <td>
-                <!-- <input type="checkbox" id="selectFlag">
-                <label for="selectFlag"></label>-->
-                <div class="selectFlag">
-                  <a :target="item.target" href="javascript:;" @click="selectOne(item)"></a>
-                </div>
-              </td>
-              <td>{{item.shopName}}</td>
-              <td>{{item.shopModel}}</td>
-              <td>{{item.shopPrice | priceFormat(item.shopPrice)}}</td>
-              <td>
-                <div class="module-number">
-                  <span @click="changeNumber(item,false)">-</span>
-                  <input type="tel" value="item.shopNumber" v-model="item.shopNumber">
-                  <span @click="changeNumber(item,true)">+</span>
-                </div>
-              </td>
-              <td>{{item.shopPrice*item.shopNumber |priceFormat(item.shopPrice*item.shopNumber)}}</td>
-              <td>
-                <a href="javascript:;">删除</a>
-              </td>
-            </tr>
-          </table>
-          <div class="shopcar-footer">
-            <div class="selectFlag">
-              <a :target="selectAllFlag" href="javascript:;" @click="selectAll(selectAllFlag)"></a>
-            </div>
-            <div>全选</div>
-            <div class="wall"></div>
-            <div class="sum-wrapper">
-              <span class="sumMoney">{{sumAllMoney | priceFormat(sumAllMoney)}}</span>
-              <a class="sumAll btn btn-danger" href="#">合计</a>
+    <div>
+      <!-- 购物车及底部信息 -->
+      <div class="container-fluid" id="shopCar-wrapper">
+        <div class="panel panel-default">
+          <div class="panel-heading">购物车</div>
+          <div class="panel-body shopping">
+            <table class="table text-center">
+              <tr class="infoList">
+                <td></td>
+                <td>订单文件名</td>
+                <td>打印模式</td>
+                <td>单价</td>
+                <td>模型数量</td>
+                <td>金额</td>
+                <td>管理</td>
+              </tr>
+              <tr class="orderInfo" v-for="(item,i) of shopArray" :key="i">
+                <td>
+                  <div class="selectFlag">
+                    <a :target="item.target" href="javascript:;" @click="selectOne(item)"></a>
+                  </div>
+                </td>
+                <td>{{item.fileName}}</td>
+                <td>{{item.printModel}}</td>
+                <td>{{item.unitPrice | priceFormat(item.unitPrice)}}</td>
+                <td>
+                  <div class="module-number">
+                    <span @click="changeNumber(item,false)">-</span>
+                    <input type="tel" value="item.moduleNumber" v-model="item.moduleNumber">
+                    <span @click="changeNumber(item,true)">+</span>
+                  </div>
+                </td>
+                <td>{{item.unitPrice*item.moduleNumber |priceFormat(item.unitPrice*item.moduleNumber)}}</td>
+                <td>
+                  <a href="javascript:;" @click="deleteShop(item)">删除</a>
+                </td>
+              </tr>
+            </table>
+            <div class="shopcar-footer">
+              <div class="selectFlag">
+                <a :target="selectAllFlag" href="javascript:;" @click="selectAll(selectAllFlag)"></a>
+              </div>
+              <div>全选</div>
+              <div class="wall"></div>
+              <div class="sum-wrapper">
+                <span class="sumMoney">{{sumAllMoney | priceFormat(sumAllMoney)}}</span>
+                <a class="sumAll btn btn-danger" href="#">合计</a>
+              </div>
             </div>
           </div>
+        </div>
+      </div>
+    </div>
+    <!-- 模态框 -->
+    <div :class="{'modal-wrapper':showModalFlag}">
+      <div class="modal-content">
+        <div class="text-wrapper text-center">你确定删除这个商品吗？</div>
+        <div class="btn-wrapper text-center">
+          <button class="btn canel-btn" @click="confirmDelete(false)">取消</button>
+          <button class="btn btn-danger" @click="confirmDelete(true)">确定</button>
         </div>
       </div>
     </div>
@@ -58,10 +68,20 @@
 
 <script>
 export default {
+  props: {
+    queueArray: {
+      type: Array,
+      default() {
+        return [];
+      }
+    }
+  },
   data() {
     return {
       shopArray: [],
-      selectAllFlag: false
+      selectAllFlag: false,
+      showModalFlag: true,
+      deleteShopObj: {}
     };
   },
   created() {
@@ -72,22 +92,20 @@ export default {
      * 得到订单信息
      */
     getShopArray() {
-      this.axios.get("data/shopArray.json").then(body => {
-        this.shopArray = body.data.shopArray;
-      });
+      this.shopArray = this.queueArray;
     },
     /**
      * 改变模型数量
      */
     changeNumber(item, flag) {
       if (flag) {
-        item.shopNumber += 1;
+        item.moduleNumber += 1;
       } else {
-        if (item.shopNumber <= 1) {
-          item.shopNumber = 1;
+        if (item.moduleNumber <= 1) {
+          item.moduleNumber = 1;
           return;
         }
-        item.shopNumber -= 1;
+        item.moduleNumber -= 1;
       }
     },
     /**
@@ -125,6 +143,26 @@ export default {
         }
       });
       this.selectAllFlag = isSelectAll;
+    },
+    /**
+     * 删除商品,显示模态框
+     */
+    deleteShop(item) {
+      this.showModalFlag = false;
+      this.deleteShopObj = item;
+    },
+    /**
+     * 是否确定删除商品,关闭模态框
+     */
+    confirmDelete(flag) {
+      if (flag) {
+        let deleteIndex = this.shopArray.indexOf(this.deleteShopObj);
+        this.shopArray.splice(deleteIndex, 1);
+        if (this.shopArray.length === 0) {
+          this.selectAllFlag = false;
+        }
+      }
+      this.showModalFlag = true;
     }
   },
   computed: {
@@ -135,7 +173,7 @@ export default {
       let AllMonney = 0;
       this.shopArray.forEach(item => {
         if (item.target) {
-          AllMonney += item.shopNumber * item.shopPrice;
+          AllMonney += item.moduleNumber * item.unitPrice;
         }
       });
       return AllMonney;
@@ -285,6 +323,38 @@ export default {
           // line-height: 30px;
         }
       }
+    }
+  }
+}
+//模态框样式
+.modal-wrapper {
+  display: none;
+}
+.modal-content {
+  position: fixed;
+  width: 500px;
+  height: 150px;
+  left: 50%;
+  top: 50%;
+  margin-top: -150px;
+  margin-left: -250px;
+  .text-wrapper {
+    height: 65px;
+    line-height: 65px;
+    border-bottom: 1px solid #eee;
+    font-size: 20px;
+    color: #000;
+  }
+  .btn-wrapper {
+    height: 85px;
+    line-height: 85px;
+    .btn {
+      width: 100px;
+      border-radius: 0;
+    }
+    .canel-btn {
+      margin-right: 100px;
+      color: #000;
     }
   }
 }
