@@ -33,8 +33,9 @@
                   </div>
                 </td>
                 <td>{{item.unitPrice*item.moduleNumber |priceFormat(item.unitPrice*item.moduleNumber)}}</td>
-                <td>
-                  <a href="javascript:;" @click="deleteShop(item)">删除</a>
+                <td class="manage-wrapper">
+                  <a class="preview btn btn-success" href="javascript:;" @click="previewModule(item)">预览</a>
+                  <a  class="deleteShop btn btn-danger" href="javascript:;" @click="deleteShop(item)">删除</a>
                 </td>
               </tr>
             </table>
@@ -46,7 +47,7 @@
               <div class="wall"></div>
               <div class="sum-wrapper">
                 <span class="sumMoney">{{sumAllMoney | priceFormat(sumAllMoney)}}</span>
-                <a class="sumAll btn btn-danger" href="#">合计</a>
+                <a class="sumAll btn btn-danger" href="javascript:;" @click="sumAll">合计</a>
               </div>
             </div>
           </div>
@@ -163,6 +164,18 @@ export default {
         }
       }
       this.showModalFlag = true;
+    },
+    /**
+     * 在购物车里选择预览
+     */
+    previewModule(item){
+      this.$emit('preview',item.fileInQueue);
+    },
+    /**
+     * 确定下单，并显示选择打印机
+     */
+    sumAll(){
+      this.$emit('showPrinterModal');
     }
   },
   computed: {
@@ -256,6 +269,11 @@ export default {
             border: 1px solid #eee;
             text-align: center;
           }
+        }
+      }
+      .manage-wrapper{
+        .deleteShop{
+          margin-left: 10px;
         }
       }
     }

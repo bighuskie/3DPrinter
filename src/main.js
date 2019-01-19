@@ -10,7 +10,7 @@ import Vuetify from 'vuetify'
 import '../theme/index.css'//element主题色更换
 import 'bootstrap'
 import 'bootstrap/dist/css/bootstrap.min.css'
-import 'vuetify/dist/vuetify.min.css'
+// import 'vuetify/dist/vuetify.min.css'
 
 import axios from 'axios'
 import VueAxios from 'vue-axios'

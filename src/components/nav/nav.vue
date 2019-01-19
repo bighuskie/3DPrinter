@@ -1,8 +1,12 @@
 <template>
   <div>
-    <nav class="navbar navbar-default c_navbar navbar-static-top" role="navigation">
+    <nav
+      class="navbar navbar-default c_navbar navbar-static-top"
+      role="navigation"
+      :style="{'background-color':navBgColor}"
+    >
       <div class="container c_cot">
-        <div class="navbar-header c_header">
+        <div class="navbar-header c_header hidden-md">
           <button
             type="button"
             class="navbar-toggle"
@@ -15,11 +19,11 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="#">
+          <a class="navbar-brand " href="#">
             <img
               src="../../assets/images/brand.png"
               alt
-              class="img-responsive center-block brand_img hidden-xs"
+              class="img-responsive center-block brand_img hidden-xs hidden-md"
             >
           </a>
         </div>
@@ -42,7 +46,7 @@
               <router-link to="/login" class="nav_menu_font">当前状态</router-link>
             </li>
             <li class="cative nav_menu_li">
-              <a href="http://120.79.148.35:3010/about" class="nav_menu_font">关于</a>
+              <router-link to="/about" class="nav_menu_font">关于</router-link>
             </li>
             <li class="cative nav_menu_li btn_login login_img">
               <a href="http://120.79.148.35:3010/#/login">
@@ -58,7 +62,16 @@
 </template>
 
 <script>
-export default {};
+export default {
+  props: {
+    navBgColor: {
+      type: String,
+      default() {
+        return "";
+      }
+    }
+  }
+};
 </script>
 
 <style lang="less" scoped>

@@ -1,7 +1,8 @@
 <template>
   <div class="onlinePrint">
+    <navinfo></navinfo>
     <div class="selectPrinter">
-      <select-printer></select-printer>
+      <select-printer ref="selectPrinter"></select-printer>
     </div>
     <main id="container">
       <!-- 模型预览与相关信息显示 -->
@@ -29,10 +30,10 @@
                 <span>打印机类型:</span>&nbsp;
                 <span>Printors i3</span>
               </li>
-              <li>
+              <li class="location-wrapper">
                 <img src="../assets/images/locate.png" alt class="img-responsive">
                 <span>打印机地点:</span>&nbsp;
-                <span>昆明理工大学呈贡校区综合性体育运动馆</span>
+                <span class="location">广东工业大学</span>
               </li>
               <li>
                 <img src="../assets/images/file.png" alt class="img-responsive file_png">
@@ -140,11 +141,13 @@
         </div>
       </div>
     </main>
-    <shopcar :queueArray="queueArray"></shopcar>
+    <shopcar :queueArray="queueArray" @preview="preview" @showPrinterModal="showPrinterModal"></shopcar>
   </div>
 </template>
 
 <script>
+import navinfo from "../components/nav/nav";
+
 import shopcar from "../components/shopcar/shopcar";
 import SelectPrinter from "../components/SelectPrinter/SelectPrinter";
 import Vue from "vue";
@@ -216,9 +219,23 @@ export default {
       }
     },
     /**
+     * 购物车组件传值给父组件进行模型预览
+     */
+    preview(fileInfo) {
+      let reader = new FileReader();
+      reader.readAsDataURL(fileInfo);
+      reader.onload = () => {
+        //得到文件名(base64编码)
+        this.stlFile = reader.result;
+        this.$refs.previewWrapper.removeChild(this.renderer.domElement);
+        this.threeStart();
+        console.log(fileInfo);
+      };
+    },
+    /**
      * 文件上传按钮触发隐藏的文件上传框
      */
-    uploadTrigger() {
+    uploadTrigger(item) {
       this.$refs.fileField.click();
     },
     /**
@@ -395,6 +412,13 @@ export default {
       this.sType = type;
       this.printModel = modalInfo;
       this.printModelPrice = scale;
+    },
+    /**
+     *触发选择打印机模态框
+     */
+    showPrinterModal() {
+      let vueCom = this.$refs.selectPrinter;
+      vueCom.$children[0].$el.click();
     }
   },
   computed: {
@@ -418,6 +442,7 @@ export default {
     }
   },
   components: {
+    navinfo,
     shopcar,
     SelectPrinter
   }
@@ -426,6 +451,9 @@ export default {
 
 <style lang="less" scoped>
 @import url("../assets/style/mixin/mixin.less");
+.selectPrinter {
+  display: none;
+}
 #container {
   width: 100%;
   // 模型预览及设置样式
@@ -448,12 +476,23 @@ export default {
     }
     .prev_right {
       margin-top: 40px;
-      // height: 300px;
+      min-width: 425px;
       li {
         list-style: none;
         background-color: #fff;
+        // width: 500px;
         font-size: 20px;
         line-height: 50px;
+        &.location-wrapper {
+          height: 50px;
+          min-width: 425px;
+          .location {
+            max-width: 200px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+          }
+        }
         img {
           display: inline-block;
           width: 45px;
