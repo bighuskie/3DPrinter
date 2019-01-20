@@ -134,7 +134,9 @@
                   ref="joinQueue"
                   @click="joinQueue"
                 >加入队列</button>
-                <button class="btn btn-success btn-sm op_btn op_btn3 printing" ref="printing">立即打印</button>
+                <router-link to="/onlinePrint/all">
+                  <button class="btn btn-success btn-sm op_btn op_btn3 printing" ref="printing">立即打印</button>
+                </router-link>
               </li>
             </ul>
           </div>
@@ -142,6 +144,8 @@
       </div>
     </main>
     <shopcar :queueArray="queueArray" @preview="preview" @showPrinterModal="showPrinterModal"></shopcar>
+    <!-- <masklibrary></masklibrary> -->
+    <router-view></router-view>
   </div>
 </template>
 
@@ -150,6 +154,7 @@ import navinfo from "../components/nav/nav";
 
 import shopcar from "../components/shopcar/shopcar";
 import SelectPrinter from "../components/SelectPrinter/SelectPrinter";
+import masklibrary from "../components/masklibrary/masklibrary";
 import Vue from "vue";
 //相机的相应参数
 let camera, scene, helper;
@@ -444,7 +449,8 @@ export default {
   components: {
     navinfo,
     shopcar,
-    SelectPrinter
+    SelectPrinter,
+    masklibrary
   }
 };
 </script>
