@@ -2,7 +2,7 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import router from './router'
 import onlinePrint from './views/onlinePrint.vue'
-import {getCookie,setCookie,delCookie} from '../public/lib/util/util';
+// import {getCookie,setCookie,delCookie} from '../public/lib/util/util';
 import axios from 'axios'
 import VueAxios from 'vue-axios'
 import Token from './define.js'
@@ -10,12 +10,56 @@ Vue.use(Token);
 Vue.use(VueAxios,axios);
 Vue.use(Router)
 export default new Router({
-  routes: [
-    {
+  routes: [{
       path: '/',
+      redirect: '/onlinePrint'
+    },
+    {
+      path: '/onlinePrint',
       name: 'onlinePrint',
       component: onlinePrint,
-      meta:{requiresAuth:true}
+      meta:{requiresAuth:true},
+      children: [{
+          path: "all",
+          name: "all",
+          component: () => import('./components/masklibrary/masklibrary.vue'),
+          children: [{
+            path: "modelDetail",
+            name: "modelDetail",
+            component: () => import('./components/masklibrary/modelDetail.vue')
+          }]
+        },
+        {
+          path: "cartoon",
+          name: "cartoon",
+          component: () => import('./components/masklibrary/masklibrary.vue'),
+          children: [{
+            path: "modelDetail",
+            name: "modelDetail",
+            component: () => import('./components/masklibrary/modelDetail.vue')
+          }]
+        },
+        {
+          path: "innovate",
+          name: "innovate",
+          component: () => import('./components/masklibrary/masklibrary.vue'),
+          children: [{
+            path: "modelDetail",
+            name: "modelDetail",
+            component: () => import('./components/masklibrary/modelDetail.vue')
+          }]
+        },
+        {
+          path: "education",
+          name: "education",
+          component: () => import('./components/masklibrary/masklibrary.vue'),
+          children: [{
+            path: "modelDetail",
+            name: "modelDetail",
+            component: () => import('./components/masklibrary/modelDetail.vue')
+          }]
+        }
+      ]
     },
     {
       path: '/login',
@@ -32,9 +76,18 @@ export default new Router({
       name: 'status',
       component: () => import('./views/userRegister.vue'),
       meta:{requiresAuth:true}
+    },
+    {
+    path: '/about',
+      name: 'about',
+      component: () => import('./views/about'),
+      meta:{requiresAuth:true}  //这个是路由拦截用的，目前路由拦截功能暂时关闭了，不影响
     }
   ]
 })
+
+/* 以下是拦截器部分 */
+/*路由拦截*/
 router.beforeEach((to, from, next) => {
   console.log('拦截')
   //判断要去的路由有没有requiresAuth

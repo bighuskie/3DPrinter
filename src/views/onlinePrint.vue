@@ -1,5 +1,9 @@
 <template>
   <div class="onlinePrint">
+    <navinfo></navinfo>
+    <div class="selectPrinter">
+      <select-printer ref="selectPrinter"></select-printer>
+    </div>
     <main id="container">
       <!-- 模型预览与相关信息显示 -->
       <div class="container-fluid" id="prev">
@@ -27,10 +31,10 @@
                 <span>Printors i3</span>
                 <select-printer style="display:inline;margin-left:30px;"></select-printer>
               </li>
-              <li>
+              <li class="location-wrapper">
                 <img src="../assets/images/locate.png" alt class="img-responsive">
                 <span>打印机地点:</span>&nbsp;
-                <span>昆明理工大学呈贡校区综合性体育运动馆</span>
+                <span class="location">广东工业大学</span>
               </li>
               <li>
                 <img src="../assets/images/file.png" alt class="img-responsive file_png">
@@ -131,20 +135,27 @@
                   ref="joinQueue"
                   @click="joinQueue"
                 >加入队列</button>
-                <button class="btn btn-success btn-sm op_btn op_btn3 printing" ref="printing">立即打印</button>
+                <router-link to="/onlinePrint/all">
+                  <button class="btn btn-success btn-sm op_btn op_btn3 printing" ref="printing">更多模型</button>
+                </router-link>
               </li>
             </ul>
           </div>
         </div>
       </div>
     </main>
-    <shopcar :queueArray="queueArray"></shopcar>
+    <shopcar :queueArray="queueArray" @preview="preview" @showPrinterModal="showPrinterModal"></shopcar>
+    <!-- <masklibrary></masklibrary> -->
+    <router-view></router-view>
   </div>
 </template>
 
 <script>
+import navinfo from "../components/nav/nav";
+
 import shopcar from "../components/shopcar/shopcar";
 import SelectPrinter from "../components/SelectPrinter/SelectPrinter";
+import masklibrary from "../components/masklibrary/masklibrary";
 import Vue from "vue";
 //相机的相应参数
 let camera, scene, helper;
@@ -180,6 +191,7 @@ export default {
       cameraTarget: null
     };
   },
+  created() {},
   mounted() {
     // DOM 更新了
     this.$nextTick(() => {
@@ -214,9 +226,23 @@ export default {
       }
     },
     /**
+     * 购物车组件传值给父组件进行模型预览
+     */
+    preview(fileInfo) {
+      let reader = new FileReader();
+      reader.readAsDataURL(fileInfo);
+      reader.onload = () => {
+        //得到文件名(base64编码)
+        this.stlFile = reader.result;
+        this.$refs.previewWrapper.removeChild(this.renderer.domElement);
+        this.threeStart();
+        console.log(fileInfo);
+      };
+    },
+    /**
      * 文件上传按钮触发隐藏的文件上传框
      */
-    uploadTrigger() {
+    uploadTrigger(item) {
       this.$refs.fileField.click();
     },
     /**
@@ -257,7 +283,7 @@ export default {
 
       // 实例stlloader
       var loader = new THREE.STLLoader();
-      loader.load(this.stlFile, geometry => {
+      loader.load("http://192.168.1.243:7001/public/stlFiles/littlea.stl", geometry => {
         //材料颜色
         var material = new THREE.MeshPhongMaterial({
           color: 0x008080,
@@ -393,6 +419,13 @@ export default {
       this.sType = type;
       this.printModel = modalInfo;
       this.printModelPrice = scale;
+    },
+    /**
+     *触发选择打印机模态框
+     */
+    showPrinterModal() {
+      let vueCom = this.$refs.selectPrinter;
+      vueCom.$children[0].$el.click();
     }
   },
   computed: {
@@ -416,14 +449,19 @@ export default {
     }
   },
   components: {
+    navinfo,
     shopcar,
-    SelectPrinter
+    SelectPrinter,
+    masklibrary
   }
 };
 </script>
 
 <style lang="less" scoped>
 @import url("../assets/style/mixin/mixin.less");
+.selectPrinter {
+  display: none;
+}
 #container {
   width: 100%;
   // 模型预览及设置样式
@@ -446,12 +484,23 @@ export default {
     }
     .prev_right {
       margin-top: 40px;
-      // height: 300px;
+      min-width: 425px;
       li {
         list-style: none;
         background-color: #fff;
+        // width: 500px;
         font-size: 20px;
         line-height: 50px;
+        &.location-wrapper {
+          height: 50px;
+          min-width: 425px;
+          .location {
+            max-width: 200px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+          }
+        }
         img {
           display: inline-block;
           width: 45px;
