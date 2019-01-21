@@ -29,6 +29,7 @@
                 <img src="../assets/images/cloud.png" alt class="img-responsive">
                 <span>打印机类型:</span>&nbsp;
                 <span>Printors i3</span>
+                <select-printer style="display:inline;margin-left:30px;"></select-printer>
               </li>
               <li class="location-wrapper">
                 <img src="../assets/images/locate.png" alt class="img-responsive">

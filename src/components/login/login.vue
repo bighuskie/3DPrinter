@@ -1,4 +1,13 @@
 <template>
+<<<<<<< HEAD
+    <div class="login">
+        <el-card id="loginCard" shadow="always">
+        <h1 style="font-family:'Microsoft YaHei';">登录</h1>
+        <input type="text" placeholder="账号" v-model="username">
+        <input type="password" placeholder="密码" v-model="password">
+        <el-button type="primary" round id="submit" @click="submit">登录</el-button>
+        </el-card>
+=======
   <div class="login">
     <h1>登录</h1>
     <v-flex xs12 sm15>
@@ -9,100 +18,83 @@
     </v-flex>
     <div style="text-align: left;margin-top:10px;">
       <el-checkbox v-model="rememberPsw" style="font-family: inherit;">记住密码</el-checkbox>
+>>>>>>> 153cd480f37dd7a7c45e7b6550952e82384af9c7
     </div>
     <button id="submit" @click="submit">登录</button>
   </div>
 </template>
+
 <script>
 export default {
-  data() {
-    return {
-      username: "",
-      password: "",
-      cookiename: "APP",
-      rememberPsw: true
-    };
-  },
-  mounted() {
-    this.getCookie(); //得到cookie，如果有记住密码
-  },
-  methods: {
-    submit() {
-      //判断复选框是否被勾选 勾选则调用配置cookie方法
-      if (this.rememberPsw == true) {
-        console.log("checked == true");
-        //调用设置set函数
-        this.setCookie();
-      } else {
-        console.log("清空Cookie");
-        //清空Cookie
-        this.clearCookie();
-      }
-      //这部分与后端请求代码
-      console.log("登陆成功");
-    },
-    //设置cookie
-    setCookie(c_name = this.username, c_pwd = this.password, exdays = 7) {
-      var exdate = new Date(); //获取时间
-      exdate.setTime(exdate.getTime() + 24 * 60 * 60 * 1000 * exdays); //保存的天数
-      //字符串拼接cookie
-      window.document.cookie =
-        "userName" + "=" + c_name + ";path=/;expires=" + exdate.toGMTString();
-      window.document.cookie =
-        "userPwd" + "=" + c_pwd + ";path=/;expires=" + exdate.toGMTString();
-    },
-    //读取cookie
-    getCookie: function() {
-      if (document.cookie.length > 0) {
-        var arr = document.cookie.split("; "); //这里显示的格式需要切割一下自己可输出看下
-        for (var i = 0; i < arr.length; i++) {
-          var arr2 = arr[i].split("="); //再次切割
-          //判断查找相对应的值
-          if (arr2[0] == "userName") {
-            this.username = arr2[1]; //保存到保存数据的地方
-          } else if (arr2[0] == "userPwd") {
-            this.password = arr2[1];
+    data() {
+        return {
+            username:"",
+            password:"",
+            cookiename : "APP",
+            rememberPsw: false,
+            isLogin:false
+        }
+      },
+    
+    methods:{
+        submit() {
+            if(this.username===''||this.password==='')
+            {
+                alert("请输入账号和密码！");
+                return;
+            }
+            //将数据传输给后端
+                this.axios({
+                    method: 'post',
+                    url: 'http://192.168.1.243:7001/api/v1/login',
+                    withCredentials: true,
+                    data:{
+                        username: this.username,
+                        password: this.password
+                    }
+                }).then(res => {
+                console.log(res); 
+                if(res.data.code===1){
+                     this.isLogin=true;
+                     this.Token.setToken(res.data.token);
+                     this.$router.push({path:'/'})
+                    }
+                 })    
+              }
           }
         }
-      }
-    },
-    //清除cookie
-    clearCookie: function() {
-      this.setCookie("", "", -1); //修改2值都为空，天数为负1天就好了
-    },
-    loginClick() {
-      this.axios({
-        method: "post",
-        url: "http://192.168.1.243:7001/post",
-        withCredentials: true,
-        data: {
-          username: this.username,
-          password: this.password
-        }
-      }).then(res => {
-        console.log(res);
-      });
-    }
-  }
-};
 </script>
 <style scoped>
-@import url('../../../theme/index.css');
-#submit {
-  cursor: pointer;
-  background-color: #1ac272;
-  width: 100px;
-  height: 30px;
-  border-radius: 5px;
-  color: #fff;
+.login{
+    width: 100%;
+    height: 100%;
+    background: url(../../assets/images/green.jpg) no-repeat fixed;
+    background-size: 100%; 
+    overflow: hidden;
+}
+#loginCard input {
+    margin: 20px 0;
+    width: 250px;
+    height: 30px;
+    border: 0;
+    border-bottom: 1px solid black;
+}
+#loginCard input:focus {
+    outline: none;
+     border-bottom: 1px solid #1AC272;
+}
+#submit{
+    display: block;
+    margin: 20px auto;
+    width: 80px;
 }
 #submit:hover {
   background-color: rgb(72, 199, 138);
 }
-.login {
-  margin: 200px auto;
-  text-align: center;
-  width: 300px;
+#loginCard{
+    margin:150px auto;
+    text-align: center;
+    width:500px;
 }
 .el-input {
   margin: 10px 0;
