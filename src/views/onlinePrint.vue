@@ -282,7 +282,7 @@ export default {
 
       // 实例stlloader
       var loader = new THREE.STLLoader();
-      loader.load("http://192.168.1.243:7001/public/stlFiles/littlea.stl", geometry => {
+      loader.load(this.stlFile, geometry => {
         //材料颜色
         var material = new THREE.MeshPhongMaterial({
           color: 0x008080,

@@ -73,7 +73,9 @@
 
 <script>
 import BScroll from "better-scroll";
-import { resolve, reject } from "q";
+
+
+// import { resolve, reject } from "q";
 export default {
   data() {
     return {
