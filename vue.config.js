@@ -10,12 +10,22 @@ module.exports = {
     devServer: {
         open: true, // 启动服务后是否打开浏览器
         hot: true,
-        host: '0.0.0.0',
+        host: 'locahost',
         port: 8080, // 服务端口
         https: false,
         hotOnly: false,
-        proxy: null, // 设置代理
-        before: app => { }
+        proxy: {
+            //配置跨域
+            '/api': {
+                target: "http://192.168.1.243:7001",
+                ws: true,
+                changOrigin: true,
+                pathRewrite: {
+                    '^/api': '/'
+                }
+            }
+        },
+        before: app => {}
     },
     configureWebpack: {
         plugins: [
@@ -26,6 +36,16 @@ module.exports = {
                 Popper: ['popper.js', 'default']
             })
         ]
-    }
+    },
+    // assetsSubDirectory: 'static',
+    // assetsPublicPath: '/',
+    // proxyTable: {
+    //   '/api': {
+    //     target: 'http://localhost:3000/',
+    //     changeOrigin: true,    
+    //     pathRewrite: {
+    //       '^/api': '/'        
+    //     }
+    //   }
+    // }
 }
-

@@ -135,7 +135,7 @@
                   @click="joinQueue"
                 >加入队列</button>
                 <router-link to="/onlinePrint/all">
-                  <button class="btn btn-success btn-sm op_btn op_btn3 printing" ref="printing">立即打印</button>
+                  <button class="btn btn-success btn-sm op_btn op_btn3 printing" ref="printing">更多模型</button>
                 </router-link>
               </li>
             </ul>
@@ -190,6 +190,7 @@ export default {
       cameraTarget: null
     };
   },
+  created() {},
   mounted() {
     // DOM 更新了
     this.$nextTick(() => {
@@ -281,7 +282,7 @@ export default {
 
       // 实例stlloader
       var loader = new THREE.STLLoader();
-      loader.load(this.stlFile, geometry => {
+      loader.load("http://192.168.1.243:7001/public/stlFiles/littlea.stl", geometry => {
         //材料颜色
         var material = new THREE.MeshPhongMaterial({
           color: 0x008080,
