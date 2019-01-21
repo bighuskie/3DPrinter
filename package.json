@@ -19,7 +19,6 @@
     "vue-axios": "^2.1.4",
     "vue-cookies": "^1.5.12",
     "vue-router": "^3.0.1",
-    "vuetify": "^1.4.2",
     "vuex": "^3.0.1"
   },
   "devDependencies": {
@@ -29,6 +28,7 @@
     "eslint-plugin-vue": "^5.0.0",
     "less": "^3.0.4",
     "less-loader": "^4.1.0",
+    "material-design-icons-iconfont": "^4.0.4",
     "vue-cli-plugin-element": "^1.0.1",
     "vue-template-compiler": "^2.5.21"
   }

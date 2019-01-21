@@ -1,8 +1,5 @@
 <template>
   <div class="onlinePrint">
-    <div class="selectPrinter">
-      <select-printer></select-printer>
-    </div>
     <main id="container">
       <!-- 模型预览与相关信息显示 -->
       <div class="container-fluid" id="prev">
@@ -28,6 +25,7 @@
                 <img src="../assets/images/cloud.png" alt class="img-responsive">
                 <span>打印机类型:</span>&nbsp;
                 <span>Printors i3</span>
+                <select-printer style="display:inline;margin-left:30px;"></select-printer>
               </li>
               <li>
                 <img src="../assets/images/locate.png" alt class="img-responsive">
