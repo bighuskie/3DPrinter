@@ -56,14 +56,19 @@ export default new Router({
       ]
     },
     {
-      path: '/login',
-      name: 'login',
-      component: () => import('./views/userLogin.vue')
+      path: '/status',
+      name: 'status',
+      component: () => import('./views/queueAndStatus.vue')
     },
     {
       path: '/about',
       name: 'about',
       component: () => import('./views/about')
-    }
+    },
+    // {
+    //   path: '/status',
+    //   name: 'status',
+    //   component: () => import('./views/queueAndStatus.vue')
+    // }
   ]
 })
