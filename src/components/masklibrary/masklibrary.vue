@@ -17,191 +17,54 @@
           </div>
           <div class="search-wrapper">
             <form>
-              <input type="text" name="search">
+              <input type="text" name="search" v-model="keyword">
             </form>
           </div>
-          <div class="icon">
+          <div class="icon" @click="search(keyword)">
             <i class="glyphicon glyphicon-search text-center"></i>
           </div>
         </section>
         <section class="sort-wrapper">
           <ul>
-            <li :class="{'selected':sType==0}" @click="select(0)">
-              <router-link to="/onlinePrint/all">全部模型</router-link>
-            </li>
-            <li :class="{'selected':sType==1}" @click="select(1)">
-              <router-link to="/onlinePrint/cartoon">动漫手办</router-link>
-            </li>
-            <li :class="{'selected':sType==2}" @click="select(2)">
-              <router-link to="/onlinePrint/innovate">创新设计</router-link>
-            </li>
-            <li :class="{'selected':sType==3}" @click="select(3)">
-              <router-link to="/onlinePrint/education">教育用品</router-link>
-            </li>
+            <router-link to="/onlinePrint/all">
+              <li :class="{'selected':sType==0}" @click="select(0)">全部模型</li>
+            </router-link>
+            <router-link to="/onlinePrint/cartoon">
+              <li :class="{'selected':sType==1}" @click="select(1)">动漫手办</li>
+            </router-link>
+            <router-link to="/onlinePrint/innovate">
+              <li :class="{'selected':sType==2}" @click="select(2)">创新设计</li>
+            </router-link>
+            <router-link to="/onlinePrint/education">
+              <li :class="{'selected':sType==3}" @click="select(3)">教育用品</li>
+            </router-link>
           </ul>
         </section>
         <section class="model-wrapper" ref="modelWrapper">
           <div>
             <ul>
-              <li>
+              <li v-for="(item,index) of modelArray" :key="index">
                 <router-link to="/onlinePrint/all/modelDetail">
                   <div class="img-wrapper">
-                    <img src="../../assets/images/content2.png" alt srcset>
+                    <img :src="item.modelImg">
                   </div>
                   <p class="info">
-                    <img src="../../assets/images/pla.png" alt>
-                    <span class="author">Hero</span>
+                    <img :src="item.avater" alt>
+                    <span class="author">{{item.author}}</span>
                     <i class="glyphicon glyphicon-heart"></i>
-                    <span class="favnum">168</span>
-                  </p>
-                </router-link>
-              </li>
-              <li>
-                <router-link to="/onlinePrint/all/modelDetail">
-                  <div class="img-wrapper">
-                    <img src="../../assets/images/content2.png" alt srcset>
-                  </div>
-                  <p class="info">
-                    <img src="../../assets/images/pla.png" alt>
-                    <span class="author">Hero</span>
-                    <i class="glyphicon glyphicon-heart"></i>
-                    <span class="favnum">168</span>
-                  </p>
-                </router-link>
-              </li>
-              <li>
-                <router-link to="/onlinePrint/all/modelDetail">
-                  <div class="img-wrapper">
-                    <img src="../../assets/images/content2.png" alt srcset>
-                  </div>
-                  <p class="info">
-                    <img src="../../assets/images/pla.png" alt>
-                    <span class="author">Hero</span>
-                    <i class="glyphicon glyphicon-heart"></i>
-                    <span class="favnum">168</span>
-                  </p>
-                </router-link>
-              </li>
-              <li>
-                <router-link to="/onlinePrint/all/modelDetail">
-                  <div class="img-wrapper">
-                    <img src="../../assets/images/content2.png" alt srcset>
-                  </div>
-                  <p class="info">
-                    <img src="../../assets/images/pla.png" alt>
-                    <span class="author">Hero</span>
-                    <i class="glyphicon glyphicon-heart"></i>
-                    <span class="favnum">168</span>
-                  </p>
-                </router-link>
-              </li>
-              <li>
-                <router-link to="/onlinePrint/all/modelDetail">
-                  <div class="img-wrapper">
-                    <img src="../../assets/images/content2.png" alt srcset>
-                  </div>
-                  <p class="info">
-                    <img src="../../assets/images/pla.png" alt>
-                    <span class="author">Hero</span>
-                    <i class="glyphicon glyphicon-heart"></i>
-                    <span class="favnum">168</span>
-                  </p>
-                </router-link>
-              </li>
-              <li>
-                <router-link to="/onlinePrint/all/modelDetail">
-                  <div class="img-wrapper">
-                    <img src="../../assets/images/content2.png" alt srcset>
-                  </div>
-                  <p class="info">
-                    <img src="../../assets/images/pla.png" alt>
-                    <span class="author">Hero</span>
-                    <i class="glyphicon glyphicon-heart"></i>
-                    <span class="favnum">168</span>
-                  </p>
-                </router-link>
-              </li>
-              <li>
-                <router-link to="/onlinePrint/all/modelDetail">
-                  <div class="img-wrapper">
-                    <img src="../../assets/images/content2.png" alt srcset>
-                  </div>
-                  <p class="info">
-                    <img src="../../assets/images/pla.png" alt>
-                    <span class="author">Hero</span>
-                    <i class="glyphicon glyphicon-heart"></i>
-                    <span class="favnum">168</span>
-                  </p>
-                </router-link>
-              </li>
-              <li>
-                <router-link to="/onlinePrint/all/modelDetail">
-                  <div class="img-wrapper">
-                    <img src="../../assets/images/content2.png" alt srcset>
-                  </div>
-                  <p class="info">
-                    <img src="../../assets/images/pla.png" alt>
-                    <span class="author">Hero</span>
-                    <i class="glyphicon glyphicon-heart"></i>
-                    <span class="favnum">168</span>
-                  </p>
-                </router-link>
-              </li>
-              <li>
-                <router-link to="/onlinePrint/all/modelDetail">
-                  <div class="img-wrapper">
-                    <img src="../../assets/images/content2.png" alt srcset>
-                  </div>
-                  <p class="info">
-                    <img src="../../assets/images/pla.png" alt>
-                    <span class="author">Hero</span>
-                    <i class="glyphicon glyphicon-heart"></i>
-                    <span class="favnum">168</span>
-                  </p>
-                </router-link>
-              </li>
-              <li>
-                <router-link to="/onlinePrint/all/modelDetail">
-                  <div class="img-wrapper">
-                    <img src="../../assets/images/content2.png" alt srcset>
-                  </div>
-                  <p class="info">
-                    <img src="../../assets/images/pla.png" alt>
-                    <span class="author">Hero</span>
-                    <i class="glyphicon glyphicon-heart"></i>
-                    <span class="favnum">168</span>
-                  </p>
-                </router-link>
-              </li>
-              <li>
-                <router-link to="/onlinePrint/all/modelDetail">
-                  <div class="img-wrapper">
-                    <img src="../../assets/images/content2.png" alt srcset>
-                  </div>
-                  <p class="info">
-                    <img src="../../assets/images/pla.png" alt>
-                    <span class="author">Hero</span>
-                    <i class="glyphicon glyphicon-heart"></i>
-                    <span class="favnum">168</span>
-                  </p>
-                </router-link>
-              </li>
-              <li>
-                <router-link to="/onlinePrint/all/modelDetail">
-                  <div class="img-wrapper">
-                    <img src="../../assets/images/content2.png" alt srcset>
-                  </div>
-                  <p class="info">
-                    <img src="../../assets/images/pla.png" alt>
-                    <span class="author">Hero</span>
-                    <i class="glyphicon glyphicon-heart"></i>
-                    <span class="favnum">168</span>
+                    <span class="favnum">{{item.loveNumber}}</span>
                   </p>
                 </router-link>
               </li>
             </ul>
+            <div class="page-wrapper text-center">
+              <button class="btn btn-warning prepage">上一页</button>
+              <button class="btn btn-warning">下一页</button>
+            </div>
           </div>
-          <router-view></router-view>
+          <keep-alive>
+            <router-view></router-view>
+          </keep-alive>
         </section>
       </section>
     </section>
@@ -210,12 +73,20 @@
 
 <script>
 import BScroll from "better-scroll";
+
+
+// import { resolve, reject } from "q";
 export default {
   data() {
     return {
       showFlag: false,
-      sType: 0
+      sType: 0,
+      modelArray: [],
+      keyword: ""
     };
+  },
+  created() {
+    this.getData();
   },
   mounted() {
     this.$nextTick(() => {
@@ -224,10 +95,44 @@ export default {
   },
   methods: {
     /**
+     * 根据路由请求相应的数据
+     */
+    getData() {
+      this.axios.get(`data/${this.$route.name}.json`).then(
+        res => {
+          if (res.status === 200) {
+            let data = res.data;
+            this.modelArray = data.modelArray;
+          } else {
+            return;
+          }
+        },
+        err => {
+          console.log("请求失败");
+        }
+      );
+    },
+    /**
      * 返回上一个路由
      */
     goback() {
       this.$router.push("/onlinePrint");
+    },
+    /**
+     * 搜索功能
+     */
+    search(word) {
+      this.axios.get("data/search.json").then(res => {
+        let models = res.data.searchArray;
+        let result;
+        result = models.filter(item => {
+          if (item.modelName.includes(word)) {
+            return true;
+          }
+        });
+        this.modelArray = result;
+        this.keyword = "";
+      });
     },
     /**
      * 选中模型类型控制样式
@@ -236,12 +141,13 @@ export default {
       this.sType = type;
     },
     initBScroll() {
-      this.scroll = new BScroll(this.$refs.modelWrapper, {
+      let scroll = new BScroll(this.$refs.modelWrapper, {
         click: true
       });
-      console.log(this.$refs.modelWrapper);
-      console.log(scroll);
     }
+  },
+  watch: {
+    $route: "getData"
   }
 };
 </script>
@@ -318,6 +224,12 @@ export default {
           input {
             width: 350px;
             height: 30px;
+            text-indent: 12px;
+            outline: medium;
+            &:focus{
+              border-width: 1px;
+              background: none;
+            }
           }
         }
       }
@@ -345,6 +257,11 @@ export default {
         align-items: center;
         justify-content: center;
         border-bottom: 2px solid #eee;
+        a {
+          text-decoration: none;
+          font-size: 13px;
+          color: #000;
+        }
         li {
           list-style: none;
           width: 100px;
@@ -356,11 +273,6 @@ export default {
           }
           &.selected {
             border-bottom: 2px solid #fad55f;
-          }
-          a {
-            text-decoration: none;
-            font-size: 13px;
-            color: #000;
           }
         }
       }
@@ -376,8 +288,10 @@ export default {
         width: 645px;
         padding: 0;
         font-size: 0;
-        height: 100%;
+        max-height: 500px;
+        min-height: 350px;
         margin: 0 auto;
+        overflow: hidden;
         a {
           text-decoration: none;
         }
@@ -395,10 +309,13 @@ export default {
             margin-left: 0;
           }
           .img-wrapper {
-            width: 100%;
-            height: 120px;
+            max-width: 144px;
+            max-height: 120px;
+            margin: 0 auto;
             background-color: #eee;
             img {
+              margin: 0 auto;
+              display: block;
               max-width: 100%;
               max-height: 120px;
             }
@@ -429,6 +346,14 @@ export default {
               margin-left: 4px;
             }
           }
+        }
+      }
+      .page-wrapper {
+        width: 100%;
+        height: 60px;
+        margin-top: 20px;
+        .prepage {
+          margin-right: 20px;
         }
       }
     }

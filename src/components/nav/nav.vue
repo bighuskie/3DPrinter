@@ -40,7 +40,7 @@
               <a href="https://3d.biowinedu.com/authenticate" class="nav_menu_font">在线建模</a>
             </li>
             <li class="cative nav_menu_li">
-              <a href="http://120.79.148.35:3010/printing" class="nav_menu_font">在线打印</a>
+              <router-link to="/" class="nav_menu_font">在线打印</router-link>
             </li>
             <li class="cative nav_menu_li">
               <router-link to="/status" class="nav_menu_font">当前状态</router-link>
@@ -49,10 +49,10 @@
               <router-link to="/about" class="nav_menu_font">关于</router-link>
             </li>
             <li class="cative nav_menu_li btn_login login_img">
-              <a href="http://120.79.148.35:3010/#/login">
-                <img src="../../assets/images/login.png" class="img-circle">
-                <span>user_test</span>
-              </a>
+                <router-link to="/login" class="nav_menu_font">登录</router-link>
+            </li>
+            <li class="cative nav_menu_li btn_login login_img">
+                <router-link to="/register" class="nav_menu_font">注册</router-link>
             </li>
           </ul>
         </div>

@@ -1,9 +1,6 @@
 <template>
   <div class="onlinePrint">
     <navinfo></navinfo>
-    <div class="selectPrinter">
-      <select-printer ref="selectPrinter"></select-printer>
-    </div>
     <main id="container">
       <!-- 模型预览与相关信息显示 -->
       <div class="container-fluid" id="prev">
@@ -29,6 +26,7 @@
                 <img src="../assets/images/cloud.png" alt class="img-responsive">
                 <span>打印机类型:</span>&nbsp;
                 <span>Printors i3</span>
+                <select-printer style="display:inline;margin-left:30px;"></select-printer>
               </li>
               <li class="location-wrapper">
                 <img src="../assets/images/locate.png" alt class="img-responsive">
@@ -135,7 +133,7 @@
                   @click="joinQueue"
                 >加入队列</button>
                 <router-link to="/onlinePrint/all">
-                  <button class="btn btn-success btn-sm op_btn op_btn3 printing" ref="printing">立即打印</button>
+                  <button class="btn btn-success btn-sm op_btn op_btn3 printing" ref="printing">更多模型</button>
                 </router-link>
               </li>
             </ul>
@@ -190,6 +188,7 @@ export default {
       cameraTarget: null
     };
   },
+  created() {},
   mounted() {
     // DOM 更新了
     this.$nextTick(() => {
@@ -458,7 +457,7 @@ export default {
 <style lang="less" scoped>
 @import url("../assets/style/mixin/mixin.less");
 .selectPrinter {
-  display: none;
+  display: block;
 }
 #container {
   width: 100%;
