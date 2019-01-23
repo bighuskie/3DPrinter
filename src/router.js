@@ -2,7 +2,6 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import router from './router'
 import onlinePrint from './views/onlinePrint.vue'
-// import {getCookie,setCookie,delCookie} from '../public/lib/util/util';
 import axios from 'axios'
 import VueAxios from 'vue-axios'
 import Token from './define.js'
