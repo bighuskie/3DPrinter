@@ -3,12 +3,13 @@
     <div class="queue">
       <div class="tableHead">
           <span class="queueHead">打印队列</span>
+          <span  style="display:inline-block;float:right;margin-right:25px;"><el-button id="editButton" v-on:click="changeButton" size="mini" type="success" round>{{editText}}</el-button></span>
       </div>
 
       <div  v-for="(val,index) in printerInfo.printerQueue " :key="val.guid"  class="table" >  
         <el-row  type="flex" :class="((val.username== printerInfo.currentUser && val.percentage == 0))? 'row-bg':'row-bg disable'" justify="space-between">
           <el-col :span="3">
-            <div class="grid-content bg-pNo">
+            <div class="grid-contentOne bg-pNo">
               <el-tooltip placement="bottom">
                 <div slot="content">创建时间：{{val.createdTime}}<br/>尺寸大小：{{val.modelSize}}</div>
                 <el-button>{{val.pName}}</el-button>
@@ -25,22 +26,20 @@
             </div>
           </el-col>
           <el-col :span="6">
-            <div class="grid-content bg-progess">
+            <div class="grid-contentOne bg-progess">
               <el-progress :percentage="val.percentage" :color="val.color"></el-progress>
                 <p>{{val.timeRemaining}}</p>
             </div>
           </el-col> 
             <el-col :span="3">
-            <!-- <div class="actionButton"> -->      
+            <div class="actionButton" :class="(isActionButton==false && val.username== printerInfo.currentUser)? 'disableEdit':''">      
               <el-button size="mini" @click="moveUp(index)"><i class="el-icon-arrow-up"></i></el-button>
               <el-button  size="mini" @click="moveDown(index)"><i class="el-icon-arrow-down"></i></el-button> 
-            <!-- </div> -->
+            </div>
           </el-col>
           <el-col :span="3">
-            <!-- <div class="actionButton"> -->
               <el-button @click="changeable(index)" :type="val.type" size="small"  round>{{ val.currentState}}</el-button>
               <el-button @click="deleteRow(index)" type="danger" size="small" round>删除</el-button>
-            <!-- </div> -->
           </el-col>
         </el-row>
       </div>
@@ -53,6 +52,8 @@ export default {
   name: "queue",
   data() {
     return {
+      isActionButton: false,
+      editText:"调整打印顺序",
       printerInfo: [],
       userQueue: []
     };
@@ -97,15 +98,18 @@ export default {
       }
       // console.log(this.printerQueue[index].start);
     },
+    changeButton(){
+      this.isActionButton = !this.isActionButton;
+      if(this.isActionButton==true) this.editText="确认打印顺序";
+      else this.editText="调整打印顺序";
+    },
     //等待中与剩余时间的变化
     timeRemainingChange(){
       let percentage = this.printerInfo.printerQueue.percentage;
       if(percentage!=0){
-        this.timeRemaining="0h30mim"
+        this.timeRemaining="30mim"
       }
     },
-
-    //开始打印后就不可以操作了
 
     //删除操作
     deleteRow(index) {
@@ -124,7 +128,6 @@ export default {
             message: "已取消删除 "
           });
         });
-      // console.log("delete.."+index)
    },
     /*数组元素交换*/
     swapArray(arr, index1, index2) {
@@ -155,30 +158,6 @@ export default {
       }
       if(index==this.printerInfo.printerQueue.length-1) alert("该文件已经排在最后了哦！");
     }
-  //  //向上移动
-  //   moveUp(e) {
-  //       var totalQueue = this.printerInfo.printerQueue;
-  //       var that = this.userQueue;
-  //       for(var i=0;i<that.length;i++){
-  //           console.log(that[i].pName);
-  //         }
-  //       console.log(e.currentTarget.getAttribute('udata'));
-  //       var index = e.currentTarget.getAttribute('udata');
- 
-  //   },
-  // //向下移动
-  //   moveDown(index){
-  //     var that = this.printerInfo;
-  //     console.log('下移',index);
-  //     if ((index + 1) === that.printerQueue.length){
-  //       alert('已经是最后一条，不可下移');
-  //     } else {
-  //       console.log(index);
-  //       let downDate = that.printerQueue[index + 1];
-  //       that.printerQueue.splice(index + 1, 1);
-  //       that.printerQueue.splice(index,0, downDate);
-  //     }
-  //   }
    },
 };
 
@@ -207,8 +186,8 @@ export default {
   margin: auto auto;
   background-color: #ffffff;
   font-size: 20px;
-  border-left: 3px solid #D4EDDA;
-  border-right: 3px solid #D4EDDA;
+  border-left: 1px solid #D4EDDA;
+  border-right: 1px solid #D4EDDA;
 }
 .table{
   width: 1320px;
@@ -227,8 +206,8 @@ export default {
   margin: 2px 100px;
   border-bottom: 3px solid white;
   background-color:white;
-  border-left: 3px solid #D4EDDA;
-  border-right: 3px solid #D4EDDA;
+  border-left: 1px solid #D4EDDA;
+  border-right: 1px solid #D4EDDA;
   padding: 10px 10px;
 }
 
@@ -236,15 +215,18 @@ export default {
   text-align: center;
   
 }
-.grid-content.bg-progess {
+.grid-contentOne.bg-progess {
   position: relative;
   top: 5px;
   right: 40px;
 }
-.grid-content {
+.grid-contentOne {
   min-height: 30px;
 }
-
+.disableEdit button{
+   opacity:0.6;
+  pointer-events:none;
+}
 .disable{
   background-color: #f7f7f7;
 }
@@ -254,9 +236,7 @@ export default {
 }
 .actionButton{
   text-align: center;
-  padding-left: 80px;
 }
-
 .el-icon-sort-down,
 .el-icon-sort-up{
   position: relative;

@@ -2,13 +2,14 @@
     "status":[{
         "pName":"IP1,880",
         "pNo":"543,100",
-        "printorstate":"working",
+        "printorstate":"忙碌---",
         "netWork":"已连接---",
         "totolPecentage":90,
-        "bedtemperature":"120℃",
-        "mouthOneTemperature":"200℃",
-        "mouthTowTemperature":"200℃",
-        "totol":13
+        "bedtemperature":"120",
+        "mouthOneTemperature":"200",
+        "mouthTowTemperature":"200",
+        "hasPrint":1,
+        "noPrint":3
     }
     ]
 }

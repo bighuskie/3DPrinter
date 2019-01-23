@@ -10,7 +10,7 @@
         "count":2,
         "pmaterialType":"PLC",
         "mode":"品质",
-        "timeRemaining":"0h30min",       
+        "timeRemaining":"30min",       
         "percentage":90,
         "color":"yellow",
         "type":"info",

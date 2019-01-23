@@ -3,7 +3,7 @@
     <div class="status" v-for="(val,key) in status " :key=key>
         <el-row :gutter="30">
         <el-col :span="6">
-            <div class="grid-content bg-purple"> 
+            <div class="grid-contentOne bg-purple"> 
                 <div style="color:#EB686E;" class="cardHead">
                     打印机型号
                 </div>
@@ -14,7 +14,7 @@
             </div>
         </el-col>
         <el-col :span="6">
-            <div class="grid-content bg-purple">
+            <div class="grid-contentOne bg-purple">
                 <div style="color:#7E8EE3;" class="cardHead">
                     打印机编号
                 </div>
@@ -25,7 +25,7 @@
             </div>
         </el-col>
         <el-col :span="6">
-            <div class="grid-content bg-purple">
+            <div class="grid-contentOne bg-purple">
                 <div style="color:#1CBBB6;" class="cardHead">
                     打印机状态
                 </div>
@@ -36,16 +36,16 @@
             </div>
         </el-col>
         <el-col :span="6">
-            <div class="grid-content bg-purple">
+            <div class="grid-contentOne bg-purple">
                 <div style="color:#FDB958;" class="cardHead">
                     打印机温度
                 </div>
                 <div class="cardEndFour">
                     <img style="width: 68px; height:68px;margin-top:10px" src="../../assets/images/temperature.png" alt=""> 
                     <div class="temperature">
-                    <div>热床温度：<span class="temperatureNum">{{val.bedtemperature}}</span></div>
-                    <div>喷嘴1温度：<span class="temperatureNum">{{val.mouthOneTemperature}}</span></div>
-                    <div>喷嘴2温度：<span class="temperatureNum">{{val.mouthTowTemperature}}</span></div>
+                    <div>热床温度：<span class="temperatureNum">{{val.bedtemperature}}℃</span></div>
+                    <div>喷嘴1温度：<span class="temperatureNum">{{val.mouthOneTemperature}}℃</span></div>
+                    <div>喷嘴2温度：<span class="temperatureNum">{{val.mouthTowTemperature}}℃</span></div>
                     </div>
                 </div>
             </div>
@@ -53,14 +53,44 @@
         </el-row>
         <el-row>
             <el-col :span="24" justify="center">
-                <div class="line"> <span class="fileSum">当前打印文件数量：{{val.totol}}</span></div>
+                <div class="line"> <span class="fileSum">已打印文件数量/未打印文件数量：{{val.hasPrint}}/{{val.noPrint}}</span></div>
                 <div class="other">
-                   <div class="otherInclude">
+                    <div class="otherInclude">
                     <el-progress :text-inside="true" :stroke-width="18" :percentage="val.totolPecentage" color="#D4EDDA"></el-progress>
                     </div>
             </div>
             </el-col>
-        </el-row>  
+        </el-row>
+        <!-- <el-row :gutter="30">
+        <el-col :span="6">
+            <div class="grid-contentTow"> 
+                <div style="color:#FFFFFF;background-color:#EB686E" class="cardHead">
+                    打印底盘形状
+                </div>    
+            </div>
+        </el-col>
+        <el-col :span="6">
+            <div class="grid-contentTow bg-purple">
+                <div style="color:#FFFFFF;background-color:#7E8EE3" class="cardHead">
+                    打印底盘形状
+                </div>  
+            </div>
+        </el-col>
+        <el-col :span="6">
+            <div class="grid-contentTow bg-purple">
+                <div style="color:#FFFFFF;background-color:#1CBBB6" class="cardHead">
+                    总耗材量
+                </div>             
+            </div>
+        </el-col>
+        <el-col :span="6">
+            <div class="grid-contentTow bg-purple">
+                <div style="color:#FFFFFF;background-color:#FDB958" class="cardHead">
+                    坐标位置
+                </div>               
+            </div>
+        </el-col>
+        </el-row>   -->
     </div>
     </div>
 </template>
@@ -114,10 +144,15 @@ export default{
     background: #e5e9f2;
 }
 
-.grid-content {
+.grid-contentOne {
     min-height: 120px;
     background-color: white;
     box-shadow:1px 1px 7px #87928d;
+    border-radius: 3px;
+}
+.grid-contentTow {
+    min-height: 120px;
+    background-color: white;
     border-radius: 3px;
 }
 .row-bg {
