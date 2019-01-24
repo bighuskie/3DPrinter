@@ -3,7 +3,7 @@
     <div class="queue">
       <div class="tableHead">
           <span class="queueHead">打印队列</span>
-          <span  style="display:inline-block;float:right;margin-right:25px;"><el-button id="editButton" v-on:click="changeButton" size="mini" type="success" round>{{editText}}</el-button></span>
+          <span  style="display:inline-block;float:right;margin-right:25px;"><el-button id="editButton" v-on:click="changeButton" size="small" :type="editButtonType" round>{{editText}}</el-button></span>
       </div>
 
       <div  v-for="(val,index) in printerInfo.printerQueue " :key="val.guid"  class="table" >  
@@ -38,8 +38,8 @@
             </div>
           </el-col>
           <el-col :span="3">
-              <el-button @click="changeable(index)" :type="val.type" size="small"  round>{{ val.currentState}}</el-button>
-              <el-button @click="deleteRow(index)" type="danger" size="small" round>删除</el-button>
+              <el-button @click="changeable(index)" :type="val.type" size="mini"  round>{{val.currentState}}</el-button>
+              <el-button @click="deleteRow(index)" type="danger" size="mini" round>删除</el-button>
           </el-col>
         </el-row>
       </div>
@@ -53,6 +53,7 @@ export default {
   data() {
     return {
       isActionButton: false,
+      editButtonType:"primary",
       editText:"调整打印顺序",
       printerInfo: [],
       userQueue: []
@@ -90,7 +91,7 @@ export default {
       if(!this.printerInfo.printerQueue[index].start) {
         this.$set(this.printerInfo.printerQueue[index], "start", true);
         this.printerInfo.printerQueue[index].currentState = "开始";
-        this.printerInfo.printerQueue[index].type = "success";
+        this.printerInfo.printerQueue[index].type = "primary";
       } else {
         this.$set(this.printerInfo.printerQueue[index], "start", false);
         this.printerInfo.printerQueue[index].currentState = "暂停";
@@ -100,8 +101,16 @@ export default {
     },
     changeButton(){
       this.isActionButton = !this.isActionButton;
-      if(this.isActionButton==true) this.editText="确认打印顺序";
-      else this.editText="调整打印顺序";
+      if(this.isActionButton==true) 
+      {
+        this.editText="确认打印顺序";
+        this.editButtonType="success"
+      }
+      else
+      {
+      this.openConfirm();
+      this.editText="调整打印顺序";
+      this.editButtonType="primary"} 
     },
     //等待中与剩余时间的变化
     timeRemainingChange(){
@@ -129,6 +138,32 @@ export default {
           });
         });
    },
+   openConfirm() {
+        this.$confirm('是否确定调整为此打印顺序?', '提示', {
+          confirmButtonText: '确定',
+          cancelButtonText: '取消',
+          type: 'warning'
+        }).then(() => {
+          this.$message({
+            type: 'success',
+            message: '调整文件打印顺序成功!'
+          });
+          //将数据传输给后端
+                this.axios({
+                    method: 'post',
+                    url: 'http://192.168.1.243:7001/api/v1/login',
+                    withCredentials: true,
+                    data:{
+                        printerQueue: this.printerInfo.printerQueue    
+                    }
+                }).then(res => {console.log(res);})    
+        }).catch(() => {
+          this.$message({
+            type: 'info',
+            message: '已取消删除'
+          });          
+        });
+      },
     /*数组元素交换*/
     swapArray(arr, index1, index2) {
     arr[index1] = arr.splice(index2, 1, arr[index1])[0];
@@ -228,10 +263,11 @@ export default {
   pointer-events:none;
 }
 .disable{
-  background-color: #f7f7f7;
+  background-color: rgb(26, 194, 114,0.1);
+
 }
 .disable button{
-  opacity:0.6;
+  opacity:0.3;
   pointer-events:none;
 }
 .actionButton{

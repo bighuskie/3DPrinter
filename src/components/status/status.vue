@@ -56,7 +56,7 @@
                 <div class="line"> <span class="fileSum">已打印文件数量/未打印文件数量：{{val.hasPrint}}/{{val.noPrint}}</span></div>
                 <div class="other">
                     <div class="otherInclude">
-                    <el-progress :text-inside="true" :stroke-width="18" :percentage="val.totolPecentage" color="#D4EDDA"></el-progress>
+                    <el-progress :text-inside="true" :stroke-width="16" :percentage="val.totolPecentage" color="#1AC272"></el-progress>
                     </div>
             </div>
             </el-col>
@@ -201,9 +201,6 @@ font-size: 32px;
 .line{
     height: 35px;
     width: 100%;
-    border-top:5px solid white;
-    border-left:5px solid white;
-    border-right:5px solid white;
     padding: 0px 3px;
 }
 .temperature{
@@ -219,7 +216,6 @@ font-size: 32px;
 }
 .fileSum{
     font-size: 16px;
-    color: #1ac272;
     position: relative;
     top: 5px;
 }

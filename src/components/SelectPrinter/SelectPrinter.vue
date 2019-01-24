@@ -30,7 +30,7 @@
                       </ul>
                   </div>  
                   <div style="text-align: right; padding-right:20px;">  
-                   <el-button size="small" type="primary" round>去打印</el-button>   
+                   <el-button size="small" @click="selectPrinterClick(val.number)" type="primary"  round>去打印</el-button>   
                   </div>  
                 </el-collapse-item>
           </el-collapse> 
@@ -61,8 +61,25 @@ export default {
     },
     handleSelect(item){
         this.searchMsg = item.name;
-        this.querySearchAsync();
+        var modelInfo = this.modelInfo;
+        var results = this.searchMsg ? modelInfo.filter(this.createStateFilter(this.searchMsg)) : modelInfo;
+        this.displayInfo=results;
         this.openMsg();
+    },
+    selectPrinterClick(num){
+        //将数据传输给后端
+                this.axios({
+                    method: 'post',
+                    url: 'http://192.168.1.243:7001/api/v1/login',
+                    withCredentials: true,
+                    data:{
+                        printerNumber:num
+                    }
+                }).then(res => {
+                console.log(res); 
+                })  
+        //关闭弹窗
+        this.dialogTableVisible = false ; 
     },
      querySearchAsync(queryString, callback) {
         var modelInfo = this.modelInfo;

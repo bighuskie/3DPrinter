@@ -1,16 +1,17 @@
 <template>
   <div id="app">
-    
     <router-view/>
     <footinfo></footinfo>
   </div>
 </template>
 
 <script>
+import navinfo from "./components/nav/nav";
 import footinfo from "./components/footer/footer";
 export default {
   components: {
-    footinfo
+    footinfo,
+    navinfo
   }
 };
 </script>

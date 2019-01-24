@@ -71,12 +71,6 @@ export default new Router({
       component: () => import('./views/userRegister.vue')
     },
     {
-      path: '/status',
-      name: 'status',
-      component: () => import('./views/userRegister.vue'),
-      meta:{requiresAuth:true}
-    },
-    {
     path: '/about',
       name: 'about',
       component: () => import('./views/about'),
