@@ -1,66 +1,69 @@
 <template>
     <div class="homeBox">
-    <div class="status" v-for="(val,key) in status " :key=key>
-        <el-row :gutter="30">
-        <el-col :span="6">
-            <div class="grid-contentOne bg-purple"> 
-                <div style="color:#EB686E;" class="cardHead">
-                    打印机型号
-                </div>
-                <div class="cardEndOne">
-                    <i style="color:#F0959C;font-size:50px;margin-left:15px;margin-top:20px;" class="el-icon-printer"></i>  
-                    <span class="dataOfprintor">{{val.pName}}</span>
-                </div>
-            </div>
-        </el-col>
-        <el-col :span="6">
-            <div class="grid-contentOne bg-purple">
-                <div style="color:#7E8EE3;" class="cardHead">
-                    打印机编号
-                </div>
-                <div class="cardEndTow">
-                    <img style="width: 70px; height:70px;margin-top:10px" src="../../assets/images/printNum.png" alt=""> 
-                    <span class="dataOfprintor">{{val.pNo}}</span>
-                </div>
-            </div>
-        </el-col>
-        <el-col :span="6">
-            <div class="grid-contentOne bg-purple">
-                <div style="color:#1CBBB6;" class="cardHead">
-                    打印机状态
-                </div>
-                <div class="cardEndThree">
-                    <img style="width: 70px; height:70px;margin-top:10px" src="../../assets/images/status.png" alt=""> 
-                    <span class="dataOfprintor">{{val.printorstate}}</span>
-                </div>
-            </div>
-        </el-col>
-        <el-col :span="6">
-            <div class="grid-contentOne bg-purple">
-                <div style="color:#FDB958;" class="cardHead">
-                    打印机温度
-                </div>
-                <div class="cardEndFour">
-                    <img style="width: 68px; height:68px;margin-top:10px" src="../../assets/images/temperature.png" alt=""> 
-                    <div class="temperature">
-                    <div>热床温度：<span class="temperatureNum">{{val.bedtemperature}}℃</span></div>
-                    <div>喷嘴1温度：<span class="temperatureNum">{{val.mouthOneTemperature}}℃</span></div>
-                    <div>喷嘴2温度：<span class="temperatureNum">{{val.mouthTowTemperature}}℃</span></div>
+         <div class="status" v-for="(val,key) in status " :key=key>
+            <el-row :gutter="30">
+            <el-col :span="6">
+                <div class="grid-contentOne bg-purple"> 
+                    <div style="color:#EB686E;" class="cardHead">
+                        打印机型号
+                    </div>
+                    <div class="cardEndOne">
+                        <i style="color:#F0959C;font-size:50px;margin-left:15px;margin-top:20px;" class="el-icon-printer"></i>  
+                        <span class="dataOfprintor">{{val.pName}}</span>
                     </div>
                 </div>
-            </div>
-        </el-col>
-        </el-row>
-        <el-row>
-            <el-col :span="24" justify="center">
-                <div class="line"> <span class="fileSum">已打印文件数量/未打印文件数量：{{val.hasPrint}}/{{val.noPrint}}</span></div>
-                <div class="other">
-                    <div class="otherInclude">
-                    <el-progress :text-inside="true" :stroke-width="16" :percentage="val.totolPecentage" color="#1AC272"></el-progress>
-                    </div>
-            </div>
             </el-col>
-        </el-row>
+            <el-col :span="6">
+                <div class="grid-contentOne bg-purple">
+                    <div style="color:#7E8EE3;" class="cardHead">
+                        打印机编号
+                    </div>
+                    <div class="cardEndTow">
+                        <img style="width: 70px; height:70px;margin-top:10px" src="../../assets/images/printNum.png" alt=""> 
+                        <span class="dataOfprintor">{{val.pNo}}</span>
+                    </div>
+                </div>
+            </el-col>
+            <el-col :span="6">
+                <div class="grid-contentOne bg-purple">
+                    <div style="color:#1CBBB6;" class="cardHead">
+                        打印机状态
+                    </div>
+                    <div class="cardEndThree">
+                        <img style="width: 70px; height:70px;margin-top:10px" src="../../assets/images/status.png" alt=""> 
+                        <span class="dataOfprintor">{{val.printorstate}}</span>
+                    </div>
+                </div>
+            </el-col>
+            <el-col :span="6">
+                <div class="grid-contentOne bg-purple">
+                    <div style="color:#FDB958;" class="cardHead">
+                        打印机温度
+                    </div>
+                    <div class="cardEndFour">
+                        <img style="width: 68px; height:68px;margin-top:10px" src="../../assets/images/temperature.png" alt=""> 
+                        <div class="temperature">
+                        <div>热床温度：<span class="temperatureNum">{{val.bedtemperature}}℃</span></div>
+                        <div>喷嘴1温度：<span class="temperatureNum">{{val.mouthOneTemperature}}℃</span></div>
+                        <div>喷嘴2温度：<span class="temperatureNum">{{val.mouthTowTemperature}}℃</span></div>
+                        </div>
+                    </div>
+                </div>
+            </el-col>
+            </el-row>
+            <el-row>
+                
+            </el-row>
+             <!-- <el-row>
+                <el-col :span="24" justify="center">
+                    <div class="line"> <span class="fileSum">已打印文件数量/未打印文件数量：{{val.hasPrint}}/{{val.noPrint}}</span></div>
+                    <div class="other">
+                        <div class="otherInclude">
+                        <el-progress :text-inside="true" :stroke-width="16" :percentage="val.totolPecentage" color="#1AC272"></el-progress>
+                        </div>
+                </div>
+                </el-col>
+            </el-row> -->
         <!-- <el-row :gutter="30">
         <el-col :span="6">
             <div class="grid-contentTow"> 
@@ -92,22 +95,83 @@
         </el-col>
         </el-row>   -->
     </div>
+        <div class="chart-container" style="margin:0 auto; margin-bottom:40px;position: relative; width:1120px">
+            <canvas id="chart"></canvas>
+        </div>
     </div>
 </template>
-
 <script>
 export default{
     name:'status',
     data(){
         return{
             status:[],
+            labels:[],//图表横坐标
+            datasets:{}//图表纵坐标
         }
     },
-    created(){
-        this.axios.get("data/status.json").then(res => {
-        this.status = res.data.status;
-        })
+   created(){
+            this.axios.get("data/status.json").then(res => {
+            this.status = res.data.status;
+            this.labels = res.data.labels;
+            this.datasets = res.data.datasets;
+            
+            })
     },
+    beforeUpdate(){
+        var ctx = document.getElementById('chart').getContext('2d');
+        var chart = new Chart(ctx, {
+        // The type of chart we want to create
+        type: 'line',
+
+        // The data for our dataset
+        data: {
+            labels:this.labels,
+            datasets: [{
+                label: "热床温度",
+                fill: false,
+                borderColor: '#EB696F',
+                pointBorderColor:"rgb(231, 28, 39)",
+                pointBackgroundColor:"rgb(231, 28, 39)",
+                lineTension:0,
+                data: this.datasets.data1
+            },
+            {
+                label: "喷头温度",
+                fill: false,
+                borderColor: '#FDB958',
+                pointBorderColor:"#FFF",
+                pointBackgroundColor:"#FFF",
+                lineTension:0,
+                data: this.datasets.data2
+            }
+            ]
+        },
+
+        // Configuration options go here
+        options: {
+            responsive:true,
+            aspectRatio:3,
+            maintainAspectRatio:true
+        }
+        });
+    },
+    methods:{
+         addData(chart, label, data) {
+            chart.data.labels.push(label);
+            chart.data.datasets.forEach((dataset) => {
+                dataset.data.push(data);
+            });
+            chart.update();
+        },
+         removeData(chart) {
+            chart.data.labels.pop();
+            chart.data.datasets.forEach((dataset) => {
+                dataset.data.pop();
+            });
+            chart.update();
+        }
+    }
 }
 </script>
 

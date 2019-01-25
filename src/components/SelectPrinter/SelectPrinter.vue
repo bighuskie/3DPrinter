@@ -20,17 +20,17 @@
           </el-autocomplete></span>
           <!-- 折叠板 -->
           <el-collapse v-for="(val,key) of displayInfo" :key="key" style="margin-top:20px;" accordion>
-                <el-collapse-item :title="val.number+'号打印机'+'('+val.name+')'" >
+                <el-collapse-item :title="val.pNo+'号打印机'+'('+val.pName+')'" >
                   <div class="el-collapse-item-content">
                       <ul>   
-                        <li><span>打印机型号</span>{{val.model}}<i class="el-icon-printer"></i></li>
-                        <li><span>打印机品牌</span>{{val.name}}<i class="el-icon-printer"></i></li>
-                        <li><span>打印机状态</span>{{val.status}}<i class="el-icon-printer"></i></li>
-                        <li><span>预计等待时间</span>{{val.time}}<i class="el-icon-printer"></i></li>
+                        <li><span>打印机型号</span>{{val.pModal}}<i class="el-icon-printer"></i></li>
+                        <li><span>打印机品牌</span>{{val.pName}}<i class="el-icon-printer"></i></li>
+                        <li><span>打印机状态</span>{{val.pStatus}}<i class="el-icon-printer"></i></li>
+                        <li><span>预计等待时间</span>{{val.waitingTime}}<i class="el-icon-printer"></i></li>
                       </ul>
                   </div>  
                   <div style="text-align: right; padding-right:20px;">  
-                   <el-button size="small" @click="selectPrinterClick(val.number)" type="primary"  round>去打印</el-button>   
+                   <el-button size="small" @click="selectPrinterClick(val.pNo)" type="primary"  round>去打印</el-button>   
                   </div>  
                 </el-collapse-item>
           </el-collapse> 
@@ -68,16 +68,16 @@ export default {
     },
     selectPrinterClick(num){
         //将数据传输给后端
-                this.axios({
-                    method: 'post',
-                    url: 'http://192.168.1.243:7001/api/v1/login',
-                    withCredentials: true,
-                    data:{
-                        printerNumber:num
-                    }
-                }).then(res => {
-                console.log(res); 
-                })  
+                // this.axios({
+                //     method: 'post',
+                //     url: 'http://192.168.1.243:7001/api/v1/printer/select',
+                //     withCredentials: true,
+                //     data:{
+                //         printerNumber:num
+                //     }
+                // }).then(res => {
+                // console.log(res); 
+                // })  
         //关闭弹窗
         this.dialogTableVisible = false ; 
     },
@@ -97,8 +97,9 @@ export default {
     }
   },
   created() {
-    this.axios.get("data/model.json").then(res => {
-        this.modelInfo = res.data.printerData;
+    //获取打印机数据
+    this.axios.get("http://192.168.1.243:7001/api/v1/printer/select").then(res => {
+        this.modelInfo = res.data;
         this.displayInfo = this.modelInfo;
       });
   },

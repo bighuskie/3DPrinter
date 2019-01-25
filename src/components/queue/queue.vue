@@ -5,7 +5,6 @@
           <span class="queueHead">打印队列</span>
           <span  style="display:inline-block;float:right;margin-right:25px;"><el-button id="editButton" v-on:click="changeButton" size="small" :type="editButtonType" round>{{editText}}</el-button></span>
       </div>
-
       <div  v-for="(val,index) in printerInfo.printerQueue " :key="val.guid"  class="table" >  
         <el-row  type="flex" :class="((val.username== printerInfo.currentUser && val.percentage == 0))? 'row-bg':'row-bg disable'" justify="space-between">
           <el-col :span="3">

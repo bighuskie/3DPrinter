@@ -30,7 +30,10 @@ export default {
                 alert("请输入账号和密码！");
                 return;
             }
-            //将数据传输给后端
+            /** 将数据传输给后端
+                返回信息:
+                code:  1：登录成功  -1：密码错误  -2：用户不存在
+            */
                 this.axios({
                     method: 'post',
                     url: 'http://192.168.1.243:7001/api/v1/login',
