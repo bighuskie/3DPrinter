@@ -1,0 +1,20 @@
+{
+    "status":[{
+        "pName":"IP1,880",
+        "pNo":"543,100",
+        "printorstate":"忙碌---",
+        "netWork":"已连接---",
+        "totolPecentage":90,
+        "bedtemperature":"120",
+        "mouthOneTemperature":"200",
+        "mouthTowTemperature":"200",
+        "hasPrint":1,
+        "noPrint":3
+    }
+    ],
+    "labels": ["0s", "1s", "2s", "3s", "4s", "5s", "6s","7s","8s","9s"],
+    "datasets": {
+        "data1": [20, 60, 80, 70, 60, 40, 100,90,99,96],
+        "data2": [20, 50,120,185, 200, 200,198,196,199,198]
+    }
+}

@@ -1,6 +1,37 @@
 <template>
   <div>
-    <nav
+    <nav class="nav-wrapper">
+      <div class="branch-wrapper">
+        <img src="./images/brand.png" alt>
+      </div>
+      <div class="wall"></div>
+      <div class="list-wrapper">
+        <ul>
+          <router-link to="/">
+            <li>首页</li>
+          </router-link>
+          <router-link to="/">
+            <li>在线建模</li>
+          </router-link>
+          <router-link to="/onlinePrint">
+            <li>在线打印</li>
+          </router-link>
+          <router-link to="/status">
+            <li>当前状态</li>
+          </router-link>
+          <router-link to="/about">
+            <li>关于我们</li>
+          </router-link>
+          <router-link to="/">
+            <li>登录</li>
+          </router-link>
+          <router-link to="/register">
+            <li>注册</li>
+          </router-link>
+        </ul>
+      </div>
+    </nav>
+    <!-- <nav
       class="navbar navbar-default c_navbar navbar-static-top"
       role="navigation"
       :style="{'background-color':navBgColor}"
@@ -57,7 +88,7 @@
           </ul>
         </div>
       </div>
-    </nav>
+    </nav>-->
   </div>
 </template>
 
@@ -75,50 +106,37 @@ export default {
 </script>
 
 <style lang="less" scoped>
-.c_navbar {
-  background-color: #464646;
-  border-color: #e7e7e700;
-  margin-bottom: 0;
-  .c_cot {
-    width: 90%;
-    .c_header {
-      display: inline-block;
-      width: 19%;
+.nav-wrapper {
+  display: flex;
+  align-items: center;
+  height: 75px;
+  width: 100%;
+  min-width: 1135px;
+  z-index: 999;
+  background-color: #f8f8f800;
+  .branch-wrapper {
+    flex-basis: 400px;
+    text-align: center;
+    img {
+      width: 250px;
+      height: 50px;
+    }
+  }
+  .wall {
+    flex-grow: 1;
+  }
+  .list-wrapper {
+    ul {
+      padding: 0;
       height: 75px;
-    }
-    .nav_menu_li {
-      margin-right: 1vh;
-      .nav_menu_font {
-        line-height: 44px;
-        font-size: 1.5em;
-        color: #fff;
+      li {
+        display: inline-block;
+        list-style: none;
+        line-height: 75px;
+        margin-right: 40px;
+        font-size: 20px;
+        color: white;
       }
-    }
-    .btn_login {
-      border: 3px solid #fff;
-      border-radius: 18px;
-      margin-top: 21px;
-      width: 74px;
-      height: 36px;
-      a {
-        color: #fff;
-        line-height: 0;
-        font-size: 1.3em;
-        .img-circle {
-          width: 45px;
-          height: 45px;
-          display: inline-block;
-        }
-        span {
-          display: inline-block;
-        }
-      }
-    }
-    .login_img {
-      margin-top: 0;
-      border: none;
-      border-radius: 0;
-      width: auto;
     }
   }
 }

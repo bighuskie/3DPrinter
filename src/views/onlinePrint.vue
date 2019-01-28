@@ -1,9 +1,6 @@
 <template>
   <div class="onlinePrint">
     <navinfo></navinfo>
-    <div class="selectPrinter">
-      <select-printer ref="selectPrinter"></select-printer>
-    </div>
     <main id="container">
       <!-- 模型预览与相关信息显示 -->
       <div class="container-fluid" id="prev">
@@ -460,7 +457,7 @@ export default {
 <style lang="less" scoped>
 @import url("../assets/style/mixin/mixin.less");
 .selectPrinter {
-  display: none;
+  display: block;
 }
 #container {
   width: 100%;
