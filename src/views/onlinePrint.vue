@@ -1,6 +1,5 @@
 <template>
   <div class="onlinePrint">
-    <navinfo></navinfo>
     <main id="container">
       <!-- 模型预览与相关信息显示 -->
       <div class="container-fluid" id="prev">

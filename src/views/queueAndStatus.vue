@@ -11,7 +11,7 @@ import status from "../components/status/status"
 export default {
     components:{
         queue,
-        status,
+        status
     }
 }
 </script>

@@ -16,17 +16,17 @@
                   :fetch-suggestions="querySearchAsync"
                   placeholder="请输入内容" 
                   @select="handleSelect"
-                  value-key="name">
+                  value-key="pName">
           </el-autocomplete></span>
           <!-- 折叠板 -->
           <el-collapse v-for="(val,key) of displayInfo" :key="key" style="margin-top:20px;" accordion>
                 <el-collapse-item :title="val.pNo+'号打印机'+'('+val.pName+')'" >
                   <div class="el-collapse-item-content">
                       <ul>   
-                        <li><span>打印机型号</span>{{val.pModal}}<i class="el-icon-printer"></i></li>
+                        <li><span>打印机型号</span>{{val.pModal}}<i class="el-icon-info"></i></li>
                         <li><span>打印机品牌</span>{{val.pName}}<i class="el-icon-printer"></i></li>
-                        <li><span>打印机状态</span>{{val.pStatus}}<i class="el-icon-printer"></i></li>
-                        <li><span>预计等待时间</span>{{val.waitingTime}}<i class="el-icon-printer"></i></li>
+                        <li><span>打印机状态</span>{{val.pStatus}}<i class="el-icon-download"></i></li>
+                        <li><span>预计等待时间</span>{{val.waitingTime}}<i class="el-icon-time"></i></li>
                       </ul>
                   </div>  
                   <div style="text-align: right; padding-right:20px;">  
@@ -60,7 +60,7 @@ export default {
         showClose: true,});
     },
     handleSelect(item){
-        this.searchMsg = item.name;
+        this.searchMsg = item.pName;
         var modelInfo = this.modelInfo;
         var results = this.searchMsg ? modelInfo.filter(this.createStateFilter(this.searchMsg)) : modelInfo;
         this.displayInfo=results;
@@ -87,20 +87,22 @@ export default {
       clearTimeout(this.timeout);
         this.timeout = setTimeout(() => {
           this.displayInfo=results;
+          console.log(results);
           callback(results);//回调输入建议
         }, 10);
       },
       createStateFilter(queryString) {
         return (printer) => {
-          return (printer.name.toLowerCase().indexOf(queryString.toLowerCase()) === 0);
+          return (printer.pName.toLowerCase().indexOf(queryString.toLowerCase()) === 0);
         };
     }
   },
   created() {
     //获取打印机数据
-    this.axios.get("http://192.168.1.243:7001/api/v1/printer/select").then(res => {
-        this.modelInfo = res.data;
+    this.axios.get("data/select.json").then(res => {
+        this.modelInfo = res.data.printerData;
         this.displayInfo = this.modelInfo;
+        
       });
   },
   mounted(){

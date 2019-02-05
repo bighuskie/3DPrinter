@@ -75,7 +75,13 @@ export default new Router({
       name: 'about',
       component: () => import('./views/about'),
       meta:{requiresAuth:true}  //这个是路由拦截用的，目前路由拦截功能暂时关闭了，不影响
-    }
+    },
+    {
+      path: '/login',
+        name: 'login',
+        component: () => import('./views/userLogin'),
+        meta:{requiresAuth:true}  //这个是路由拦截用的，目前路由拦截功能暂时关闭了，不影响
+      }
   ]
 })
 
