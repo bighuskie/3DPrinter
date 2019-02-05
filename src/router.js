@@ -1,7 +1,13 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import router from './router'
+
+import home from './views/index.vue'
 import onlinePrint from './views/onlinePrint.vue'
+import status from './views/queueAndStatus.vue'
+import about from './views/about.vue'
+import register from './views/userRegister.vue'
+
 import axios from 'axios'
 import VueAxios from 'vue-axios'
 import Token from './define.js'
@@ -11,7 +17,8 @@ Vue.use(Router)
 export default new Router({
   routes: [{
       path: '/',
-      redirect: '/onlinePrint'
+      name: 'home',
+      component: home
     },
     {
       path: '/onlinePrint',
@@ -63,17 +70,17 @@ export default new Router({
     {
       path: '/status',
       name: 'status',
-      component: () => import('./views/queueAndStatus.vue')
+      component: status
     },
     {
       path: '/register',
       name: 'register',
-      component: () => import('./views/userRegister.vue')
+      component: register
     },
     {
     path: '/about',
       name: 'about',
-      component: () => import('./views/about'),
+      component: about,
       meta:{requiresAuth:true}  //这个是路由拦截用的，目前路由拦截功能暂时关闭了，不影响
     },
     {
