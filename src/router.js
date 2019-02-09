@@ -25,7 +25,8 @@ export default new Router({
       name: 'onlinePrint',
       component: onlinePrint,
       meta:{requiresAuth:true},
-      children: [{
+      children: [
+        {
           path: "all",
           name: "all",
           component: () => import('./components/masklibrary/masklibrary.vue'),
@@ -34,6 +35,11 @@ export default new Router({
             name: "modelDetail",
             component: () => import('./components/masklibrary/modelDetail.vue')
           }]
+        },
+        {
+          path: "select",
+          name: "select",
+          component: () => import('./components/SelectPrinter/SelectPrinter1.vue'),
         },
         {
           path: "cartoon",

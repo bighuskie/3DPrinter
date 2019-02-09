@@ -22,7 +22,7 @@
           <router-link to="/about">
             <li>关于我们</li>
           </router-link>
-          <router-link to="/">
+          <router-link to="/login">
             <li>登录</li>
           </router-link>
           <router-link to="/register">

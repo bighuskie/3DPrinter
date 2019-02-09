@@ -25,7 +25,10 @@
                 <img src="../assets/images/cloud.png" alt class="img-responsive">
                 <span>打印机类型:</span>&nbsp;
                 <span>Printors i3</span>
-                <select-printer style="display:inline;margin-left:30px;"></select-printer>
+                <router-link to="/onlinePrint/select">
+                  <button class="btn btn-success btn-sm op_btn op_btn3 printing" ref="printing" style="margin-left:30px;">选择打印机</button>
+                </router-link>
+                <!-- <select-printer style="display:inline;margin-left:30px;"></select-printer> -->
               </li>
               <li class="location-wrapper">
                 <img src="../assets/images/locate.png" alt class="img-responsive">

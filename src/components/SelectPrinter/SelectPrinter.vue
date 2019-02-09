@@ -102,17 +102,19 @@ export default {
     this.axios.get("data/select.json").then(res => {
         this.modelInfo = res.data.printerData;
         this.displayInfo = this.modelInfo;
-        
       });
   },
   mounted(){
-    document.getElementById("elButton").click();//自动弹窗
+    // document.getElementById("elButton").click();//自动弹窗
     this.openMsg();
   }
 }
 </script>
 
-<style>
+<style scoped>
+.el-dialog__header{
+  padding-top: 0 !important;
+}
 .el-dialog__title {
   font-size: 24px;
   font-weight: 600;
