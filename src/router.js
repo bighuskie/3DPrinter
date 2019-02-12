@@ -4,6 +4,7 @@ import router from './router'
 
 import home from './views/index.vue'
 import onlinePrint from './views/onlinePrint.vue'
+import userMsg from './views/userMsg.vue'
 import status from './views/queueAndStatus.vue'
 import about from './views/about.vue'
 import register from './views/userRegister.vue'
@@ -74,9 +75,26 @@ export default new Router({
       ]
     },
     {
-      path: '/status',
-      name: 'status',
-      component: status
+      path: '/userMsg',
+      name: 'userMsg',
+      component:userMsg,
+      children: [
+        {
+          path: "userOrder",
+          name: "userOrder",
+          component: () => import('./components/userMsg/userOrder.vue')
+        },
+        {
+          path: "printerStatus",
+          name: "printerStatus",
+          component: () => import('./components/userMsg/printerStatus.vue')
+        }
+      ]
+    },
+    {
+      path:'/status',
+      name:'status',
+      component:status
     },
     {
       path: '/register',
