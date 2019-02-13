@@ -3,7 +3,7 @@
         <h1>
                 我的订单
         </h1>
-        <span>什么什么什么什么什么 >></span>
+        <a id="goback" @click="goBack">  << 返回</a>
         <p> 订单号：160620190211526332
             <router-link to="/userMsg/userOrder" id="test1">
                  <button class="btn btn-success op_btn op_btn3 ">测试按钮</button>
@@ -53,9 +53,9 @@
                     <div class="printer">
                         <h3 class="subtitle">打印机信息</h3>
                         <ul>
-                            <li>编&nbsp;&nbsp;&nbsp;&nbsp;号: dog</li>
-                            <li>型&nbsp;&nbsp;&nbsp;&nbsp;号：{{this.displayInfo.mfileSize}}</li>
-                            <li>品&nbsp;&nbsp;&nbsp;&nbsp;牌：STL</li>
+                            <li>编&nbsp;&nbsp;&nbsp;&nbsp;号: {{this.displayInfo.pNo}}</li>
+                            <li>型&nbsp;&nbsp;&nbsp;&nbsp;号：{{this.displayInfo.pModal}}</li>
+                            <li>品&nbsp;&nbsp;&nbsp;&nbsp;牌：{{this.displayInfo.pName}}</li>
                             <li>打印模式：{{this.displayInfo.mQuality}}</li>
                         </ul>
                     </div>
@@ -84,9 +84,6 @@
             </section>
             
         </section>
-            <!-- <router-link to="/userMsg/userOrder">
-                    <button class="btn btn-success btn-sm op_btn op_btn3 printing" ref="printing">测试按钮</button>
-        </router-link> -->
     </div>
     
      
@@ -104,6 +101,11 @@ export default {
         this.displayInfo = res.data;
       });
   },
+  methods:{
+        goBack() {
+        this.$router.push('/userMsg');
+        }
+  }
 }
 </script>
 <style lang="less" scoped>
@@ -126,6 +128,13 @@ export default {
     hr {
         background-color: rgb(211, 212, 211);
     }
+    #goback{
+        margin-left: 30px;
+        cursor: pointer;
+        text-decoration: none;
+        color: @theme-color;
+    }
+    #goback:hover{color: #12864e}
     #msgTitle{
         width: 1120px;
         height: 25px;

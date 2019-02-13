@@ -7,6 +7,8 @@ import onlinePrint from './views/onlinePrint.vue'
 import userMsg from './views/userMsg.vue'
 import status from './views/queueAndStatus.vue'
 import about from './views/about.vue'
+import userOrderShow from './views/userOrderShow.vue'
+import userHistoryShow from './views/userHistoryShow.vue'
 import register from './views/userRegister.vue'
 
 import axios from 'axios'
@@ -77,19 +79,17 @@ export default new Router({
     {
       path: '/userMsg',
       name: 'userMsg',
-      component:userMsg,
-      children: [
-        {
-          path: "userOrder",
-          name: "userOrder",
-          component: () => import('./components/userMsg/userOrder.vue')
-        },
-        {
-          path: "printerStatus",
-          name: "printerStatus",
-          component: () => import('./components/userMsg/printerStatus.vue')
-        }
-      ]
+      component:userMsg
+    },
+    {
+      path: "/userOrderShow",
+      name: "userOrderShow",
+      component:userOrderShow
+    },
+    {
+      path: "/userHistoryShow",
+      name: "userHistoryShow",
+      component:userHistoryShow
     },
     {
       path:'/status',

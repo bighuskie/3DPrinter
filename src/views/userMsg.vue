@@ -1,29 +1,20 @@
 <template>
     <div class="userMsg">
-        <!-- <h1>
-                我的订单
-        </h1>
-        <span>什么什么什么什么什么 >></span>
-        <p> 文字文字文字文字
-            <router-link to="/userMsg/userOrder" id="test1">
-                 <button class="btn btn-success op_btn op_btn3 ">测试按钮</button>
-            </router-link>
-        </p>
-        <hr> -->
-        <router-view></router-view>
-        
-            <!-- <router-link to="/userMsg/userOrder">
-                    <button class="btn btn-success btn-sm op_btn op_btn3 printing" ref="printing">测试按钮</button>
-        </router-link> -->
+        <button class="btn btn-success op_btn op_btn3 " @click="goOrder">测试按钮</button>
+         <button class="btn btn-success op_btn op_btn3 " @click="goHistrory">测试按钮</button>
     </div>
     
      
 </template>
 <script>
-import userOrder from '../components/userMsg/userOrder'
 export default {
-   components:{
-        userOrder
+    methods: {
+        goOrder() {
+        this.$router.push('/userOrderShow');
+        },
+        goHistrory() {
+        this.$router.push('/userHistoryShow');
+        }
     }
 }
 </script>
