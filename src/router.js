@@ -79,7 +79,17 @@ export default new Router({
     {
       path: '/userMsg',
       name: 'userMsg',
-      component:userMsg
+      component:userMsg,
+      children: [{
+        path: "historyPreview",
+        name: "historyPreview",
+        component: () => import('./components/userMsg/historyPreview.vue')
+      },{
+        path: "orderPreview",
+        name: "orderPreview",
+        component: () => import('./components/userMsg/orderPreview.vue')
+      }
+    ]
     },
     {
       path: "/userOrderShow",
