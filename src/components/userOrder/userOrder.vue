@@ -3,7 +3,7 @@
         <h1>
                 我的订单
         </h1>
-        <a id="goback" @click="goBack">  << 返回</a>
+        <a id="goback" @click="goBack">返回</a>
         <p> 订单号：160620190211526332
             <router-link to="/userMsg/userOrder" id="test1">
                  <button class="btn btn-success op_btn op_btn3 ">测试按钮</button>
@@ -16,7 +16,7 @@
                 <h3 class="subtitle">已打印</h3>
                 <div id="msgTitle">
                     <span>下单时间</span>
-                    <span>文件名</span>
+                    <span>文件名称</span>
                     <span>模型名称</span>
                     <span>打印机编号</span>
                 </div>
