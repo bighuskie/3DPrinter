@@ -18,7 +18,6 @@
             <button class="btn btn-success op_btn op_btn3 " @click="goOrder">我的订单</button>
             <button class="btn btn-success op_btn op_btn3 " @click="goHistrory">历史订单</button>
         </div>
-        
     </div>
 </template>
 <script>
