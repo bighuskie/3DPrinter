@@ -1,20 +1,24 @@
 <template>
   <div  class="homeBox">
     <div class="queue">
+      <!-- 打印队列和调整顺序的按钮 -->
       <div class="tableHead">
-          <span class="queueHead">打印队列</span>
+          <span class="queueHead">正在打印文件</span>
           <span  style="display:inline-block;float:right;margin-right:25px;"><el-button id="editButton" v-on:click="changeButton" size="small" :type="editButtonType" round>{{editText}}</el-button></span>
       </div>
+      <!-- 队列信息 -->
       <div  v-for="(val,index) in printerInfo.printerQueue " :key="val.guid"  class="table" >  
         <el-row  type="flex" :class="((val.username== printerInfo.currentUser && val.percentage == 0))? 'row-bg':'row-bg disable'" justify="space-between">
+          <!--文件名称、创建时间、尺寸大小-->
           <el-col :span="3">
-            <div class="grid-contentOne bg-pNo">
+            <div class="fileName">
               <el-tooltip placement="bottom">
                 <div slot="content">创建时间：{{val.createdTime}}<br/>尺寸大小：{{val.modelSize}}</div>
                 <el-button>{{val.pName}}</el-button>
               </el-tooltip>
             </div>
           </el-col>
+          <!-- 打印材料、模式、数量 -->
           <el-col :span="3">
             <div>
               <el-radio-group  style="margin-top: 5px; position:relative ;right:60px ;top:12px">
@@ -24,18 +28,21 @@
               </el-radio-group>
             </div>
           </el-col>
+          <!-- 打印进度 -->
           <el-col :span="6">
-            <div class="grid-contentOne bg-progess">
+            <div class="progess">
               <el-progress :percentage="val.percentage" :color="val.color"></el-progress>
                 <p>{{val.timeRemaining}}</p>
             </div>
           </el-col> 
+          <!-- 调整顺序按钮 -->
             <el-col :span="3">
             <div class="actionButton" :class="(isActionButton==false && val.username== printerInfo.currentUser)? 'disableEdit':''">      
               <el-button size="mini" @click="moveUp(index)"><i class="el-icon-arrow-up"></i></el-button>
               <el-button  size="mini" @click="moveDown(index)"><i class="el-icon-arrow-down"></i></el-button> 
             </div>
           </el-col>
+          <!-- 暂停与删除 -->
           <el-col :span="3">
               <el-button @click="changeable(index)" :type="val.type" size="mini"  round>{{val.currentState}}</el-button>
               <el-button @click="deleteRow(index)" type="danger" size="mini" round>删除</el-button>
@@ -58,7 +65,7 @@ export default {
       userQueue: []
     };
   },
-  //每一行都获得不同的key值
+  //每一行都获得不同的key值（另一种方式是从后台传入不同的id）
   guid: function() {
     return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
       var r = Math.random() * 16 | 0,
@@ -66,17 +73,6 @@ export default {
       return v.toString(16);
     });
   },
-      //判断当前用户
-  // beforcreated(){
-  //   if(this.currentUser.username==this.printerQueue.username){
-  //     console.log("1")
-  //   }
-  // },
-  // currentUser(index,currentUser,printerQueue){
-  //   if(this.currentUser.username=this.this.printerQueue[index].username){
-  //     console.log("this.currentUser.username")
-  //   }
-  // },
   created() {
     this.axios.get("data/queue.json").then(res => {
       this.printerInfo = res.data;
@@ -199,66 +195,52 @@ export default {
 
 <style scoped>
 .homeBox {
-  font-family: "Arial";
   width: 100%;   
   height: 100%;
-  top: 0px;
   background-color: #eeeeee;
 }
 .queue{
   width: 1140px;
   max-width: 1140px;
   margin: auto auto;
-  padding: 0px 10px 40px 10px;
+  padding: 11px 10px 40px 10px;
   box-sizing: border-box;
   overflow: hidden;
 }
 .tableHead {
-  width: 1120px;
   height: 50px;
-  min-width: 1120px;
   margin: auto auto;
   background-color: #ffffff;
   font-size: 20px;
-  border-left: 1px solid #D4EDDA;
-  border-right: 1px solid #D4EDDA;
 }
 .table{
-  width: 1320px;
+  display: block;
   min-width: 1320px;
   margin: auto auto;
   position: relative;
   right: 100px;
 }
-
 .queueHead{
-  padding: 10px 40px;
-  position: relative;
-  top: 10px;
+  display: inline-block;
+  padding: 10px 30px;
 }
 .row-bg {
   margin: 2px 100px;
-  border-bottom: 3px solid white;
   background-color:white;
+  border-bottom: 3px solid white;
   border-left: 1px solid #D4EDDA;
   border-right: 1px solid #D4EDDA;
   padding: 10px 10px;
 }
-
-.bg-pNo{
+.fileName{
   text-align: center;
-  
 }
-.grid-contentOne.bg-progess {
-  position: relative;
-  top: 5px;
-  right: 40px;
-}
-.grid-contentOne {
-  min-height: 30px;
-}
+/* .progess {
+  display: block;
+  margin: 5px 0px 10px 0px;
+} */
 .disableEdit button{
-   opacity:0.6;
+  opacity:0.6;
   pointer-events:none;
 }
 .disable{
@@ -281,11 +263,6 @@ export default {
   font-weight: bold;
   color:rgb(89, 216, 106);
 }
-/* 
-.whiteSpace{
-  width: 30px;
-  height: 1px;
-} */
 button{
     -webkit-appearance: button;
     cursor: pointer;

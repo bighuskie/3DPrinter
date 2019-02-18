@@ -1,11 +1,14 @@
 <template>
     <div class="homeBox">
-         <div class="status" v-for="(val,key) in status " :key=key>
-            <el-row :gutter="30">
+        <!-- 关于打印机信息的第一排方格 -->
+        <div class="status" v-for="(val,key) in status " :key=key>
+            <!-- Row 组件 提供 gutter 属性来指定每一栏之间的间隔 -->
+            <el-row :gutter="30"> 
+            <!-- 关于打印机信息的第一排第一个方格 -->
             <el-col :span="6">
                 <div class="grid-contentOne bg-purple"> 
                     <div style="color:#EB686E;" class="cardHead">
-                        打印机型号
+                        打印机品牌
                     </div>
                     <div class="cardEndOne">
                         <i style="color:#F0959C;font-size:50px;margin-left:15px;margin-top:20px;" class="el-icon-printer"></i>  
@@ -13,10 +16,11 @@
                     </div>
                 </div>
             </el-col>
+            <!-- 关于打印机信息的第一排第二个方格 -->
             <el-col :span="6">
                 <div class="grid-contentOne bg-purple">
                     <div style="color:#7E8EE3;" class="cardHead">
-                        打印机编号
+                        打印机型号
                     </div>
                     <div class="cardEndTow">
                         <img style="width: 70px; height:70px;margin-top:10px" src="../../assets/images/printNum.png" alt=""> 
@@ -24,6 +28,7 @@
                     </div>
                 </div>
             </el-col>
+            <!-- 关于打印机信息的第一排第三个方格 -->
             <el-col :span="6">
                 <div class="grid-contentOne bg-purple">
                     <div style="color:#1CBBB6;" class="cardHead">
@@ -35,6 +40,7 @@
                     </div>
                 </div>
             </el-col>
+            <!-- 关于打印机信息的第一排第四个方格 -->
             <el-col :span="6">
                 <div class="grid-contentOne bg-purple">
                     <div style="color:#FDB958;" class="cardHead">
@@ -51,54 +57,61 @@
                 </div>
             </el-col>
             </el-row>
-            <el-row>
-                
-            </el-row>
-             <!-- <el-row>
-                <el-col :span="24" justify="center">
-                    <div class="line"> <span class="fileSum">已打印文件数量/未打印文件数量：{{val.hasPrint}}/{{val.noPrint}}</span></div>
-                    <div class="other">
-                        <div class="otherInclude">
-                        <el-progress :text-inside="true" :stroke-width="16" :percentage="val.totolPecentage" color="#1AC272"></el-progress>
-                        </div>
-                </div>
-                </el-col>
-            </el-row> -->
-        <!-- <el-row :gutter="30">
+        </div>
+        <!-- 温度表格 -->
+        <div class="chart-container" style="margin:10px auto; padding:30px; width:1120px;background-color:white">
+            <canvas id="chart"></canvas>
+        </div>
+        <!-- 关于打印机信息的第二排-->
+        <div class="status" v-for="(val,key) in status " :key=key>
+        <el-row :gutter="30">
         <el-col :span="6">
-            <div class="grid-contentTow"> 
+            <div class="grid-contentOne"> 
                 <div style="color:#FFFFFF;background-color:#EB686E" class="cardHead">
-                    打印底盘形状
-                </div>    
+                    正在打印数量
+                </div>
+                <div>
+                    <img style="width: 70px; height:70px;margin-top:10px" src="../../assets/images/printing.png" alt=""> 
+                    <span class="printCount">共{{val.printCount}}件</span>
+                </div>
             </div>
         </el-col>
         <el-col :span="6">
-            <div class="grid-contentTow bg-purple">
+            <div class="grid-contentOne bg-purple">
                 <div style="color:#FFFFFF;background-color:#7E8EE3" class="cardHead">
-                    打印底盘形状
+                    已完成打印数量
+                </div>
+                <div>
+                    <img style="width: 70px; height:70px;margin-top:10px" src="../../assets/images/finish.png" alt=""> 
+                    <span class="finishCount">共{{val.finishCount}}件</span>
                 </div>  
             </div>
         </el-col>
         <el-col :span="6">
-            <div class="grid-contentTow bg-purple">
+            <div class="grid-contentOne bg-purple">
                 <div style="color:#FFFFFF;background-color:#1CBBB6" class="cardHead">
                     总耗材量
-                </div>             
+                </div>   
+                <div>
+                    <img style="width: 70px; height:70px;margin-top:10px" src="../../assets/images/matiaral.png" alt=""> 
+                    <span class="matiaral">{{val.matiaral}}mm</span>
+                </div>          
             </div>
         </el-col>
         <el-col :span="6">
-            <div class="grid-contentTow bg-purple">
+            <div class="grid-contentOne bg-purple">
                 <div style="color:#FFFFFF;background-color:#FDB958" class="cardHead">
-                    坐标位置
+                    估计剩余时间
+                </div>
+                <div>
+                    <img style="width: 70px; height:70px;margin-top:10px" src="../../assets/images/timeRe.png" alt=""> 
+                    <span class="timeRemain">{{val.timeRemain}}min</span>
                 </div>               
             </div>
         </el-col>
-        </el-row>   -->
-    </div>
-        <div class="chart-container" style="margin:0 auto; margin-bottom:40px;position: relative; width:1120px">
-            <canvas id="chart"></canvas>
+        </el-row>  
         </div>
-    </div>
+    </div>        
 </template>
 <script>
 export default{
@@ -175,62 +188,45 @@ export default{
 }
 </script>
 
-<style scoped>
+<style lang="less" scoped>
+@one:#EB686E;
+@tow:#7E8EE3;
+@three:#1CBBB6;
+@four:#FDB958;
+@white:#eeeeee;
 .homeBox{
     font-family: "Arial";
     width: 100%;   
     height: 100%;
     top: 0px;
-    background-color: #eeeeee;
+    background-color: @white;
 }
+/* 关于打印机的前四个方格 */
 .status{
     width: 1140px;
     max-width: 1140px;
     margin: auto auto;
-    padding: 30px 10px 0px 10px;
+    padding: 7px 10px 0px 10px;
     box-sizing: border-box;
     overflow: hidden;
 } 
 .el-row {
-    margin-bottom: 20px;
+    margin-bottom: 7px;
 }
 .el-col {
     border-radius: 10px;
-    
-}
-.bg-purple-dark {
-    background: #99a9bf;
 }
 .bg-purple {
     background: #d3dce6;
 }
-.bg-purple-light {
-    background: #e5e9f2;
-}
 
 .grid-contentOne {
     min-height: 120px;
-    background-color: white;
+    background-color:white;
     box-shadow:1px 1px 7px #87928d;
     border-radius: 3px;
 }
-.grid-contentTow {
-    min-height: 120px;
-    background-color: white;
-    border-radius: 3px;
-}
-.row-bg {
-    padding: 10px 0;
-    background-color: #f9fafc;
-}
 
-.el-icon-star-off,
-.el-icon-more,
-.el-icon-share,
-.el-icon-printer{
-font-size: 32px;
-    color: #1ac272;
-}
 .dataOfprintor{
     font-size: 36px;
     font-weight:500;
@@ -239,33 +235,30 @@ font-size: 32px;
     margin-top: 20px;
     margin-right: 30px; 
 }
-
-.note{
-    color: #99a9bf;
-    font-size: 14px;
-}
-
-.other{
-    min-height: 50px;
-    background-color:white;
-    border-radius: 4px;
-}
-.otherInclude{
-    padding: 20px 10px;
-    margin-bottom: 10px;
-    width: 98%;
-    min-height: 44px;
-    /* background-color:#D4EDDA; */
-    border-radius: 4px;
-    position: relative;
-    left: 11px;
-    top:3px;
+.cardHead{
+    font-size:16px;
     text-align: center;
+    height: 30px;
+    line-height: 30px;
 }
-.line{
-    height: 35px;
-    width: 100%;
-    padding: 0px 3px;
+.cardStyle{
+    height:100px;
+}
+.cardEndOne{
+   .cardStyle;
+    background-color:@one;
+}
+.cardEndTow{
+    height:100px;
+    background-color:@tow;
+}
+.cardEndThree{
+    .cardStyle;
+    background-color:@three;
+}
+.cardEndFour{
+    .cardStyle;
+    background-color:@four;
 }
 .temperature{
     font-size: 14px;
@@ -278,32 +271,32 @@ font-size: 32px;
 .temperatureNum{
     font-size: 20px;
 }
-.fileSum{
-    font-size: 16px;
-    position: relative;
-    top: 5px;
+
+/* 关于打印机的后四个方格 */
+.aboutFont{
+    font-family: 'Awesome Font';
+    font-style: italic;
+    font-size: 36px;
+    font-weight:500;
+    float: right;
+    margin-top: 20px;
+    margin-right: 30px; 
 }
-.cardHead{
-    font-size:16px;
-    text-align: center;
-    height: 30px;
-    line-height: 30px;
+.printCount{
+    color:@one;
+    .aboutFont;
 }
-.cardEndOne{
-    height:100px;
-    background-color:#EB696F;
+.finishCount{
+    color:@tow;
+    .aboutFont;
 }
-.cardEndTow{
-    height:100px;
-    background-color:#7E8EE3;
+.matiaral{
+    color:@three;
+    .aboutFont;
 }
-.cardEndThree{
-    height:100px;
-    background-color:#1CBBB6;
-}
-.cardEndFour{
-    height:100px;
-    background-color:#FDB958;
+.timeRemain{
+    color:@four;
+    .aboutFont;
 }
 </style>
 

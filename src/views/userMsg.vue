@@ -4,12 +4,12 @@
                 <ul id="title" >
                   
                     <router-link to="/userMsg/orderPreview">
-                    <li class="active" @click="select(0)"><h1>我的订单</h1></li>
+                    <li class="active" @click="select(0)"><h3>我的订单</h3></li>
                     </router-link>
                
                 
                     <router-link to="/userMsg/historyPreview">
-                    <li class="secondLi" @click="select(1)"><h1>历史订单</h1></li>
+                    <li class="secondLi" @click="select(1)"><h3>历史订单</h3></li>
                     </router-link>
                 </ul>
                 <div class="showbox">
@@ -56,7 +56,7 @@ export default {
         width: 1120px;
         margin: 30px auto; 
        
-        h1 {
+        h3 {
             display: inline-block;
         }
         p {

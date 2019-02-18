@@ -1,15 +1,16 @@
 {
     "status":[{
-        "pName":"IP1,880",
-        "pNo":"543,100",
+        "pName":"极光沃尔",
+        "pNo":"IP1,880",
         "printorstate":"忙碌---",
         "netWork":"已连接---",
-        "totolPecentage":90,
         "bedtemperature":"120",
         "mouthOneTemperature":"200",
         "mouthTowTemperature":"200",
-        "hasPrint":1,
-        "noPrint":3
+        "printCount":"7",
+        "finishCount":"3",
+        "timeRemain":"130",
+        "matiaral":"600"
     }
     ],
     "labels": ["0s", "1s", "2s", "3s", "4s", "5s", "6s","7s","8s","9s"],

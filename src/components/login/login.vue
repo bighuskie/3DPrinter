@@ -2,8 +2,8 @@
     <div class="login">
         <el-card id="loginCard" shadow="always">
         <h1 style="font-family:'Microsoft YaHei';">登录</h1>
-        <input placeholder="账号" v-model="username"></input>
-        <input placeholder="密码" v-model="password"></input>
+        <input placeholder="账号" v-model="username">
+        <input placeholder="密码" v-model="password">
         <div class="submitAndSignup">
             <router-link to="/register"  class="signUp">注册</router-link>
             <el-button type="primary"  id="submit" size="small" @click="submit">登录</el-button>
