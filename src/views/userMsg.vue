@@ -12,23 +12,28 @@
                     <li class="secondLi" @click="select(1)"><h3>历史订单</h3></li>
                     </router-link>
                 </ul>
+                
                 <div class="showbox">
+                    <el-scrollbar :style="{height: '100%'}">
                     <router-view></router-view>
+                    </el-scrollbar>
                 </div>
-            <button class="btn btn-success op_btn op_btn3 " @click="goOrder">我的订单</button>
-            <button class="btn btn-success op_btn op_btn3 " @click="goHistrory">历史订单</button>
+                
         </div>
     </div>
 </template>
 <script>
 export default {
+    mounted(){
+        if(this.$route.path=='/userMsg/historyPreview')
+        {
+            this.select(1);
+        }
+        let scroll = document.getElementsByClassName("el-scrollbar__wrap");
+        console.log(scroll);
+        scroll[0].style.overflowX = 'hidden';
+    },
     methods: {
-        goOrder() {
-        this.$router.push('/userOrderShow');
-        },
-        goHistrory() {
-        this.$router.push('/userHistoryShow');
-        },
         select(num){
         var dv=document.getElementById("title");
         // var ularr=dv.getElementsByTagName("ul");
@@ -44,6 +49,7 @@ export default {
         }
     }
 }
+
 </script>
 <style lang="less" scoped>
     .userMsg{
@@ -82,10 +88,6 @@ export default {
             color: #000;      
             background-color: #fafafa;
         } 
-        
-        // li[class=secondLi] {
-        //     margin-left:40px;
-        // }
     }
     .active {
         background-color: #fff !important;
@@ -97,6 +99,7 @@ export default {
         background-color: rgb(211, 212, 211);
     }
     .showbox{
+        overflow-x: hidden !important;
         width: 1120px;
         height: 600px;
         border-radius: 4px;
@@ -105,4 +108,7 @@ export default {
         background-color: #fff;
         box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);
     }
+    .el-scrollbar__wrap {
+  overflow-x: hidden !important; 
+}
 </style>

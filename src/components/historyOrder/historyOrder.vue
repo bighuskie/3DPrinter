@@ -106,7 +106,7 @@ export default {
   },
   methods:{
         goBack() {
-        this.$router.push('/userMsg');
+        this.$router.push('/userMsg/historyPreview');
         }
   }
 }

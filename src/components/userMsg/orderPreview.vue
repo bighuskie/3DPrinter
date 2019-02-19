@@ -6,49 +6,50 @@
                 <span>单价/数量</span>
                 <span>打印机编号</span>
                 <span>订单状态</span>
-                <span>详情</span>
                 <span>实付金额</span>
             </div>
        </div>
+       <section v-for="(arr,key) of displayInfo" :key="key">
        <div id="box-card">
             <!-- 订单编号与创建时间 -->
             <div class="cardHeader">
                 <span class="orderNum">订单编号：160620190211526332</span>
                 <span class="orderCreatT" >创建时间：2019-2-15-22:20:20</span>
             </div>
-            <div class="cardBody">
-                <!-- 模型图片 -->
-                <div class="orderPic">
-                    <img src="https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=3751910808,1160227988&fm=26&gp=0.jpg" alt="">
-                </div>
-                <!-- 模型名称与大小 -->
-                <div class="orderName">
-                    <p>3D模型4</p>
-                    <p>100mmX100X100mm</p>
-                </div>
-                <!-- 商品的单价与数量 -->
-                <div class="orderSpent">
-                    <p>￥120.00</p>
-                    <p>(一件)</p>
-                </div>
-                <!-- 订单使用的打印机 -->
-                <div class="orderUserPt">
-                    <P>UTYS654PS/88</p>
-                </div>
-                <!-- 订单状态 -->
-                <div class="orderStatus">
-                    <p>打印中……</p>
-                </div>
-                <!-- 查看详情 -->
-                <div class="orderDetail">
-                    <button>点击查看详情</button>
-                </div>
-                <!-- 商品金额 -->
-                <div class="orderMon" >
-                    <p>￥120.00</p>
-                </div>
-            </div> 
-       </div>
+            
+                <div class="cardBody">
+                    <!-- 模型名称与大小 -->
+                    <div class="orderName">
+                       <img :src="arr.mPicPath" alt="">
+                        <div class="modelMsg">
+                            {{arr.mName}}
+                            <br>
+                            <span class="x_size">{{arr.mSizeL}}mm x</span>
+                        <span class="y_size"> {{arr.mSizeW}}mm x</span>
+                        <span class="z_size"> {{arr.mSizeH}}mm</span></li>
+                        </div>
+                        
+                    </div>
+                    <!-- 商品的单价与数量 -->
+                    <div class="orderSpent">
+                        ￥120.00 / 1件
+                    </div>
+                    <!-- 订单使用的打印机 -->
+                    <div class="orderUserPt">
+                        {{arr.pNo}}
+                    </div>
+                    <!-- 订单状态 -->
+                    <div class="orderStatus">
+                        打印中
+                    </div>
+                    <!-- 商品金额 -->
+                    <div class="orderMon" >
+                        ￥120.00
+                       <button class="btn btn-success op_btn op_btn3 .btn-xs" @click="goOrder">详情</button>
+                    </div>
+                </div>  
+            </div>
+       </section>
     </div>
 
 </template>
@@ -61,12 +62,15 @@ export default {
     },
    created() {
     //获取打印机数据
-    this.axios.get("data/order.json").then(res => {
-        this.displayInfo = res.data;
+    this.axios.get("data/orderPreview.json").then(res => {
+        this.displayInfo = res.data.order;
+        console.log(this.displayInfo);
       });
   },
   methods:{
-    
+      goOrder() {
+        this.$router.push('/userOrderShow');
+    }
   }
 }
 </script>
@@ -82,10 +86,24 @@ export default {
         line-height: 25px;
         border-radius: 15px;
         background-color: @theme-color;
+        
         span {
             color: #ffffff;
-            margin: 0 65px;
+            margin: 0 120px;
+          
+        }  
+        span:nth-child(2){
+            margin-left: 120px;
+            margin-right: 100px;
         }
+        span:nth-child(3){
+            margin: 0 50px;
+        }
+        span:nth-child(4){
+            margin-left: 70px;
+            margin-right: 10px;
+        }
+        
     }
 }
     #box-card{
@@ -111,52 +129,26 @@ export default {
         }
         .cardBody{
             padding-top:12px;
-            .orderPic{
-                width:8%;
-                display:inline-block; 
-                img{
-                    width:70px;
-                    height: 70px;
+            img{
+                width:70px;
+                height: 70px;
+                margin-right: 10px;
             }
-            }
-            .order{
-                width: 150px;
-                display:inline-block;
-            }
-            .orderName{
-                .order;
-                width: 16%;
-                line-height: 15px;
-            }
-            .orderSpent{
-                .order;
-                width: 12%;
-                p{
-
-                    float: right;
-                }
-            }
-            .orderUserPt{
-                .order;
-                width: 12%;
-                text-align: center;
-            }
-            .orderStatus{
-                .order;
-                width: 16%;
-                text-align: center;
-            }
-            .orderDetail{
-                .order;
-                width: 19%;
-                text-align: center;
+            > div{
+                float: left;
+                margin-right: 140px;
+            }   
+            .modelMsg{
+                display: inline-block;
             }
             .orderMon{
-                .order;
-                width: 13%;
-                text-align: right;
+                margin:0 !important;
+                button {
+                    display: block;
+                    margin-top: 20px;
+                }
             }
-        }
+        } 
     }
-    }
+}
 </style>
