@@ -1,6 +1,14 @@
 <template>
     <div class="orderPreview">
-       <div id="orderList">
+       <div class="progress progress-striped active" v-if="isShow">
+            <div class="progress-bar progress-bar-success" role="progressbar"
+                aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"
+               :style="{width:computedResidualTime()+'%'}">
+                <span class="sr-only">40% 完成</span>
+                <span>{{computedResidualTime()}}%</span>
+            </div>
+        </div>
+        <div id="orderList">
             <div id="orderTitle">
                 <span>商品</span>
                 <span>单价/数量</span>
@@ -8,15 +16,14 @@
                 <span>订单状态</span>
                 <span>实付金额</span>
             </div>
-       </div>
-       <section v-for="(arr,key) of displayInfo" :key="key">
-       <div id="box-card">
+        </div>
+        <section v-for="(arr,key) of displayInfo" :key="key">
+            <div id="box-card">
             <!-- 订单编号与创建时间 -->
-            <div class="cardHeader">
-                <span class="orderNum">订单编号：160620190211526332</span>
-                <span class="orderCreatT" >创建时间：2019-2-15-22:20:20</span>
-            </div>
-            
+                <div class="cardHeader">
+                    <span class="orderNum">订单编号：160620190211526332</span>
+                    <span class="orderCreatT" >创建时间：{{arr.oDate}}</span>
+                </div>
                 <div class="cardBody">
                     <!-- 模型名称与大小 -->
                     <div class="orderName">
@@ -25,14 +32,13 @@
                             {{arr.mName}}
                             <br>
                             <span class="x_size">{{arr.mSizeL}}mm x</span>
-                        <span class="y_size"> {{arr.mSizeW}}mm x</span>
-                        <span class="z_size"> {{arr.mSizeH}}mm</span></li>
+                            <span class="y_size"> {{arr.mSizeW}}mm x</span>
+                            <span class="z_size"> {{arr.mSizeH}}mm</span>
                         </div>
-                        
                     </div>
                     <!-- 商品的单价与数量 -->
                     <div class="orderSpent">
-                        ￥120.00 / 1件
+                        ￥{{arr.mcost}} / 1件
                     </div>
                     <!-- 订单使用的打印机 -->
                     <div class="orderUserPt">
@@ -41,15 +47,16 @@
                     <!-- 订单状态 -->
                     <div class="orderStatus">
                         打印中
+                        <el-button type="primary" @click="goOrder" size="small">详情</el-button>
                     </div>
                     <!-- 商品金额 -->
                     <div class="orderMon" >
-                        ￥120.00
-                       <button class="btn btn-success op_btn op_btn3 .btn-xs" @click="goOrder">详情</button>
+                        ￥{{arr.mcost}}
+                       <el-button type="button" @click="deletleOrder" size="small">删除</el-button>
                     </div>
                 </div>  
             </div>
-       </section>
+        </section>
     </div>
 
 </template>
@@ -57,21 +64,99 @@
 export default {
     data(){
         return {
+            isShow:true,
+            progress:"0",
+            date:new Date(),
             displayInfo:[]
         }
     },
-   created() {
+
+    created() {
     //获取打印机数据
     this.axios.get("data/orderPreview.json").then(res => {
         this.displayInfo = res.data.order;
         console.log(this.displayInfo);
       });
   },
-  methods:{
-      goOrder() {
-        this.$router.push('/userOrderShow');
+
+    mounted(){
+        // 声明一个变量指向Vue实例this，保证作用域一致
+        let me = this; 
+        this.timer = setInterval(() => {
+        // 修改数据date
+        me.date = new Date(); 
+        }, 1000)
+    }, 
+    // 在Vue实例销毁前，清除定时器
+    beforeDestroy() {
+        if (this.timer) {
+        clearInterval(this.timer);
+        }
+    },
+
+    methods:{
+        goOrder() {
+            this.$router.push('/userOrderShow');
+        },
+        deletleOrder() {
+            this.$confirm("此操作将删除该文件, 是否继续?", "提示", {
+                confirmButtonText: "确定",
+                cancelButtonText: "取消",
+                type: "warning"
+            }).then(() => {
+                this.$message({
+                    type: "success",
+                    message: "删除成功!",
+                    return: this.displayInfo.splice(this.index,1),
+                });
+                //将数据传输给后端
+                this.axios({
+                    method: 'post',
+                    url: 'http://192.168.1.243:7001/api/v1/login',
+                    withCredentials: true,
+                    data:{
+                        displayInfo: this.displayInfo   
+                    }
+                }).then(res => {console.log(res);})  
+                }).catch(() => {
+                this.$message({
+                    type: "info",
+                    message: "已取消删除 "
+                });
+            });
+        },
+        computedResidualTime(){
+            //计算打印所需要的总时间
+            let sum=0;
+            for(let i=0;i<this.displayInfo.length;i++){
+               sum+=this.displayInfo[i].mestimatedTime;
+                //console.log(sum);
+            }
+            const time=this.displayInfo[0].oDate;
+            // console.log(time);
+            let date1=new Date(time);    //开始时间
+            let date2=this.date;    //当前
+            let date3=date2.getTime()-date1.getTime()  //时间差的毫秒数
+            //计算出相差天数
+            let days=Math.floor(date3/(24*3600*1000)) 
+            //计算出小时数
+            let leave1=date3%(24*3600*1000)
+            //计算天数后剩余的毫秒数
+            let hours=Math.floor(leave1/(3600*1000))
+            //计算相差分钟
+            let leave2=leave1%(3600*1000)
+            let minutes=Math.floor(leave2/(60*1000))
+            //计算出打印的总的分钟数
+            let minutesSum=hours*6+minutes;
+            // alert(" 相差 "+days+"天 "+hours+"小时 "+minutes+" 分钟");
+            let percentage=Math.round((minutesSum/sum)*100);
+            // console.log(percentage)
+            if(percentage>=100){
+            this.isShow=false;
+            }
+            return percentage;
+        }
     }
-  }
 }
 </script>
 <style lang="less" scoped>
@@ -79,7 +164,7 @@ export default {
 .orderPreview{
     #orderList{
         margin: auto auto;
-        padding: 30px 13px;
+        padding: 30px 13px 10px 13px;
         #orderTitle{
         width: 1090px;
         height: 25px;
@@ -87,25 +172,32 @@ export default {
         border-radius: 15px;
         background-color: @theme-color;
         
-        span {
-            color: #ffffff;
-            margin: 0 120px;
-          
-        }  
-        span:nth-child(2){
-            margin-left: 120px;
-            margin-right: 100px;
+            span {
+                color: #ffffff;
+                margin: 0 120px;
+            }  
+            span:nth-child(2){
+                margin-left: 120px;
+                margin-right: 100px;
+            }
+            span:nth-child(3){
+                margin: 0 50px;
+            }
+            span:nth-child(4){
+                margin-left: 50px;
+                margin-right: 10px;
+            }
         }
-        span:nth-child(3){
-            margin: 0 50px;
-        }
-        span:nth-child(4){
-            margin-left: 70px;
-            margin-right: 10px;
-        }
-        
     }
-}
+    .progress {
+        height: 20px;
+        margin: 30px 13px 0px 13px;
+        overflow: hidden;
+        background-color: #f5f5f5;
+        border-radius: 4px;
+        box-shadow: inset 0 1px 2px rgba(0,0,0,.1);
+    }
+
     #box-card{
         width: 1090px;
         margin-top: 10px;
@@ -141,8 +233,14 @@ export default {
             .modelMsg{
                 display: inline-block;
             }
+            .orderStatus{
+                button {
+                    display: block;
+                    margin-top: 20px;
+                }
+            }
             .orderMon{
-                margin:0 !important;
+                margin:0  !important;
                 button {
                     display: block;
                     margin-top: 20px;

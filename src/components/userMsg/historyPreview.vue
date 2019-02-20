@@ -25,8 +25,8 @@
                             {{arr.mName}}
                             <br>
                             <span class="x_size">{{arr.mSizeL}}mm x</span>
-                        <span class="y_size"> {{arr.mSizeW}}mm x</span>
-                        <span class="z_size"> {{arr.mSizeH}}mm</span></li>
+                            <span class="y_size"> {{arr.mSizeW}}mm x</span>
+                            <span class="z_size"> {{arr.mSizeH}}mm</span>
                         </div>
                         
                     </div>
@@ -37,15 +37,16 @@
                     <!-- 订单使用的打印机 -->
                     <div class="orderUserPt">
                         {{arr.pNo}}
-                    </div>
+                    </div> 
                     <!-- 订单状态 -->
                     <div class="orderStatus">
                         已打印
+                        <el-button type="primary" @click=" goHistrory" size="small">详情</el-button>
                     </div>
                     <!-- 商品金额 -->
                     <div class="orderMon" >
                         ￥120.00
-                       <button class="btn btn-success op_btn op_btn3 .btn-xs" @click="goHistrory">详情</button>
+                        <el-button type="button" @click="deletleOrder()" size="small">删除</el-button>
                     </div>
                 </div>  
             </div>
@@ -70,7 +71,34 @@ export default {
   methods:{
     goHistrory() {
     this.$router.push('/userHistoryShow');
-    }
+    },
+    deletleOrder() {
+        this.$confirm("此操作将删除该文件, 是否继续?", "提示", {
+            confirmButtonText: "确定",
+            cancelButtonText: "取消",
+            type: "warning"
+        }).then(() => {
+            this.$message({
+                type: "success",
+                message: "删除成功!",
+                return: this.displayInfo.splice(this.index,1),
+            });
+            //将数据传输给后端
+            this.axios({
+                method: 'post',
+                url: 'http://192.168.1.243:7001/api/v1/login',
+                withCredentials: true,
+                data:{
+                    displayInfo: this.displayInfo   
+                }
+            }).then(res => {console.log(res);})  
+            }).catch(() => {
+            this.$message({
+                type: "info",
+                message: "已取消删除 "
+            });
+        });
+    },
   }
 }
 </script>
@@ -101,7 +129,7 @@ export default {
             margin: 0 50px;
         }
         span:nth-child(4){
-            margin-left: 70px;
+            margin-left: 50px;
             margin-right: 10px;
         }
         
@@ -141,6 +169,12 @@ export default {
             }   
             .modelMsg{
                 display: inline-block;
+            }
+            .orderStatus{
+                button {
+                    display: block;
+                    margin-top: 20px;
+                }
             }
             .orderMon{
                 margin:0 !important;

@@ -8,12 +8,14 @@
             "mName": "柴犬",
             "mPicPath": "https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=3751910808,1160227988&fm=26&gp=0.jpg",
             "mfileSize": "2mb",
+            "mcost":"120.00",
             "mMaterialType":"PLA",
             "mQuality":"标准",
-            "oDate": "2019-2-10",
+            "oDate": "2019-2-20 22:30:00",
             "mSizeL": 20,
             "mSizeW": 20,
-            "mSizeH": 20
+            "mSizeH": 20,
+            "mestimatedTime":20
         },
         {
             "pNo": "66",
@@ -23,12 +25,31 @@
             "mName": "柴犬",
             "mPicPath": "https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=3751910808,1160227988&fm=26&gp=0.jpg",
             "mfileSize": "2mb",
+            "mcost":"120.00",
             "mMaterialType":"PLA",
             "mQuality":"品质",
-            "oDate": "2019-2-10",
+            "oDate": "2019-2-20 22:30:00",
             "mSizeL": 20,
             "mSizeW": 20,
-            "mSizeH": 20
+            "mSizeH": 20,
+            "mestimatedTime":20
+        },
+        {
+            "pNo": "66",
+            "pModal": "UTYS654PS",
+            "pName" : "极光尔沃",
+            "mNo": "01",
+            "mName": "柴犬",
+            "mPicPath": "https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=3751910808,1160227988&fm=26&gp=0.jpg",
+            "mfileSize": "2mb",
+            "mcost":"120.00",
+            "mMaterialType":"PLA",
+            "mQuality":"品质",
+            "oDate": "2019-2-20 21:20:00",
+            "mSizeL": 20,
+            "mSizeW": 20,
+            "mSizeH": 20,
+            "mestimatedTime":20
         }
     ]
   
