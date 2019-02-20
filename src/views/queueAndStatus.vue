@@ -1,20 +1,22 @@
 <template>
-    <div>
+  <div>
+    <navinfo></navinfo>
     <status></status>
     <queue></queue>
-    </div>
+  </div>
 </template>
 <script>
-import queue from "../components/queue/queue"
-import status from "../components/status/status"
+import navinfo from "../components/nav/nav";
+import queue from "../components/queue/queue";
+import status from "../components/status/status";
 
 export default {
-    components:{
-        queue,
-        status
-    }
-}
+  components: {
+    navinfo,
+    queue,
+    status
+  }
+};
 </script>
 <style>
-
 </style>
