@@ -1,6 +1,6 @@
 <template>
   <div>
-    <navinfo></navinfo>
+    <navinfo :navBgColor="navBgColor"></navinfo>
     <main class="container-fuild">
       <section class="bg-wrapper">
         <div class="img-wrapper">

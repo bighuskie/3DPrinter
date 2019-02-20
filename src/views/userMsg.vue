@@ -1,5 +1,6 @@
 <template>
     <div class="userMsg">
+        <navinfo></navinfo>
         <div class="main">
                 <ul id="title" >
                   
@@ -23,6 +24,7 @@
     </div>
 </template>
 <script>
+import navinfo from "../components/nav/nav";
 export default {
     mounted(){
         if(this.$route.path=='/userMsg/historyPreview')
@@ -47,6 +49,9 @@ export default {
                liarr[0].classList.remove("active");
            }
         }
+    },
+     components:{
+       navinfo
     }
 }
 
