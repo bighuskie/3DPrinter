@@ -193,7 +193,7 @@ export default{
 @tow:#7E8EE3;
 @three:#1CBBB6;
 @four:#FDB958;
-@white:#eeeeee;
+@white:#fafafa;
 .homeBox{
     font-family: "Arial";
     width: 100%;   
@@ -203,8 +203,8 @@ export default{
 }
 /* 关于打印机的前四个方格 */
 .status{
-    width: 1140px;
-    max-width: 1140px;
+    width: 1190px;
+    max-width: 1190px;
     margin: auto auto;
     padding: 7px 10px 0px 10px;
     box-sizing: border-box;

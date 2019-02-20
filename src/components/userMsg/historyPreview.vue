@@ -26,7 +26,7 @@
                             <br>
                             <span class="x_size">{{arr.mSizeL}}mm x</span>
                         <span class="y_size"> {{arr.mSizeW}}mm x</span>
-                        <span class="z_size"> {{arr.mSizeH}}mm</span></li>
+                        <span class="z_size"> {{arr.mSizeH}}mm</span>
                         </div>
                         
                     </div>

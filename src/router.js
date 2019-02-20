@@ -5,7 +5,7 @@ import router from './router'
 import home from './views/index.vue'
 import onlinePrint from './views/onlinePrint.vue'
 import userMsg from './views/userMsg.vue'
-import status from './views/queueAndStatus.vue'
+import administrator from './views/administrator.vue'
 import about from './views/about.vue'
 import userOrderShow from './views/userOrderShow.vue'
 import userHistoryShow from './views/userHistoryShow.vue'
@@ -102,9 +102,9 @@ export default new Router({
       component:userHistoryShow
     },
     {
-      path:'/status',
-      name:'status',
-      component:status
+      path:'/administrator',
+      name:'administrator',
+      component:administrator
     },
     {
       path: '/register',
