@@ -1,150 +1,160 @@
 <template>
-  <div class="onlinePrint">
-    <main id="container">
-      <!-- 模型预览与相关信息显示 -->
-      <div class="container-fluid" id="prev">
-        <div class="row">
-          <div class="col-md-7 prev_left clearfix">
-            <div id="canvas3d" ref="previewWrapper"></div>
-            <div class="file-box">
-              <form id="uploadForm">
-                <input
-                  type="file"
-                  name="file"
-                  class="file"
-                  id="fileField"
-                  ref="fileField"
-                  @change="uploadFile"
-                >
-              </form>
+  <div>
+    <navinfo></navinfo>
+    <div class="onlinePrint">
+      <main id="container">
+        <!-- 模型预览与相关信息显示 -->
+        <div class="container-fluid" id="prev">
+          <div class="row">
+            <div class="col-md-7 prev_left clearfix">
+              <div id="canvas3d" ref="previewWrapper"></div>
+              <div class="file-box">
+                <form id="uploadForm">
+                  <input
+                    type="file"
+                    name="file"
+                    class="file"
+                    id="fileField"
+                    ref="fileField"
+                    @change="uploadFile"
+                  >
+                </form>
+              </div>
+            </div>
+            <div class="col-md-5 prev_right">
+              <ul>
+                <li>
+                  <img src="../assets/images/cloud.png" alt class="img-responsive">
+                  <span>打印机类型:</span>&nbsp;
+                  <span>Printors i3</span>
+                  <router-link to="/onlinePrint/select">
+                    <button
+                      class="btn btn-success btn-sm op_btn op_btn3 printing"
+                      ref="printing"
+                      style="margin-left:30px;"
+                    >选择打印机</button>
+                  </router-link>
+                </li>
+                <li class="location-wrapper">
+                  <img src="../assets/images/locate.png" alt class="img-responsive">
+                  <span>打印机地点:</span>&nbsp;
+                  <span class="location">广东工业大学</span>
+                </li>
+                <li>
+                  <img src="../assets/images/file.png" alt class="img-responsive file_png">
+                  <span>文件名:</span>&nbsp;
+                  <span class="fileName">{{fileName}}</span>
+                </li>
+                <li>
+                  <img
+                    src="../assets/images/resize-full-alt.png"
+                    alt
+                    class="img-responsive resize_png"
+                  >
+                  <span>尺寸大小:</span>&nbsp;
+                  <span class="x_size">{{module_x}}mm x</span>
+                  <span class="y_size">{{module_y}}mm x</span>
+                  <span class="z_size">{{module_z}}mm</span>
+                </li>
+                <li>
+                  <img src="../assets/images/pla.png" alt class="img-responsive pla_png">
+                  <span>耗材:</span>&nbsp;
+                  <div class="select">
+                    <select>
+                      <option>PLA</option>
+                    </select>
+                  </div>
+                  <span class="price">*0.8元/g</span>
+                </li>
+                <li>
+                  <img src="../assets/images/size.png" alt class="img-responsive size_png">
+                  <span>模型比例:</span>&nbsp;
+                  <div class="pro_bar">
+                    <div class="progress">
+                      <div class="progress-bar"></div>
+                    </div>
+                    <a class="pro_control" href="javascript:;"></a>
+                    <div id="progress_value">100%</div>
+                  </div>
+                </li>
+                <li>
+                  <img src="../assets/images/type.png" alt class="img-responsive type_png">
+                  <span>打印模式:</span>&nbsp;
+                  <div class="pri_type">
+                    <div class="btn-group" role="group" aria-label="...">
+                      <button
+                        type="button"
+                        class="btn btn-default"
+                        :class="{'selected':sType===0}"
+                        @click="selectModal(0,'快速',0.8)"
+                      >快速</button>
+                      <button
+                        type="button"
+                        class="btn btn-default"
+                        :class="{'selected':sType===1}"
+                        @click="selectModal(1,'标准',1)"
+                      >标准</button>
+                      <button
+                        type="button"
+                        class="btn btn-default"
+                        :class="{'selected':sType===2}"
+                        @click="selectModal(2,'品质',1.2)"
+                      >品质</button>
+                      <button
+                        type="button"
+                        class="btn btn-default"
+                        :class="{'selected':sType===3}"
+                        @click="selectModal(3,'自定义',1)"
+                      >自定义</button>
+                    </div>
+                  </div>
+                </li>
+                <li>
+                  <img src="../assets/images/number.png" alt class="img-responsive number_png">
+                  <span>数量:</span>&nbsp;
+                  <div class="btn-group number" role="group" aria-label="...">
+                    <span class="down" @click="changeNumber(false)">-</span>
+                    <span class="num">{{moduleNumber}}</span>
+                    <span class="add" @click="changeNumber(true)">+</span>
+                  </div>
+                </li>
+                <li>
+                  <img src="../assets/images/time.png" alt class="img-responsive time_png">
+                  <span>预估时间:</span>&nbsp;
+                  <span class="time">2 h 30 min</span>
+                </li>
+                <li>
+                  <img src="../assets/images/price.png" alt class="img-responsive price_png">
+                  <span>总价:</span>&nbsp;
+                  <span class="money">{{modulePrice | moneyFormat(modulePrice)}}</span>
+                </li>
+                <li class="text-center operation">
+                  <button
+                    class="btn btn-success btn-sm op_btn op_btn1 uploadFile"
+                    ref="uploadFile"
+                    @click="uploadTrigger"
+                  >上传文件</button>
+                  <button
+                    class="btn btn-success btn-sm op_btn op_btn2 joinQueue"
+                    ref="joinQueue"
+                    @click="joinQueue"
+                  >加入队列</button>
+                  <router-link to="/onlinePrint/all">
+                    <button
+                      class="btn btn-success btn-sm op_btn op_btn3 printing"
+                      ref="printing"
+                    >更多模型</button>
+                  </router-link>
+                </li>
+              </ul>
             </div>
           </div>
-          <div class="col-md-5 prev_right">
-            <ul>
-              <li>
-                <img src="../assets/images/cloud.png" alt class="img-responsive">
-                <span>打印机类型:</span>&nbsp;
-                <span>Printors i3</span>
-                <router-link to="/onlinePrint/select">
-                  <button class="btn btn-success btn-sm op_btn op_btn3 printing" ref="printing" style="margin-left:30px;">选择打印机</button>
-                </router-link>
-              </li>
-              <li class="location-wrapper">
-                <img src="../assets/images/locate.png" alt class="img-responsive">
-                <span>打印机地点:</span>&nbsp;
-                <span class="location">广东工业大学</span>
-              </li>
-              <li>
-                <img src="../assets/images/file.png" alt class="img-responsive file_png">
-                <span>文件名:</span>&nbsp;
-                <span class="fileName">{{fileName}}</span>
-              </li>
-              <li>
-                <img
-                  src="../assets/images/resize-full-alt.png"
-                  alt
-                  class="img-responsive resize_png"
-                >
-                <span>尺寸大小:</span>&nbsp;
-                <span class="x_size">{{module_x}}mm x</span>
-                <span class="y_size">{{module_y}}mm x</span>
-                <span class="z_size">{{module_z}}mm</span>
-              </li>
-              <li>
-                <img src="../assets/images/pla.png" alt class="img-responsive pla_png">
-                <span>耗材:</span>&nbsp;
-                <div class="select">
-                  <select>
-                    <option>PLA</option>
-                  </select>
-                </div>
-                <span class="price">*0.8元/g</span>
-              </li>
-              <li>
-                <img src="../assets/images/size.png" alt class="img-responsive size_png">
-                <span>模型比例:</span>&nbsp;
-                <div class="pro_bar">
-                  <div class="progress">
-                    <div class="progress-bar"></div>
-                  </div>
-                  <a class="pro_control" href="javascript:;"></a>
-                  <div id="progress_value">100%</div>
-                </div>
-              </li>
-              <li>
-                <img src="../assets/images/type.png" alt class="img-responsive type_png">
-                <span>打印模式:</span>&nbsp;
-                <div class="pri_type">
-                  <div class="btn-group" role="group" aria-label="...">
-                    <button
-                      type="button"
-                      class="btn btn-default"
-                      :class="{'selected':sType===0}"
-                      @click="selectModal(0,'快速',0.8)"
-                    >快速</button>
-                    <button
-                      type="button"
-                      class="btn btn-default"
-                      :class="{'selected':sType===1}"
-                      @click="selectModal(1,'标准',1)"
-                    >标准</button>
-                    <button
-                      type="button"
-                      class="btn btn-default"
-                      :class="{'selected':sType===2}"
-                      @click="selectModal(2,'品质',1.2)"
-                    >品质</button>
-                    <button
-                      type="button"
-                      class="btn btn-default"
-                      :class="{'selected':sType===3}"
-                      @click="selectModal(3,'自定义',1)"
-                    >自定义</button>
-                  </div>
-                </div>
-              </li>
-              <li>
-                <img src="../assets/images/number.png" alt class="img-responsive number_png">
-                <span>数量:</span>&nbsp;
-                <div class="btn-group number" role="group" aria-label="...">
-                  <span class="down" @click="changeNumber(false)">-</span>
-                  <span class="num">{{moduleNumber}}</span>
-                  <span class="add" @click="changeNumber(true)">+</span>
-                </div>
-              </li>
-              <li>
-                <img src="../assets/images/time.png" alt class="img-responsive time_png">
-                <span>预估时间:</span>&nbsp;
-                <span class="time">2 h 30 min</span>
-              </li>
-              <li>
-                <img src="../assets/images/price.png" alt class="img-responsive price_png">
-                <span>总价:</span>&nbsp;
-                <span class="money">{{modulePrice | moneyFormat(modulePrice)}}</span>
-              </li>
-              <li class="text-center operation">
-                <button
-                  class="btn btn-success btn-sm op_btn op_btn1 uploadFile"
-                  ref="uploadFile"
-                  @click="uploadTrigger"
-                >上传文件</button>
-                <button
-                  class="btn btn-success btn-sm op_btn op_btn2 joinQueue"
-                  ref="joinQueue"
-                  @click="joinQueue"
-                >加入队列</button>
-                <router-link to="/onlinePrint/all">
-                  <button class="btn btn-success btn-sm op_btn op_btn3 printing" ref="printing">更多模型</button>
-                </router-link>
-              </li>
-            </ul>
-          </div>
         </div>
-      </div>
-    </main>
-    <shopcar :queueArray="queueArray" @preview="preview" @showPrinterModal="showPrinterModal"></shopcar>
-    <!-- <masklibrary></masklibrary> -->
-    <router-view></router-view>
+      </main>
+      <shopcar :queueArray="queueArray" @preview="preview" @showPrinterModal="showPrinterModal"></shopcar>
+      <!-- <masklibrary></masklibrary> -->
+      <router-view></router-view>
+    </div>
   </div>
 </template>
 

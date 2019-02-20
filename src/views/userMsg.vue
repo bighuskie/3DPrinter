@@ -1,5 +1,6 @@
 <template>
     <div class="userMsg">
+        <navinfo></navinfo>
         <div class="main">
                 <ul id="title" >
                   
@@ -23,6 +24,7 @@
     </div>
 </template>
 <script>
+import navinfo from "../components/nav/nav";
 export default {
     mounted(){
         if(this.$route.path=='/userMsg/historyPreview')
@@ -47,6 +49,9 @@ export default {
                liarr[0].classList.remove("active");
            }
         }
+    },
+     components:{
+       navinfo
     }
 }
 
@@ -104,9 +109,10 @@ export default {
         height: 600px;
         border-radius: 4px;
         border: 1px solid #ebeef5;
+        box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);
         border-top: 0;
         background-color: #fff;
-        box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);
+        
     }
     .el-scrollbar__wrap {
   overflow-x: hidden !important; 
