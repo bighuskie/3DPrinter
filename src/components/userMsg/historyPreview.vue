@@ -9,7 +9,7 @@
                 <span>实付金额</span>
             </div>
        </div>
-       <section v-for="(arr,key) of displayInfo" :key="key">
+       <section v-for="(arr,index) in displayInfo" :key="arr.guid">
        <div id="box-card">
             <!-- 订单编号与创建时间 -->
             <div class="cardHeader">
@@ -46,7 +46,7 @@
                     <!-- 商品金额 -->
                     <div class="orderMon" >
                         ￥120.00
-                        <el-button type="button" @click="deletleOrder()" size="small">删除</el-button>
+                        <el-button type="button" @click="deletleOrder(index)" size="small">删除</el-button>
                     </div>
                 </div>  
             </div>
@@ -72,7 +72,14 @@ export default {
     goHistrory() {
     this.$router.push('/userHistoryShow');
     },
-    deletleOrder() {
+    guid: function() {
+        return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+        var r = Math.random() * 16 | 0,
+        v = c == 'x' ? r : (r & 0x3 | 0x8);
+        return v.toString(16);
+        });
+    },
+    deletleOrder(index) {
         this.$confirm("此操作将删除该文件, 是否继续?", "提示", {
             confirmButtonText: "确定",
             cancelButtonText: "取消",
@@ -81,7 +88,7 @@ export default {
             this.$message({
                 type: "success",
                 message: "删除成功!",
-                return: this.displayInfo.splice(this.index,1),
+                return: this.displayInfo.splice(index,1),
             });
             //将数据传输给后端
             this.axios({
