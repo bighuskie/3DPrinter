@@ -19,9 +19,9 @@
           <router-link to="/userMsg/orderPreview">
             <li>我的订单</li>
           </router-link>
-          <a href="javascript:;">
+          <router-link to="/about">
             <li>关于我们</li>
-          </a>
+          </router-link>
           <router-link to="/login">
             <li>登录</li>
           </router-link>
