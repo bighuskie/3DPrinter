@@ -104,7 +104,12 @@ export default new Router({
     {
       path:'/administrator',
       name:'administrator',
-      component:administrator
+      component:administrator,
+      children: [{
+        path: "select1",
+        name: "select1",
+        component: () => import('./components/administrator/SelectPrinter1.vue')
+      }]
     },
     {
       path: '/register',

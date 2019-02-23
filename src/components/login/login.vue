@@ -59,7 +59,7 @@ export default {
     overflow: hidden;
 }
 #loginCard{
-    margin:100px auto 150px auto;
+    margin:100px auto 200px auto;
     padding:0px 20px;
     text-align: center;
     width:400px;

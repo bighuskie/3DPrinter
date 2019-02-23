@@ -10,7 +10,6 @@
             </router-link>
         </p>
         <hr>
-        
         <section class="main">
             <section>
                 <h3 class="subtitle">已打印</h3>
@@ -26,7 +25,7 @@
                     <span>柴犬</span>
                     <span>88</span>
                 </div>
-                <span>可能会用到的文字信息可能会用到的文字信息可能会用到的文字信息</span>
+                <span></span>
                 <hr>
             </section>
             <section>
@@ -96,7 +95,6 @@ export default {
         }
     },
    created() {
-    //获取打印机数据
     this.axios.get("data/order.json").then(res => {
         this.displayInfo = res.data;
       });

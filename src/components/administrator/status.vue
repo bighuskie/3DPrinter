@@ -1,11 +1,75 @@
 <template>
     <div class="homeBox">
         <!-- 关于打印机信息的第一排方格 -->
-        <div class="status" v-for="(val,key) in status " :key=key>
+        
+        <div class="status" >
+        <div class="overview">
+            <span  style=" font-size:16px;">综述</span>
+            <div class="over">
+                
+                <div class="head">
+                    实例
+                </div>
+                <div class="mainOver">
+                    <div class="cont">
+                        <span>总数量</span>
+                        <span style=" font-size: 26px;color:#EB686E">100</span>
+                        
+                    </div>
+                    <div class="cont">
+                        <span>正在工作</span>
+                        <span style=" font-size: 26px;color:#7E8EE3">50</span>
+                        
+                    </div>
+                    <div class="cont">
+                        <span>闲置</span>
+                        <span style=" font-size: 26px;color:#1CBBB6">30</span>
+                        
+                    </div>
+                    <div >
+                        <span>离线</span>
+                        <span style=" font-size: 26px;color:#FDB958">20</span>
+                        
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+        <div class="printer" style="margin-left:150px;">
+          
+            <div class="over">
+                <div class="head">
+                    <span style="margin-right:300px;">当前打印机：</span>
+                     <router-link to="/administrator/select1" >
+                    <button
+                      class="btn btn-success btn-sm op_btn op_btn3 printing"
+                      ref="printing"
+                      style="background-color:#7E8EE3;"
+                    >选择打印机</button></router-link>
+                </div>
+                <div class="mainOver">
+                    <div class="cont">
+                        <span>编号</span>
+                        <span style=" font-size: 26px;color:#EB686E">86</span>
+                        
+                    </div>
+                    <div class="cont">
+                        <span>品牌</span>
+                        <span style=" font-size: 26px;color:#7E8EE3">极光沃尔</span>
+                        
+                    </div>
+                    <div >
+                        <span>型号</span>
+                        <span style=" font-size: 26px;color:#1CBBB6">IP1,880</span>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
             <!-- Row 组件 提供 gutter 属性来指定每一栏之间的间隔 -->
             <el-row :gutter="30"> 
             <!-- 关于打印机信息的第一排第一个方格 -->
-            <el-col :span="6">
+            <!-- <el-col :span="6">
                 <div class="grid-contentOne bg-purple"> 
                     <div style="color:#EB686E;" class="cardHead">
                         打印机品牌
@@ -15,9 +79,9 @@
                         <span class="dataOfprintor">{{val.pName}}</span>
                     </div>
                 </div>
-            </el-col>
+            </el-col> -->
             <!-- 关于打印机信息的第一排第二个方格 -->
-            <el-col :span="6">
+            <!-- <el-col :span="6">
                 <div class="grid-contentOne bg-purple">
                     <div style="color:#7E8EE3;" class="cardHead">
                         打印机型号
@@ -27,9 +91,9 @@
                         <span class="dataOfprintor">{{val.pNo}}</span>
                     </div>
                 </div>
-            </el-col>
+            </el-col> -->
             <!-- 关于打印机信息的第一排第三个方格 -->
-            <el-col :span="6">
+            <!-- <el-col :span="6">
                 <div class="grid-contentOne bg-purple">
                     <div style="color:#1CBBB6;" class="cardHead">
                         打印机状态
@@ -39,9 +103,9 @@
                         <span class="dataOfprintor">{{val.printorstate}}</span>
                     </div>
                 </div>
-            </el-col>
+            </el-col> -->
             <!-- 关于打印机信息的第一排第四个方格 -->
-            <el-col :span="6">
+            <!-- <el-col :span="6">
                 <div class="grid-contentOne bg-purple">
                     <div style="color:#FDB958;" class="cardHead">
                         打印机温度
@@ -55,13 +119,44 @@
                         </div>
                     </div>
                 </div>
-            </el-col>
+            </el-col> -->
             </el-row>
         </div>
         <!-- 温度表格 -->
-        <div class="chart-container" style="margin:10px auto; padding:30px; width:1120px;background-color:white">
-            <canvas id="chart"></canvas>
+        <div class="middle" >
+            <div v-for="(val,key) in status" :key="key" class="xbox">
+           
+                <div class="grid-contentOne bg-purple" >
+                    <div style="color:#1CBBB6;" class="cardHead">
+                        打印机状态
+                    </div>
+                    <div class="cardEndThree">
+                        <img style="width: 70px; height:70px;margin-top:10px;margin-left:40px;" src="../../assets/images/status.png" alt=""> 
+                        <span class="dataOfprintor">{{val.printorstate}}</span>
+                    </div>
+                </div>
+                <div class="grid-contentOne bg-purple" style="margin-top:105px;">
+                    <div style="color:#FDB958;" class="cardHead">
+                        打印机温度
+                    </div>
+                    <div class="cardEndFour">
+                        <img style="width: 68px; height:68px;margin-top:10px;margin-left:40px;" src="../../assets/images/temperature.png" alt=""> 
+                        <div class="temperature">
+                        <div>热床温度：<span class="temperatureNum">{{val.bedtemperature}}℃</span></div>
+                        <div>喷嘴1温度：<span class="temperatureNum">{{val.mouthOneTemperature}}℃</span></div>
+                        <div>喷嘴2温度：<span class="temperatureNum">{{val.mouthTowTemperature}}℃</span></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+             <div class="chart-container" style="">
+                <span id="soild"></span><span>热床温度及喷头温度状态监控图</span>
+                <canvas id="chart"></canvas>
+            </div>
+          
+            
         </div>
+       
         <!-- 关于打印机信息的第二排-->
         <div class="status" v-for="(val,key) in status " :key=key>
         <el-row :gutter="30">
@@ -111,6 +206,7 @@
         </el-col>
         </el-row>  
         </div>
+        <router-view></router-view>
     </div>        
 </template>
 <script>
@@ -164,7 +260,7 @@ export default{
         // Configuration options go here
         options: {
             responsive:true,
-            aspectRatio:3,
+            aspectRatio:2,
             maintainAspectRatio:true
         }
         });
@@ -200,6 +296,98 @@ export default{
     height: 100%;
     top: 0px;
     background-color: @white;
+    .overview {
+        display: inline-block;
+        margin-bottom: 30px;
+        width: 500px;
+        .over{
+            width: 500px;
+            height: 180px;
+            border: 2px solid #eeeeee;
+            .head{
+                background-color: #eeeeee;
+                width: 500px;
+                height: 50px;
+                text-align: center;
+                line-height: 50px;
+                font-size: 16px;
+            }
+        }
+        .mainOver{
+            > div {
+                width: 124px;
+                height: 129px;
+                text-align: center;
+                float: left;
+                padding-top: 20px;
+                span {
+                    display: block;
+                    margin: 10px 0;
+                    font-size: 18px;
+                }
+            }
+        }
+    }
+    .printer {
+        display: inline-block;
+        margin-bottom: 30px;
+        width: 500px;
+        .over{
+            width: 500px;
+            height: 180px;
+            border: 2px solid #eeeeee;
+            .head{
+                background-color: #eeeeee;
+                width: 500px;
+                height: 50px;
+                padding-left: 10px;
+                line-height: 50px;
+                font-size: 16px;
+            }
+        }
+        .mainOver{
+            > div {
+                width: 164px;
+                height: 129px;
+                text-align: center;
+                float: left;
+                padding-top: 20px;
+                span {
+                    display: block;
+                    margin: 10px 0;
+                    font-size: 18px;
+                }
+            }
+        }
+    }
+}
+.cont {
+    border-right: 2px solid #eee;
+}
+.middle{
+    width: 1190px;
+    height: auto;
+    margin: 20px auto;
+    .chart-container{
+    padding:30px;width:730px;background-color:white;
+    margin-left: 60px;
+    margin-bottom: 30px;
+    float: right;
+    }
+    .xbox{
+        display: inline-block;
+        >div {
+            width: 400px;
+            margin: 20px 0;
+        }
+    }
+}
+#soild {
+    display: inline-block;
+    width: 2px;
+    background-color: #EB686E;
+    height: 16px;
+    margin: 0 10px;
 }
 /* 关于打印机的前四个方格 */
 .status{
@@ -278,6 +466,7 @@ export default{
     font-style: italic;
     font-size: 36px;
     font-weight:500;
+    font-style: normal;
     float: right;
     margin-top: 20px;
     margin-right: 30px; 

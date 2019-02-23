@@ -3,9 +3,9 @@
        <div class="progress progress-striped active" v-if="isShow">
             <div class="progress-bar progress-bar-success" role="progressbar"
                 aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"
-                style="width:30%">
+                :style="{width:computedResidualTime()+'%'}">
                 <span class="sr-only">40% 完成</span>
-                <span>30%</span>
+                <span>{{computedResidualTime()}}%</span>
             </div>
         </div>
         <div id="orderList">
@@ -18,31 +18,31 @@
             </div>
         </div>
         <section v-for="(arr,index) in displayInfo" :key="arr.guid">
-            <div id="box-card">
+            <div id="box-card" >
             <!-- 订单编号与创建时间 -->
-                <div class="cardHeader">
-                    <span class="orderNum">订单编号：160620190211526332</span>
-                    <span class="orderCreatT" >创建时间：{{arr.oDate}}</span>
+                <div class="cardHeader" v-for="(val,index) in arr.ohead" :key="val.guid">
+                    <span class="orderNum">订单编号：{{val.oNum}}</span>
+                    <span class="orderCreatT" >创建时间：{{val.oDate}}</span>
                 </div>
-                <div class="cardBody">
+                <div class="cardBody" v-for="(val,index) in arr.obody" :key="val.guid">
                     <!-- 模型名称与大小 -->
                     <div class="orderName">
-                       <img :src="arr.mPicPath" alt="">
+                       <img :src="val.mPicPath" alt="">
                         <div class="modelMsg">
-                            {{arr.mName}}
+                            {{val.mName}}
                             <br>
-                            <span class="x_size">{{arr.mSizeL}}mm x</span>
-                            <span class="y_size"> {{arr.mSizeW}}mm x</span>
-                            <span class="z_size"> {{arr.mSizeH}}mm</span>
+                            <span class="x_size">{{val.mSizeL}}mm x</span>
+                            <span class="y_size"> {{val.mSizeW}}mm x</span>
+                            <span class="z_size"> {{val.mSizeH}}mm</span>
                         </div>
                     </div>
                     <!-- 商品的单价与数量 -->
                     <div class="orderSpent">
-                        ￥{{arr.mcost}} / 1件
+                        ￥{{val.mcost}} / 1件
                     </div>
                     <!-- 订单使用的打印机 -->
                     <div class="orderUserPt">
-                        {{arr.pNo}}
+                        {{val.pNo}}
                     </div>
                     <!-- 订单状态 -->
                     <div class="orderStatus">
@@ -51,7 +51,7 @@
                     </div>
                     <!-- 商品金额 -->
                     <div class="orderMon" >
-                        ￥{{arr.mcost}}
+                        ￥{{val.mcost}}
                        <el-button type="button" @click="deletleOrder(index)" size="small">删除</el-button>
                     </div>
                 </div>  
@@ -81,7 +81,6 @@ export default {
     //获取打印机数据
     this.axios.get("data/orderPreview.json").then(res => {
         this.displayInfo = res.data.order;
-        console.log(this.displayInfo);
       });
   },
 
@@ -136,10 +135,9 @@ export default {
             let sum=0;
             for(let i=0;i<this.displayInfo.length;i++){
                sum+=this.displayInfo[i].mestimatedTime;
-                //console.log(sum);
+               
             }
             const time=this.displayInfo[0].oDate;
-            // console.log(time);
             let date1=new Date(time);    //开始时间
             let date2=this.date;    //当前
             let date3=date2.getTime()-date1.getTime()  //时间差的毫秒数
@@ -226,7 +224,8 @@ export default {
                 color: gray;
         }
         .cardBody{
-            padding-top:12px;
+            overflow: hidden;
+            padding-top:20px;
             img{
                 width:70px;
                 height: 70px;

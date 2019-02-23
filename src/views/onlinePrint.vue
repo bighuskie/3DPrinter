@@ -74,7 +74,7 @@
                       <div class="progress-bar"></div>
                     </div>
                     <a class="pro_control" href="javascript:;"></a>
-                    <div id="progress_value">100%</div>
+                    <div id="progress_value">0%</div>
                   </div>
                 </li>
                 <li>
@@ -121,7 +121,7 @@
                 <li>
                   <img src="../assets/images/time.png" alt class="img-responsive time_png">
                   <span>预估时间:</span>&nbsp;
-                  <span class="time">2 h 30 min</span>
+                  <span class="time">0 h 0 min</span>
                 </li>
                 <li>
                   <img src="../assets/images/price.png" alt class="img-responsive price_png">
@@ -160,7 +160,6 @@
 
 <script>
 import navinfo from "../components/nav/nav";
-
 import shopcar from "../components/shopcar/shopcar";
 import SelectPrinter from "../components/SelectPrinter/SelectPrinter";
 import masklibrary from "../components/masklibrary/masklibrary";

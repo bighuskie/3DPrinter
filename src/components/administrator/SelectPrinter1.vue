@@ -29,7 +29,7 @@
                 <!-- 滚动条 -->
                 <el-scrollbar :style="{height: '100%'}">
                 <!-- 头部 地理位置-->
-                <span style="margin-bottom:-10px;">您的当前位置是：<i class="el-icon-location" style="color:#1AC272"></i><span id="location">广东工业大学</span></span>
+                <span style="margin-bottom:-10px;">您的当前位置是：<i class="el-icon-location" style="color:#7E8EE3;"></i><span id="location">广东工业大学</span></span>
                 
                 <!-- 折叠板 -->
                 <el-collapse v-for="(val,key) of displayInfo" :key="key" style="margin-top:20px;" accordion>
@@ -43,7 +43,7 @@
                             </ul>
                         </div>  
                         <div style="text-align: right; padding-right:20px;">  
-                        <el-button size="small" @click="selectPrinterClick(val.pNo)" type="primary"  round>去打印</el-button>   
+                        <el-button size="small" @click="selectPrinterClick(val.pNo)" type="primary" style="background-color: #7E8EE3;" round>去打印</el-button>   
                         </div>  
                         </el-collapse-item>
                 </el-collapse> 
@@ -147,7 +147,7 @@ export default {
      * 返回上一个路由
      */
     goback() {
-      this.$router.push("/onlinePrint");
+      this.$router.push("/administrator");
     },
    
   },
@@ -158,7 +158,7 @@ export default {
 </script>
 
 <style lang="less" scoped>
-@theme-color: #1ac272;
+@theme-color: #7E8EE3;
 .mask-wrapper {
   width: 100%;
   height: 100%;
@@ -200,14 +200,14 @@ export default {
           margin-top: 7px;
           margin-left: 7px;
           border-radius: 50%;
-          background-color: rgb(64, 235, 141);
+          background-color: rgb(101, 110, 155);;
         }
       }
       .close {
         line-height: 30px;
         margin-right: 20px;
         font-size: 16px;
-        color: rgb(255, 6, 6);
+        color: rgb(213, 216, 231);;
       }
     }
     .title {
@@ -253,7 +253,7 @@ export default {
   color: black;
   float: left;
   margin: 0 10px 15px 10px;
-  border: 1px solid #1AC272;
+  border: 1px solid #7E8EE3;
   background-color: #fff;
   transition: all 1s;
 }
@@ -262,14 +262,14 @@ export default {
   height:135px;
   margin: 0 5px 10px 5px;
   color: #fff;
-  background-color: #1AC272;
+  background-color: #7E8EE3;
   font-size: 20px;
 }
 .el-collapse-item-content li:hover > span{
-   color:  rgb(100, 224, 164);
+   color:  rgb(161, 172, 224);
 }
 .el-collapse-item-content li:hover > i{
-   color:  rgb(100, 224, 164);
+   color:  rgb(161, 172, 224);
 }
 .el-collapse-item-content li span {
     margin-top: 15px;
@@ -282,7 +282,7 @@ export default {
     margin:10px auto;
     display: block;
     font-size: 30px;
-    color: #1AC272;
+    color: #7E8EE3;
     font-weight: 600;
     transition: color 1s;
 }

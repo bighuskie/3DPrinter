@@ -19,12 +19,18 @@
           <router-link to="/userMsg/orderPreview">
             <li>我的订单</li>
           </router-link>
+           <router-link to="/userMsg/orderPreview">
+            <li>社区</li>
+          </router-link>
           <a href="javascript:;">
             <li>关于我们</li>
           </a>
-          <router-link to="/login">
+          <div class="login">
+            <img src="https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=3751910808,1160227988&fm=26&gp=0.jpg" alt="">
+          </div>
+          <!-- <router-link to="/login">
             <li>登录</li>
-          </router-link>
+          </router-link> -->
         </ul>
       </div>
     </nav>
@@ -65,6 +71,20 @@ export default {
     flex-grow: 1;
   }
   .list-wrapper {
+    .login{
+      border-radius: 50%;
+      height: 45px;
+      width: 45px;
+      background-color: #fff;
+      float: right;
+      margin-top: 15px;
+      margin-right: 15px;
+      overflow: hidden;
+      > img {
+        height: 45px;
+        width: 100%;
+      }
+    }
     ul {
       padding: 0;
       height: 75px;

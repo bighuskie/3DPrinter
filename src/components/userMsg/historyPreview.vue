@@ -9,48 +9,46 @@
                 <span>实付金额</span>
             </div>
        </div>
-       <section v-for="(arr,index) in displayInfo" :key="arr.guid">
-       <div id="box-card">
+          <section v-for="(arr,index) in displayInfo" :key="arr.guid">
+            <div id="box-card" >
             <!-- 订单编号与创建时间 -->
-            <div class="cardHeader">
-                <span class="orderNum">订单编号：160620190211526332</span>
-                <span class="orderCreatT" >创建时间：2019-2-15-22:20:20</span>
-            </div>
-            
-                <div class="cardBody">
+                <div class="cardHeader" v-for="(val,index) in arr.ohead" :key="val.guid">
+                    <span class="orderNum">订单编号：{{val.oNum}}</span>
+                    <span class="orderCreatT" >创建时间：{{val.oDate}}</span>
+                </div>
+                <div class="cardBody" v-for="(val,index) in arr.obody" :key="val.guid">
                     <!-- 模型名称与大小 -->
                     <div class="orderName">
-                       <img :src="arr.mPicPath" alt="">
+                       <img :src="val.mPicPath" alt="">
                         <div class="modelMsg">
-                            {{arr.mName}}
+                            {{val.mName}}
                             <br>
-                            <span class="x_size">{{arr.mSizeL}}mm x</span>
-                        <span class="y_size"> {{arr.mSizeW}}mm x</span>
-                        <span class="z_size"> {{arr.mSizeH}}mm</span>
+                            <span class="x_size">{{val.mSizeL}}mm x</span>
+                            <span class="y_size"> {{val.mSizeW}}mm x</span>
+                            <span class="z_size"> {{val.mSizeH}}mm</span>
                         </div>
-                        
                     </div>
                     <!-- 商品的单价与数量 -->
                     <div class="orderSpent">
-                        ￥120.00 / 1件
+                        ￥{{val.mcost}} / 1件
                     </div>
                     <!-- 订单使用的打印机 -->
                     <div class="orderUserPt">
-                        {{arr.pNo}}
-                    </div> 
+                        {{val.pNo}}
+                    </div>
                     <!-- 订单状态 -->
                     <div class="orderStatus">
                         已打印
-                        <el-button type="primary" @click=" goHistrory" size="small">详情</el-button>
+                        <el-button type="primary" @click="goOrder" size="small">详情</el-button>
                     </div>
                     <!-- 商品金额 -->
                     <div class="orderMon" >
-                        ￥120.00
-                        <el-button type="button" @click="deletleOrder(index)" size="small">删除</el-button>
+                        ￥{{val.mcost}}
+                       <el-button type="button" @click="deletleOrder(index)" size="small">删除</el-button>
                     </div>
                 </div>  
             </div>
-       </section>
+        </section>
     </div>
 
 </template>
@@ -164,7 +162,8 @@ export default {
                 color: gray;
         }
         .cardBody{
-            padding-top:12px;
+            overflow: hidden;
+            padding-top:20px;
             img{
                 width:70px;
                 height: 70px;

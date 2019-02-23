@@ -47,7 +47,7 @@
               <div class="wall"></div>
               <div class="sum-wrapper">
                 <span class="sumMoney">{{sumAllMoney | priceFormat(sumAllMoney)}}</span>
-                <a class="sumAll btn btn-danger" href="javascript:;" @click="sumAll">合计</a>
+                <a class="sumAll btn btn-danger" href="javascript:;" @click="sumAll">结算</a>
               </div>
             </div>
           </div>
