@@ -44,34 +44,40 @@
           </ul>
         </section>
       </section>
-      <section class="container-wrapper">
-        <section class="container approach-wrapper">
+      <section class="container-wrapper partner-container">
+        <section class="container partner-wrapper">
           <p class="text-center">对于合作伙伴</p>
           <div class="descInfo">我们将客户与您联系起来。如果您是3D打印经销商或有相关需求，您可以通过我们的平台注册，联系我们进行协商合作。</div>
           <ul class="intro-wrapper">
             <li class="col-md-4">
               <div class="img-wrapper">
                 <div class="border">
-                  <img src="../assets/images/camra.png" alt>
+                 <router-link to="/register">
+                    <img src="../assets/images/earth.png" alt>
+                 </router-link>
                 </div>
               </div>
-              <p class="title">技术</p>
+              <p class="title">注册</p>
             </li>
             <li class="col-md-4">
               <div class="img-wrapper">
                 <div class="border">
-                  <img src="../assets/images/react.png" alt>
+                  <router-link to="/login">
+                    <img src="../assets/images/cup.png" alt>
+                  </router-link>
                 </div>
               </div>
-              <p class="title">效率</p>
+              <p class="title">登录</p>
             </li>
             <li class="col-md-4">
               <div class="img-wrapper">
                 <div class="border">
-                  <img src="../assets/images/computer.png" alt>
+                  <router-link to="/onlinePrint">
+                    <img src="../assets/images/3d.png" alt>
+                  </router-link>
                 </div>
               </div>
-              <p class="title">技术</p>
+              <p class="title">开始3D打印</p>
             </li>
           </ul>
         </section>
@@ -82,26 +88,49 @@
             <li class="col-md-4">
               <div class="img-wrapper">
                 <div class="border border-none">
-                  <img src="../assets/images/camra.png" alt>
+                  <img src="../assets/images/num.png" alt>
                 </div>
               </div>
-              <p class="title">技术</p>
+              <p class="desc">
+                <span>交易量</span>
+              </p>
+              <p class="title">
+                <span>
+                  6
+                  <i>8</i>138
+                </span>
+              </p>
             </li>
             <li class="col-md-4">
               <div class="img-wrapper">
                 <div class="border border-none">
-                  <img src="../assets/images/react.png" alt>
+                  <img src="../assets/images/efficiency.png" alt>
                 </div>
               </div>
-              <p class="title">效率</p>
+              <p class="desc">
+                <span>打印效率</span>
+              </p>
+              <p class="title">
+                <span>
+                  91
+                  <i>%</i>
+                </span>
+              </p>
             </li>
             <li class="col-md-4">
               <div class="img-wrapper">
                 <div class="border border-none">
-                  <img src="../assets/images/computer.png" alt>
+                  <img src="../assets/images/car.png" alt>
                 </div>
               </div>
-              <p class="title">技术</p>
+              <p class="desc">
+                <span>交货/收集</span>
+              </p>
+              <p class="title">
+                <span>
+                  <i>24</i> 小时
+                </span>
+              </p>
             </li>
           </ul>
         </section>
@@ -161,10 +190,18 @@ export default {
     }
   }
   .container-wrapper,
+  .partner-container,
   .feature-container {
-    padding-bottom: 20px;
+    padding-bottom: 60px;
     border-bottom: 1px solid #eee;
+    a {
+      display: inline-block;
+      height: 100%;
+      vertical-align: middle;
+      padding: 0;
+    }
     .approach-wrapper,
+    .partner-wrapper,
     .feature-wrapper {
       p {
         margin-top: 15px;
@@ -231,9 +268,30 @@ export default {
       }
     }
   }
+  .partner-container {
+    padding-bottom: 0;
+  }
   .feature-container {
     padding-bottom: 0;
     background-color: #a9f3d06e;
+    p {
+      &.desc,
+      &.title {
+        span {
+          font-size: 18px;
+          color: #5e5a5a;
+          i {
+            // line-height: 50px;
+          }
+        }
+      }
+      &.title {
+        span {
+          font-size: 36px;
+          font-weight: bolder;
+        }
+      }
+    }
     // #08aba6
   }
 }
