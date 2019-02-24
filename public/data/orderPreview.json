@@ -8,12 +8,14 @@
             ],
             "obody":[
             { 
+                "oNum":"160620190211526332",
                 "pNo": "88",
                 "pModal": "UTYS654PS",
                 "pName" : "极光尔沃",
                 "mNo": "01",
                 "mName": "柴犬",
                 "mNum":1,
+                "mId":11,
                 "mPicPath": "https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=3751910808,1160227988&fm=26&gp=0.jpg",
                 "mfileSize": "2mb",
                 "mfileName":"dog",
@@ -29,12 +31,15 @@
                 "price":200,
                 "pStatus":"正在打印"
             },
-            { "pNo": "88",
+            { 
+                "oNum":"160620190211526332",
+                "pNo": "88",
                 "pModal": "UTYS654PS",
                 "pName" : "极光尔沃",
                 "mNo": "01",
                 "mName": "柴犬",
                 "mNum":1,
+                "mId":12,
                 "mPicPath": "https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=3751910808,1160227988&fm=26&gp=0.jpg",
                 "mfileSize": "2mb",
                 "mfileName":"dog",
@@ -60,12 +65,14 @@
             ],
             "obody":[
                 { 
+                    "oNum":"160620190211526332",
                     "pNo": "88",
                     "pModal": "UTYS654PS",
                     "pName" : "极光尔沃",
                     "mNo": "01",
                     "mName": "柴犬",
                     "mNum":1,
+                    "mId":13,
                     "mPicPath": "https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=3751910808,1160227988&fm=26&gp=0.jpg",
                     "mfileSize": "2mb",
                     "mfileName":"dog",

@@ -26,7 +26,7 @@
                 <li>
                   <img src="../assets/images/cloud.png" alt class="img-responsive">
                   <span>打印机类型:</span>&nbsp;
-                  <span>Printors i3</span>
+                  <span>{{this.selectMsg.pName}}</span>
                   <router-link to="/onlinePrint/select">
                     <button
                       class="btn btn-success btn-sm op_btn op_btn3 printing"
@@ -152,8 +152,7 @@
         </div>
       </main>
       <shopcar :queueArray="queueArray" @preview="preview" @showPrinterModal="showPrinterModal"></shopcar>
-      <!-- <masklibrary></masklibrary> -->
-      <router-view></router-view>
+      <router-view v-on:selectData="selectData" v-bind:selectMsg="selectMsg"></router-view>
     </div>
   </div>
 </template>
@@ -195,7 +194,9 @@ export default {
       fileInQueue: null,
       //打印队列对象数组
       queueArray: [],
-      cameraTarget: null
+      cameraTarget: null,
+      //选择打印机数据
+      selectMsg:''
     };
   },
   created() {},
@@ -433,6 +434,12 @@ export default {
     showPrinterModal() {
       let vueCom = this.$refs.selectPrinter;
       vueCom.$children[0].$el.click();
+    },
+    /**
+     *发送选择打印机数据
+     */
+    selectData(msg){
+      this.selectMsg = msg;
     }
   },
   computed: {

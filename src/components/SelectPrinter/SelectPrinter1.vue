@@ -43,7 +43,7 @@
                             </ul>
                         </div>  
                         <div style="text-align: right; padding-right:20px;">  
-                        <el-button size="small" @click="selectPrinterClick(val.pNo)" type="primary"  round>去打印</el-button>   
+                        <el-button size="small" @click="selectPrinterClick(val.pNo,val.pName)" type="primary"  round>去打印</el-button>   
                         </div>  
                         </el-collapse-item>
                 </el-collapse> 
@@ -53,6 +53,7 @@
         
       </section>
     </section>
+    
   </div>
 </template>
 
@@ -60,6 +61,7 @@
 // import BScroll from "better-scroll";
 
 export default {
+  props:['selectMsg'],
   data() {
     return {
       showFlag: false,
@@ -71,7 +73,8 @@ export default {
       searchMsg: '',
       timeout: null,
       dialogTableVisible: false,
-      formLabelWidth: "120px"
+      formLabelWidth: "120px",
+      userSelect:{}
     };
   },
   created() {
@@ -103,7 +106,10 @@ export default {
         this.displayInfo=results;
         this.openMsg();
     },
-    selectPrinterClick(num){
+    /**
+     * 发送选择打印机信息给父组件
+     */
+    selectPrinterClick(num,pName){
         //将数据传输给后端
                 // this.axios({
                 //     method: 'post',
@@ -116,6 +122,11 @@ export default {
                 // console.log(res); 
                 // })  
         //关闭弹窗
+        this.userSelect = {
+          num,
+          pName
+        }
+        this.$emit("selectData",this.userSelect);
         this.$router.push("/onlinePrint");
     },
     querySearchAsync(queryString, callback) {
@@ -148,8 +159,9 @@ export default {
      */
     goback() {
       this.$router.push("/onlinePrint");
-    },
-   
+    }
+    
+    
   },
   watch: {
     $route: "getData"

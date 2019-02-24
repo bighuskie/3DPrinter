@@ -39,7 +39,7 @@
                     <!-- 订单状态 -->
                     <div class="orderStatus">
                         {{val.pStatus}}
-                        <el-button type="primary" @click="goOrder" size="small">详情</el-button>
+                        <el-button type="primary" @click="goHistrory(val.oNum,val.mId)" size="small">详情</el-button>
                     </div>
                     <!-- 商品金额 -->
                     <div class="orderMon" >
@@ -53,21 +53,26 @@
 
 </template>
 <script>
+import bus from '../../assets/eventBus.js'
 export default {
     data(){
         return {
-            displayInfo:[]
+            displayInfo:[],
+            details:{}
         }
     },
    created() {
     //获取打印机数据
     this.axios.get("data/historyPreview.json").then(res => {
         this.displayInfo = res.data.order;
-        console.log(this.displayInfo);
       });
   },
   methods:{
-    goHistrory() {
+    goHistrory(oNum,mId) {
+         this.details = {
+                oNum,mId
+            }
+    this.sendMsg(this.details);
     this.$router.push('/userHistoryShow');
     },
     guid: function() {
@@ -103,7 +108,13 @@ export default {
                 message: "已取消删除 "
             });
         });
-    },
+    }, 
+    /**
+     * 发送数据给详情页面
+     */
+    sendMsg(details){
+        bus.$emit("communication",details);
+    }
   }
 }
 </script>

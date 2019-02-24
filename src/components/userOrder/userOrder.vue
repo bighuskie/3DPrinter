@@ -4,15 +4,15 @@
                 我的订单
         </h1>
         <a id="goback" @click="goBack">返回</a>
-        <p> 订单号：160620190211526332
-            <router-link to="/userMsg/userOrder" id="test1">
+        <p> 订单号：{{this.displayInfo.oNum}}
+            <!-- <router-link to="/userMsg/userOrder" id="test1">
                  <button class="btn btn-success op_btn op_btn3 ">测试按钮</button>
-            </router-link>
+            </router-link> -->
         </p>
         <hr>
         <section class="main">
             <section>
-                <h3 class="subtitle">已打印</h3>
+                <h3 class="subtitle">{{this.displayInfo.pStatus}}</h3>
                 <div id="msgTitle">
                     <span>下单时间</span>
                     <span>文件名称</span>
@@ -88,6 +88,7 @@
      
 </template>
 <script>
+import bus from '../../assets/eventBus.js'
 export default {
     data(){
         return {
@@ -95,10 +96,33 @@ export default {
         }
     },
    created() {
-    this.axios.get("data/order.json").then(res => {
-        this.displayInfo = res.data;
-      });
+       bus.$on("communication",function(msg){
+           //将数据传输给后端
+            this.axios({
+                    method: 'post',
+                    url: 'http://192.168.1.243:7001/api/v1/printer/select',
+                    withCredentials: true,
+                    data:{
+                        msg
+                    }
+                }).then(res => {
+                    //发送成功则开始请求页面
+                    this.axios.get("data/order.json").then(req => {
+                        this.displayInfo = req.data;
+                    });
+                console.log(res); 
+                }).catch(() => {
+                console.log(msg);
+                console.log("发送数据失败！");
+                });
+       })
   },
+    mounted(){
+        //发送成功则开始请求页面
+            this.axios.get("data/order.json").then(req => {
+                this.displayInfo = req.data;
+            });
+    },
   methods:{
         goBack() {
         this.$router.push('/userMsg/orderPreview');

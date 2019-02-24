@@ -47,7 +47,7 @@
                     <!-- 订单状态 -->
                     <div class="orderStatus">
                         {{val.pStatus}}
-                        <el-button type="primary" @click="goOrder" size="small">详情</el-button>
+                        <el-button type="primary" @click="goOrder(val.oNum,val.mId)" size="small">详情</el-button>
                     </div>
                     <!-- 商品金额 -->
                     <div class="orderMon" >
@@ -61,13 +61,15 @@
 
 </template>
 <script>
+import bus from '../../assets/eventBus.js'
 export default {
     data(){
         return {
             date:new Date() ,
             isShow:true,
             progress:"0",
-            displayInfo:[]
+            displayInfo:[],
+            details:{}
         }
     },
     guid: function() {
@@ -100,7 +102,11 @@ export default {
     },
 
     methods:{
-        goOrder() {
+        goOrder(oNum,mId) {
+            this.details = {
+                oNum,mId
+            }
+            this.sendMsg(this.details);
             this.$router.push('/userOrderShow');
         },
         deletleOrder(index) {
@@ -159,6 +165,12 @@ export default {
             this.isShow=false;
             }
             return percentage;
+        },
+        /**
+         * 发送数据给详情页面
+         */
+        sendMsg(details){
+            bus.$emit("communication",details);
         }
     }
 }
