@@ -1,39 +1,38 @@
 <template>
-    <div class="userOrder">
+    <div class="historyOrder">
         <h1>
-                历史订单
+                我的订单
         </h1>
-        <a id="goback" @click="goBack">  << 返回</a>
+        <a id="goback" @click="goBack">返回</a>
         <p> 订单号：160620190211526332
             <router-link to="/userMsg/userOrder" id="test1">
                  <button class="btn btn-success op_btn op_btn3 ">测试按钮</button>
             </router-link>
         </p>
         <hr>
-        
         <section class="main">
             <section>
                 <h3 class="subtitle">已打印</h3>
                 <div id="msgTitle">
                     <span>下单时间</span>
-                    <span>文件名</span>
+                    <span>文件名称</span>
                     <span>模型名称</span>
                     <span>打印机编号</span>
                 </div>
                 <div id="msgContext">
                     <span>{{this.displayInfo.oDate}}</span>
-                    <span>dog</span>
-                    <span>柴犬</span>
-                    <span>88</span>
+                    <span>{{this.displayInfo.mfileName}}</span>
+                    <span>{{this.displayInfo.mName}}</span>
+                    <span>{{this.displayInfo.pNo}}</span>
                 </div>
-                <span>可能会用到的文字信息可能会用到的文字信息可能会用到的文字信息</span>
+                <span></span>
                 <hr>
             </section>
             <section>
                 <div class="model">
                    <img :src="this.displayInfo.mPicPath" alt="">
                     <ul>
-                        <li>{{this.displayInfo.mName}}  x 1</li>
+                        <li>{{this.displayInfo.mName}}  x {{this.displayInfo.mNum}}</li>
                         <li class="unKey"><span class="x_size">{{this.displayInfo.mSizeL}}mm x</span>
                         <span class="y_size"> {{this.displayInfo.mSizeW}}mm x</span>
                         <span class="z_size"> {{this.displayInfo.mSizeH}}mm</span></li>
@@ -45,17 +44,17 @@
                     <div class="file">
                         <h3 class="subtitle">文件信息</h3>
                         <ul>
-                            <li>文件名: dog</li>
+                            <li>文件名: {{this.displayInfo.mfileName}}</li>
                             <li>文件大小：{{this.displayInfo.mfileSize}}</li>
-                            <li>文件格式：STL</li>
+                            <li>文件格式：{{this.displayInfo.mfileFormat}}</li>
                         </ul> 
                     </div>
                     <div class="printer">
                         <h3 class="subtitle">打印机信息</h3>
                         <ul>
-                            <li>编&nbsp;&nbsp;&nbsp;&nbsp;号: dog</li>
-                            <li>型&nbsp;&nbsp;&nbsp;&nbsp;号：{{this.displayInfo.mfileSize}}</li>
-                            <li>品&nbsp;&nbsp;&nbsp;&nbsp;牌：STL</li>
+                            <li>编&nbsp;&nbsp;&nbsp;&nbsp;号: {{this.displayInfo.pNo}}</li>
+                            <li>型&nbsp;&nbsp;&nbsp;&nbsp;号：{{this.displayInfo.pModal}}</li>
+                            <li>品&nbsp;&nbsp;&nbsp;&nbsp;牌：{{this.displayInfo.pName}}</li>
                             <li>打印模式：{{this.displayInfo.mQuality}}</li>
                         </ul>
                     </div>
@@ -70,13 +69,13 @@
                             <li>付款时间：</li>
                         </ul>
                         <ul class="data">
-                            <li>200元</li>
-                            <li>1</li>
-                            <li>200元</li>
-                            <li>2019-2-11</li>
+                            <li>{{this.displayInfo.price}}元</li>
+                            <li>{{this.displayInfo.mNum}}</li>
+                            <li>{{this.displayInfo.total}}元</li>
+                            <li>{{this.displayInfo.oDate}}</li>
                         </ul>
                         <div class="total">
-                        实际付款：<span>200元</span>
+                        实际付款：<span>{{this.displayInfo.total}}元</span>
                         </div>
                     </div>
                 </div>
@@ -84,9 +83,6 @@
             </section>
             
         </section>
-            <!-- <router-link to="/userMsg/userOrder">
-                    <button class="btn btn-success btn-sm op_btn op_btn3 printing" ref="printing">测试按钮</button>
-        </router-link> -->
     </div>
     
      
@@ -113,7 +109,7 @@ export default {
 </script>
 <style lang="less" scoped>
 @theme-color: #1ac272;
-    .userOrder {
+    .historyOrder {
         width: 1120px;
         margin: 0 auto; 
         h1 {

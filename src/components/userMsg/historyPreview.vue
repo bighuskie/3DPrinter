@@ -30,7 +30,7 @@
                     </div>
                     <!-- 商品的单价与数量 -->
                     <div class="orderSpent">
-                        ￥{{val.mcost}} / 1件
+                        ￥{{val.price}} / {{val.mNum}}件
                     </div>
                     <!-- 订单使用的打印机 -->
                     <div class="orderUserPt">
@@ -38,12 +38,12 @@
                     </div>
                     <!-- 订单状态 -->
                     <div class="orderStatus">
-                        已打印
+                        {{val.pStatus}}
                         <el-button type="primary" @click="goOrder" size="small">详情</el-button>
                     </div>
                     <!-- 商品金额 -->
                     <div class="orderMon" >
-                        ￥{{val.mcost}}
+                        ￥{{val.price}}
                        <el-button type="button" @click="deletleOrder(index)" size="small">删除</el-button>
                     </div>
                 </div>  

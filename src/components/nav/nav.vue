@@ -19,16 +19,10 @@
           <router-link to="/userMsg/orderPreview">
             <li>我的订单</li>
           </router-link>
-           <router-link to="/userMsg/orderPreview">
-            <li>社区</li>
-          </router-link>
-          <a href="javascript:;">
+          <router-link to="/about">
             <li>关于我们</li>
-          </a>
-          <div class="login">
-            <img src="https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=3751910808,1160227988&fm=26&gp=0.jpg" alt="">
-          </div>
-          <!-- <router-link to="/login">
+          </router-link>
+          <router-link to="/login">
             <li>登录</li>
           </router-link> -->
         </ul>

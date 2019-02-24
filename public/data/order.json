@@ -4,13 +4,18 @@
     "pName" : "极光尔沃",
     "mNo": "01",
     "mName": "柴犬",
+    "mNum":1,
     "mPicPath": "https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=3751910808,1160227988&fm=26&gp=0.jpg",
     "mfileSize": "2mb",
+    "mfileName":"dog",
+    "mfileFormat":"STL",
     "mMaterialType":"PLA",
     "mQuality":"标准",
     "oDate": "2019-2-10",
     "mSizeL": 20,
     "mSizeW": 20,
     "mSizeH": 20,
-    "mestimatedTime":30
+    "mestimatedTime":30,
+    "total":200,
+    "price":200
 }

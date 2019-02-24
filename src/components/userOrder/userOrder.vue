@@ -21,9 +21,9 @@
                 </div>
                 <div id="msgContext">
                     <span>{{this.displayInfo.oDate}}</span>
-                    <span>dog</span>
-                    <span>柴犬</span>
-                    <span>88</span>
+                    <span>{{this.displayInfo.mfileName}}</span>
+                    <span>{{this.displayInfo.mName}}</span>
+                    <span>{{this.displayInfo.pNo}}</span>
                 </div>
                 <span></span>
                 <hr>
@@ -32,7 +32,7 @@
                 <div class="model">
                    <img :src="this.displayInfo.mPicPath" alt="">
                     <ul>
-                        <li>{{this.displayInfo.mName}}  x 1</li>
+                        <li>{{this.displayInfo.mName}}  x {{this.displayInfo.mNum}}</li>
                         <li class="unKey"><span class="x_size">{{this.displayInfo.mSizeL}}mm x</span>
                         <span class="y_size"> {{this.displayInfo.mSizeW}}mm x</span>
                         <span class="z_size"> {{this.displayInfo.mSizeH}}mm</span></li>
@@ -44,9 +44,9 @@
                     <div class="file">
                         <h3 class="subtitle">文件信息</h3>
                         <ul>
-                            <li>文件名: dog</li>
+                            <li>文件名: {{this.displayInfo.mfileName}}</li>
                             <li>文件大小：{{this.displayInfo.mfileSize}}</li>
-                            <li>文件格式：STL</li>
+                            <li>文件格式：{{this.displayInfo.mfileFormat}}</li>
                         </ul> 
                     </div>
                     <div class="printer">
@@ -69,13 +69,13 @@
                             <li>付款时间：</li>
                         </ul>
                         <ul class="data">
-                            <li>200元</li>
-                            <li>1</li>
-                            <li>200元</li>
-                            <li>2019-2-11</li>
+                            <li>{{this.displayInfo.price}}元</li>
+                            <li>{{this.displayInfo.mNum}}</li>
+                            <li>{{this.displayInfo.total}}元</li>
+                            <li>{{this.displayInfo.oDate}}</li>
                         </ul>
                         <div class="total">
-                        实际付款：<span>200元</span>
+                        实际付款：<span>{{this.displayInfo.total}}元</span>
                         </div>
                     </div>
                 </div>
