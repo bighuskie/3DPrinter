@@ -175,7 +175,9 @@ export default {
      * 确定下单，并显示选择打印机
      */
     sumAll(){
-      this.$emit('showPrinterModal');
+      // this.$emit('showPrinterModal'); //这个暂时用不到
+      //发送给后台数据
+      
     }
   },
   computed: {

@@ -199,7 +199,11 @@ export default {
       selectMsg:''
     };
   },
-  created() {},
+  created() {
+    // this.axios.get("data/Yellow.stl").then(res => {
+    //        console.log(res);
+    // });
+  },
   mounted() {
     // DOM 更新了
     this.$nextTick(() => {
@@ -251,12 +255,15 @@ export default {
      * 文件上传按钮触发隐藏的文件上传框
      */
     uploadTrigger(item) {
-      this.$refs.fileField.click();
+      this.$refs.fileField.value = "C:\fakepath\小黄人.stl";  //value是文件路径！
+      
+      // this.$refs.fileField.click();
     },
     /**
      * 文件上传逻辑
      */
     uploadFile() {
+      console.log(this.$refs.fileField.value);
       this.readURL(this.$refs.fileField);
     },
     /**
@@ -430,6 +437,7 @@ export default {
     },
     /**
      *触发选择打印机模态框
+     *这个暂时用不到，打印机是先选择的
      */
     showPrinterModal() {
       let vueCom = this.$refs.selectPrinter;

@@ -124,6 +124,9 @@ export default {
             });
     },
   methods:{
+      /**
+       * 跳转页面
+       */
         goBack() {
         this.$router.push('/userMsg/orderPreview');
         }
