@@ -52,7 +52,7 @@
           </div>
           <div class="preview">
             <p class="title">更多乐趣</p>
-            <button class="btn btn-warning">加入队列</button>
+            <button class="btn btn-warning" @click="addModule">加入队列</button>
           </div>
         </div>
       </section>
@@ -68,6 +68,12 @@ export default {
       */
     goback() {
       this.$router.back();
+    },
+    /**
+     * 将模型加入队列
+     */
+    addModule() {
+      this.$store.state.moduleInfo = "test.stl";
     }
   }
 };

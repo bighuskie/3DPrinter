@@ -74,7 +74,6 @@
 <script>
 import BScroll from "better-scroll";
 
-
 // import { resolve, reject } from "q";
 export default {
   data() {
@@ -98,19 +97,23 @@ export default {
      * 根据路由请求相应的数据
      */
     getData() {
-      this.axios.get(`data/${this.$route.name}.json`).then(
-        res => {
-          if (res.status === 200) {
-            let data = res.data;
-            this.modelArray = data.modelArray;
-          } else {
-            return;
+      if (this.$route.name === "modelDetail") {
+        return;
+      } else {
+        this.axios.get(`data/${this.$route.name}.json`).then(
+          res => {
+            if (res.status === 200) {
+              let data = res.data;
+              this.modelArray = data.modelArray;
+            } else {
+              return;
+            }
+          },
+          err => {
+            console.log("请求失败");
           }
-        },
-        err => {
-          console.log("请求失败");
-        }
-      );
+        );
+      }
     },
     /**
      * 返回上一个路由
@@ -226,7 +229,7 @@ export default {
             height: 30px;
             text-indent: 12px;
             outline: medium;
-            &:focus{
+            &:focus {
               border-width: 1px;
               background: none;
             }

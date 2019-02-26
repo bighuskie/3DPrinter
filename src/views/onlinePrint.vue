@@ -196,7 +196,7 @@ export default {
       queueArray: [],
       cameraTarget: null,
       //选择打印机数据
-      selectMsg:''
+      selectMsg: ""
     };
   },
   created() {},
@@ -237,15 +237,22 @@ export default {
      * 购物车组件传值给父组件进行模型预览
      */
     preview(fileInfo) {
-      let reader = new FileReader();
-      reader.readAsDataURL(fileInfo);
-      reader.onload = () => {
-        //得到文件名(base64编码)
-        this.stlFile = reader.result;
+      let fileType = typeof fileInfo;
+      //判断是用户上传还是服务器资源
+      if (fileType === "string") {
+        this.stlFile = fileInfo;
         this.$refs.previewWrapper.removeChild(this.renderer.domElement);
         this.threeStart();
-        console.log(fileInfo);
-      };
+      } else {
+        let reader = new FileReader();
+        reader.readAsDataURL(fileInfo);
+        reader.onload = () => {
+          //得到文件名(base64编码)
+          this.stlFile = reader.result;
+          this.$refs.previewWrapper.removeChild(this.renderer.domElement);
+          this.threeStart();
+        };
+      }
     },
     /**
      * 文件上传按钮触发隐藏的文件上传框
@@ -438,8 +445,17 @@ export default {
     /**
      *发送选择打印机数据
      */
-    selectData(msg){
+    selectData(msg) {
       this.selectMsg = msg;
+    },
+    /**
+     * 模型库中服务器资源加载
+     */
+    serverFile() {
+      this.stlFile = this.$store.state.moduleInfo;
+      this.fileInQueue = this.stlFile;
+      this.$refs.previewWrapper.removeChild(this.renderer.domElement);
+      this.threeStart();
     }
   },
   computed: {
@@ -461,6 +477,9 @@ export default {
     moneyFormat(money) {
       return `￥ ${money}`;
     }
+  },
+  watch: {
+    "$store.state.moduleInfo": "serverFile"
   },
   components: {
     navinfo,
