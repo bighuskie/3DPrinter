@@ -62,12 +62,15 @@ export default {
         }
     },
    created() {
-    //获取打印机数据
+    //获取订单数据
     this.axios.get("data/historyPreview.json").then(res => {
         this.displayInfo = res.data.order;
       });
   },
   methods:{
+      /**
+       * 删除订单
+       */
     goHistrory(oNum,mId) {
          this.details = {
                 oNum,mId
@@ -82,6 +85,9 @@ export default {
         return v.toString(16);
         });
     },
+    /**
+     * 删除订单
+     */
     deletleOrder(index) {
         this.$confirm("此操作将删除该文件, 是否继续?", "提示", {
             confirmButtonText: "确定",

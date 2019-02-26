@@ -99,6 +99,9 @@ export default {
         message:'为您找到以下打印机，请点击查看详情',
         showClose: true,});
     },
+    /**
+     * 搜索框点击直接选择某打印机
+     */
     handleSelect(item){
         this.searchMsg = item.pName;
         var modelInfo = this.modelInfo;
@@ -129,6 +132,9 @@ export default {
         this.$emit("selectData",this.userSelect);
         this.$router.push("/onlinePrint");
     },
+    /**
+     * 通过打印机品牌搜索的功能
+     */
     querySearchAsync(queryString, callback) {
         var modelInfo = this.modelInfo;
         var results = queryString ? modelInfo.filter(this.createStateFilter(queryString)) : modelInfo;

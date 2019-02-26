@@ -17,14 +17,14 @@
                 <span>实付金额</span>
             </div>
         </div>
-        <section v-for="(arr,index) in displayInfo" :key="arr.guid">
+        <section v-for="(arr,index1) in displayInfo" :key="arr.guid">
             <div id="box-card" >
             <!-- 订单编号与创建时间 -->
-                <div class="cardHeader" v-for="(val,index) in arr.ohead" :key="val.guid">
+                <div class="cardHeader" v-for="(val,index2) in arr.ohead" :key="val.guid">
                     <span class="orderNum">订单编号：{{val.oNum}}</span>
                     <span class="orderCreatT" >创建时间：{{val.oDate}}</span>
                 </div>
-                <div class="cardBody" v-for="(val,index) in arr.obody" :key="val.guid">
+                <div class="cardBody" v-for="(val,index2) in arr.obody" :key="val.guid">
                     <!-- 模型名称与大小 -->
                     <div class="orderName">
                        <img :src="val.mPicPath" alt="">
@@ -52,7 +52,7 @@
                     <!-- 商品金额 -->
                     <div class="orderMon" >
                         ￥{{val.price}}
-                       <el-button type="button" @click="deletleOrder(index)" size="small">删除</el-button>
+                       <el-button type="button" @click="deletleOrder(index1,index2)" size="small">删除</el-button>
                     </div>
                 </div>  
             </div>
@@ -80,10 +80,11 @@ export default {
         });
     },
     created() {
-    //获取打印机数据
+    //获取订单数据
     this.axios.get("data/orderPreview.json").then(res => {
         this.displayInfo = res.data.order;
       });
+    
   },
 
     mounted(){
@@ -102,6 +103,9 @@ export default {
     },
 
     methods:{
+        /**
+         * 点击跳转页面
+         */
         goOrder(oNum,mId) {
             this.details = {
                 oNum,mId
@@ -109,17 +113,31 @@ export default {
             this.sendMsg(this.details);
             this.$router.push('/userOrderShow');
         },
-        deletleOrder(index) {
+        /**
+         * 删除订单
+         */
+        deletleOrder(index1,index2) {
             this.$confirm("此操作将删除该文件, 是否继续?", "提示", {
                 confirmButtonText: "确定",
                 cancelButtonText: "取消",
                 type: "warning"
             }).then(() => {
+                if(this.displayInfo[index1].obody.length == 1)
+                {
+                    this.displayInfo[index1].ohead.splice(index2,1);
+                }
+                this.displayInfo[index1].obody.splice(index2,1);
                 this.$message({
                     type: "success",
-                    message: "删除成功!",
-                    return: this.displayInfo.splice(index,1),
+                    message: "删除成功!"
+                }).catch(()=>{
+                    console.log("取消");
+                   this.$message({
+                    type: "info",
+                    message: "已取消删除 "
                 });
+                })
+            })
                 //将数据传输给后端
                 this.axios({
                     method: 'post',
@@ -129,21 +147,17 @@ export default {
                         displayInfo: this.displayInfo   
                     }
                 }).then(res => {console.log(res);})  
-                }).catch(() => {
-                this.$message({
-                    type: "info",
-                    message: "已取消删除 "
-                });
+                .catch(() => {
+                console.log("数据发送至后端失败");
             });
         },
         computedResidualTime(){
             //计算打印所需要的总时间
             let sum=0;
-            for(let i=0;i<this.displayInfo.length;i++){
-               sum+=this.displayInfo[i].mestimatedTime;
-               
-            }
-            const time=this.displayInfo[0].oDate;
+            for(let i=0;i<this.displayInfo.length;i++)
+                for(let j=0;j<this.displayInfo[i].obody.length;j++)
+                    sum+=this.displayInfo[i].obody[j].mestimatedTime;
+            const time=this.displayInfo[0].obody[0].oDate;
             let date1=new Date(time);    //开始时间
             let date2=this.date;    //当前
             let date3=date2.getTime()-date1.getTime()  //时间差的毫秒数
