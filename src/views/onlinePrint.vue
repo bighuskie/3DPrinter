@@ -262,15 +262,12 @@ export default {
      * 文件上传按钮触发隐藏的文件上传框
      */
     uploadTrigger(item) {
-      this.$refs.fileField.value = "C:\fakepath\小黄人.stl";  //value是文件路径！
-      
-      // this.$refs.fileField.click();
+      this.$refs.fileField.click();
     },
     /**
      * 文件上传逻辑
      */
     uploadFile() {
-      console.log(this.$refs.fileField.value);
       this.readURL(this.$refs.fileField);
     },
     /**
