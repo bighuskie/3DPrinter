@@ -28,7 +28,7 @@
                 <td>
                   <div class="module-number">
                     <span @click="changeNumber(item,false)">-</span>
-                    <input type="tel" value="item.moduleNumber" v-model="item.moduleNumber">
+                    <input type="tel" value="item.moduleNumber" v-model="item.moduleNumber" readonly>
                     <span @click="changeNumber(item,true)">+</span>
                   </div>
                 </td>

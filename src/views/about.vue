@@ -38,8 +38,8 @@
                   <img src="../assets/images/computer.png" alt>
                 </div>
               </div>
-              <p class="title">技术</p>
-              <p class="desc">我们使用我们的Web应用程序与我们的内部技术将您连接到最近的服务提供商。通过硬件和软件合理协作为你提供一整套方便的系统流程服务。</p>
+              <p class="title">服务</p>
+              <p class="desc">为用户24小时提供最新最便捷的3D打印云打印、3D打印模型下载等多个频道内容，同时开设供3D打印行业人士交流的互动平台。</p>
             </li>
           </ul>
         </section>

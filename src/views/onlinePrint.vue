@@ -66,7 +66,7 @@
                   </div>
                   <span class="price">*0.8元/g</span>
                 </li>
-                <li>
+                <!-- <li>
                   <img src="../assets/images/size.png" alt class="img-responsive size_png">
                   <span>模型比例:</span>&nbsp;
                   <div class="pro_bar">
@@ -76,7 +76,7 @@
                     <a class="pro_control" href="javascript:;"></a>
                     <div id="progress_value">0%</div>
                   </div>
-                </li>
+                </li> -->
                 <li>
                   <img src="../assets/images/type.png" alt class="img-responsive type_png">
                   <span>打印模式:</span>&nbsp;
@@ -128,7 +128,7 @@
                   <span>总价:</span>&nbsp;
                   <span class="money">{{modulePrice | moneyFormat(modulePrice)}}</span>
                 </li>
-                <li class="text-center operation">
+                <li class=" operation">
                   <button
                     class="btn btn-success btn-sm op_btn op_btn1 uploadFile"
                     ref="uploadFile"
@@ -644,6 +644,8 @@ export default {
           button {
             line-height: 11px;
             width: 80px;
+            margin-bottom: 10px;
+            margin-top: 10px;
             text-align: center;
             &:hover {
               background-color: #1ac272;
@@ -682,9 +684,9 @@ export default {
           color: #1ac272;
         }
         .op_btn {
-          background-color: #1ac272;
-          margin-right: 20px;
+          margin-left: 18px;
           border-radius: 5px;
+          background-color: #1ac272;
           font-size: 12px;
           &:hover {
             border-color: #1ac272;
