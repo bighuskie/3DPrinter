@@ -200,9 +200,7 @@ export default {
     };
   },
   created() {
-    // this.axios.get("data/Yellow.stl").then(res => {
-    //        console.log(res);
-    // });
+    
   },
   mounted() {
     // DOM 更新了
@@ -305,8 +303,8 @@ export default {
       loader.load(this.stlFile, geometry => {
         //材料颜色
         var material = new THREE.MeshPhongMaterial({
-          color: 0x008080,
-          specular: 0xc0c0c0,
+          color: 0x0e78f1,
+          specular: 0xc050c0,
           shininess: 200
         });
         var mesh = new THREE.Mesh(geometry, material);
