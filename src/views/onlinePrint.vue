@@ -183,7 +183,7 @@ export default {
       //购买的模型数量
       moduleNumber: 1,
       //材料费用
-      materialPrice: 0.00008,
+      materialPrice: 0.0000008,
       //打印模式
       printModel: "快速",
       sType: 0,
