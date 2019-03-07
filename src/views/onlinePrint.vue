@@ -76,7 +76,7 @@
                     <a class="pro_control" href="javascript:;"></a>
                     <div id="progress_value">0%</div>
                   </div>
-                </li> -->
+                </li>-->
                 <li>
                   <img src="../assets/images/type.png" alt class="img-responsive type_png">
                   <span>打印模式:</span>&nbsp;
@@ -128,7 +128,7 @@
                   <span>总价:</span>&nbsp;
                   <span class="money">{{modulePrice | moneyFormat(modulePrice)}}</span>
                 </li>
-                <li class=" operation">
+                <li class="operation">
                   <button
                     class="btn btn-success btn-sm op_btn op_btn1 uploadFile"
                     ref="uploadFile"
@@ -199,9 +199,7 @@ export default {
       selectMsg: ""
     };
   },
-  created() {
-    
-  },
+  created() {},
   mounted() {
     // DOM 更新了
     this.$nextTick(() => {
@@ -220,7 +218,7 @@ export default {
         //截取文件名后缀;
         let suffixName = Name.substr(Name.lastIndexOf("."));
         if (suffixName !== ".stl") {
-          return;
+          alert("请上传STL文件");
         } else {
           let reader = new FileReader();
           reader.readAsDataURL(input.files[0]);
